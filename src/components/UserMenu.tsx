@@ -1,13 +1,35 @@
 import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
 import { LogOut, User as UserIcon } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "@tanstack/react-router";
+import { cloudStore } from "@/lib/cloud-store";
+import { MOODS, MoodKey } from "@/lib/mood";
+
+function EmotionBadge({ moodKey }: { moodKey: MoodKey | null }) {
+  const mood = MOODS.find((m) => m.key === moodKey) || MOODS.find((m) => m.key === "calm")!;
+  return (
+    <div 
+      className="absolute flex items-center justify-center rounded-full bg-white border-2 border-white shadow-sm text-[10px]"
+      style={{ right: "-2px", bottom: "-2px", width: "20px", height: "20px" }}
+      title={mood.label}
+    >
+      <span className="leading-none">{mood.emoji}</span>
+    </div>
+  );
+}
 
 export function UserMenu() {
   const { user, displayName, avatarUrl, signOut } = useAuth();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [todayMood, setTodayMood] = useState<MoodKey | null>(null);
+
+  useEffect(() => {
+    if (user) {
+      cloudStore.getTodayMood(user.id).then(setTodayMood);
+    }
+  }, [user]);
 
   if (!user) return null;
   const name = displayName || user.email?.split("@")[0] || "Bạn";
@@ -19,13 +41,16 @@ export function UserMenu() {
         onClick={() => setOpen((o) => !o)}
         className="flex items-center gap-2 rounded-full pl-1 pr-3 py-1 bg-white/70 hover:bg-white border border-white/80 transition-colors"
       >
-        {avatarUrl ? (
-          <img src={avatarUrl} alt={name} className="w-7 h-7 rounded-full object-cover" />
-        ) : (
-          <span className="w-7 h-7 rounded-full bg-mint-deep text-white flex items-center justify-center text-xs font-semibold">
-            {initial}
-          </span>
-        )}
+        <div className="relative flex shrink-0">
+          {avatarUrl ? (
+            <img src={avatarUrl} alt={name} className="w-7 h-7 rounded-full object-cover" />
+          ) : (
+            <span className="w-7 h-7 rounded-full bg-mint-deep text-white flex items-center justify-center text-xs font-semibold">
+              {initial}
+            </span>
+          )}
+          <EmotionBadge moodKey={todayMood} />
+        </div>
         <span className="text-xs font-medium text-foreground/80 max-w-[100px] truncate">{name}</span>
       </button>
 
