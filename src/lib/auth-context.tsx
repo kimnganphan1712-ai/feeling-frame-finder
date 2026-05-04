@@ -9,6 +9,7 @@ interface AuthCtx {
   signOut: () => Promise<void>;
   displayName: string | null;
   avatarUrl: string | null;
+  role: "admin" | "user" | null;
   refreshProfile: () => Promise<void>;
 }
 
@@ -20,15 +21,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [displayName, setDisplayName] = useState<string | null>(null);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [role, setRole] = useState<"admin" | "user" | null>(null);
 
   const loadProfile = async (uid: string) => {
     const { data } = await supabase
       .from("profiles")
-      .select("display_name, avatar_url")
+      .select("display_name, avatar_url, role")
       .eq("id", uid)
       .maybeSingle();
     setDisplayName(data?.display_name ?? null);
     setAvatarUrl(data?.avatar_url ?? null);
+    setRole((data?.role as "admin" | "user") ?? "user");
   };
 
   useEffect(() => {
@@ -41,6 +44,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       } else {
         setDisplayName(null);
         setAvatarUrl(null);
+        setRole(null);
       }
     });
 
@@ -63,7 +67,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <Ctx.Provider value={{ user, session, loading, signOut, displayName, avatarUrl, refreshProfile }}>
+    <Ctx.Provider value={{ user, session, loading, signOut, displayName, avatarUrl, role, refreshProfile }}>
       {children}
     </Ctx.Provider>
   );

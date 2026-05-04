@@ -20,7 +20,7 @@ const nameSchema = z.string().trim().min(1, { message: "Hãy đặt cho mình m�
 
 function AuthPage() {
   const navigate = useNavigate();
-  const { user, loading } = useAuth();
+  const { user, loading, role } = useAuth();
   const [mode, setMode] = useState<Mode>("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,8 +31,14 @@ function AuthPage() {
   const [info, setInfo] = useState("");
 
   useEffect(() => {
-    if (!loading && user) navigate({ to: "/" });
-  }, [user, loading, navigate]);
+    if (!loading && user && role !== null) {
+      if (role === "admin") {
+        navigate({ to: "/admin/dashboard" });
+      } else {
+        navigate({ to: "/" });
+      }
+    }
+  }, [user, loading, role, navigate]);
 
   const reset = () => {
     setErr("");
@@ -55,9 +61,7 @@ function AuthPage() {
     if (error) {
       if (error.message.includes("Invalid login")) setErr("Email hoặc mật khẩu chưa đúng.");
       else setErr(error.message);
-      return;
     }
-    navigate({ to: "/" });
   };
 
   const handleSignup = async (e: React.FormEvent) => {
@@ -85,9 +89,7 @@ function AuthPage() {
     if (error) {
       if (error.message.toLowerCase().includes("registered")) setErr("Email này đã có người dùng. Bạn thử đăng nhập nhé.");
       else setErr(error.message);
-      return;
     }
-    navigate({ to: "/" });
   };
 
   const handleForgot = async (e: React.FormEvent) => {
@@ -120,7 +122,6 @@ function AuthPage() {
     }
     if (result.redirected) return; // browser navigates
     setBusy(false);
-    navigate({ to: "/" });
   };
 
   return (
