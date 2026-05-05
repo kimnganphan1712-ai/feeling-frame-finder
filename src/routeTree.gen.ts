@@ -16,6 +16,8 @@ import { Route as MoodRouteImport } from './routes/mood'
 import { Route as JournalRouteImport } from './routes/journal'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminQuotesRouteImport } from './routes/admin/quotes'
+import { Route as AdminHealingRouteImport } from './routes/admin/healing'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
 
 const VitaminRoute = VitaminRouteImport.update({
@@ -53,6 +55,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminQuotesRoute = AdminQuotesRouteImport.update({
+  id: '/admin/quotes',
+  path: '/admin/quotes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminHealingRoute = AdminHealingRouteImport.update({
+  id: '/admin/healing',
+  path: '/admin/healing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
   id: '/admin/dashboard',
   path: '/admin/dashboard',
@@ -68,6 +80,8 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/vitamin': typeof VitaminRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/healing': typeof AdminHealingRoute
+  '/admin/quotes': typeof AdminQuotesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +92,8 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/vitamin': typeof VitaminRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/healing': typeof AdminHealingRoute
+  '/admin/quotes': typeof AdminQuotesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +105,8 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/vitamin': typeof VitaminRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/healing': typeof AdminHealingRoute
+  '/admin/quotes': typeof AdminQuotesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +119,8 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/vitamin'
     | '/admin/dashboard'
+    | '/admin/healing'
+    | '/admin/quotes'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +131,8 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/vitamin'
     | '/admin/dashboard'
+    | '/admin/healing'
+    | '/admin/quotes'
   id:
     | '__root__'
     | '/'
@@ -121,6 +143,8 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/vitamin'
     | '/admin/dashboard'
+    | '/admin/healing'
+    | '/admin/quotes'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -132,6 +156,8 @@ export interface RootRouteChildren {
   ResetPasswordRoute: typeof ResetPasswordRoute
   VitaminRoute: typeof VitaminRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminHealingRoute: typeof AdminHealingRoute
+  AdminQuotesRoute: typeof AdminQuotesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -185,6 +211,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/quotes': {
+      id: '/admin/quotes'
+      path: '/admin/quotes'
+      fullPath: '/admin/quotes'
+      preLoaderRoute: typeof AdminQuotesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/healing': {
+      id: '/admin/healing'
+      path: '/admin/healing'
+      fullPath: '/admin/healing'
+      preLoaderRoute: typeof AdminHealingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/dashboard': {
       id: '/admin/dashboard'
       path: '/admin/dashboard'
@@ -204,6 +244,8 @@ const rootRouteChildren: RootRouteChildren = {
   ResetPasswordRoute: ResetPasswordRoute,
   VitaminRoute: VitaminRoute,
   AdminDashboardRoute: AdminDashboardRoute,
+  AdminHealingRoute: AdminHealingRoute,
+  AdminQuotesRoute: AdminQuotesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
