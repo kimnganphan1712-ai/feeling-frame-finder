@@ -1,9 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { RequireAuth } from "@/components/RequireAuth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Bookmark, Plus, X } from "lucide-react";
+import { Bookmark, Plus, Heart, ChevronLeft, ChevronRight, ImageIcon, Lock, Globe2, Loader2, ExternalLink } from "lucide-react";
+import { vitaminStore, type Quote, type HealingWork, type Album } from "@/lib/vitamin-store";
+import { SubmitQuoteDialog } from "@/components/vitamin/SubmitQuoteDialog";
+import { SaveToAlbumDialog } from "@/components/vitamin/SaveToAlbumDialog";
+import { AlbumDetailDialog } from "@/components/vitamin/AlbumDetailDialog";
 
 export const Route = createFileRoute("/vitamin")({
   component: () => (
@@ -13,24 +17,44 @@ export const Route = createFileRoute("/vitamin")({
   ),
 });
 
-const QUOTES = [
-  "Bạn không cần phải vội vàng chữa lành. Cây cối còn cần cả mùa đông để đâm chồi lại.",
-  "Đôi khi điều dũng cảm nhất một người có thể làm — là nghỉ ngơi.",
-  "Mình không phải lúc nào cũng phải hiểu vì sao mình buồn. Chỉ cần biết rằng mình đang buồn — và mình vẫn ổn.",
-  "Hãy đối xử với chính mình như cách bạn đối xử với một người bạn đang khóc.",
-  "Có những ngày, làm xong một bữa ăn cũng đã là chiến thắng.",
-  "Bạn không cần phải xứng đáng với tình yêu thương. Bạn vốn đã đủ rồi.",
-];
+const TYPE_LABEL: Record<string, string> = {
+  film: "Phim", book: "Sách", podcast: "Podcast", playlist: "Playlist", article: "Bài viết", other: "Khác",
+};
 
 function VitaminPage() {
+  const [quotes, setQuotes] = useState<Quote[]>([]);
+  const [works, setWorks] = useState<HealingWork[]>([]);
+  const [albums, setAlbums] = useState<Album[]>([]);
+  const [favIds, setFavIds] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
   const [idx, setIdx] = useState(0);
-  const [saved, setSaved] = useState<number[]>([]);
-  const [open, setOpen] = useState(false);
-  const [draft, setDraft] = useState("");
+  const [submitOpen, setSubmitOpen] = useState(false);
+  const [saveQuoteId, setSaveQuoteId] = useState<string | null>(null);
+  const [openAlbum, setOpenAlbum] = useState<Album | null>(null);
 
-  const next = () => setIdx((i) => (i + 1) % QUOTES.length);
-  const prev = () => setIdx((i) => (i - 1 + QUOTES.length) % QUOTES.length);
-  const toggleSave = () => setSaved((s) => (s.includes(idx) ? s.filter((x) => x !== idx) : [...s, idx]));
+  const reload = async () => {
+    setLoading(true);
+    const [q, w, a, f] = await Promise.all([
+      vitaminStore.listApproved(),
+      vitaminStore.listWorks(false),
+      vitaminStore.myAlbums(),
+      vitaminStore.listFavoriteIds(),
+    ]);
+    setQuotes(q); setWorks(w); setAlbums(a); setFavIds(f);
+    setLoading(false);
+  };
+  useEffect(() => { reload(); }, []);
+
+  const current = quotes[idx];
+  const next = () => quotes.length && setIdx((i) => (i + 1) % quotes.length);
+  const prev = () => quotes.length && setIdx((i) => (i - 1 + quotes.length) % quotes.length);
+
+  const toggleFav = async () => {
+    if (!current) return;
+    const on = !favIds.includes(current.id);
+    setFavIds((s) => on ? [...s, current.id] : s.filter((x) => x !== current.id));
+    await vitaminStore.toggleFavorite(current.id, on);
+  };
 
   return (
     <PageShell>
@@ -39,89 +63,139 @@ function VitaminPage() {
           <p className="text-xs uppercase tracking-widest text-muted-foreground">Vitamin tâm hồn</p>
           <h1 className="text-3xl font-semibold mt-1">Một câu nói, một liều dịu</h1>
         </div>
-        <Button size="sm" onClick={() => setOpen(true)} className="rounded-full bg-blush-deep hover:bg-blush-deep/90 text-white">
+        <Button size="sm" onClick={() => setSubmitOpen(true)} className="rounded-full bg-blush-deep hover:bg-blush-deep/90 text-white">
           <Plus className="w-4 h-4 mr-1" /> Gửi câu nói
         </Button>
       </header>
 
-      {/* Quote card — swipeable feel */}
-      <div className="relative h-[380px] flex items-center justify-center animate-[fade-up_0.6s_ease-out]">
-        {[idx + 2, idx + 1, idx].map((i, layer) => {
-          const q = QUOTES[i % QUOTES.length];
-          return (
-            <article
-              key={i}
-              className="absolute inset-x-0 mx-auto max-w-md rounded-3xl shadow-card glass-strong border border-white/60 p-8 transition-all duration-500"
-              style={{
-                transform: `translateY(${layer * 14}px) scale(${1 - layer * 0.04})`,
-                opacity: 1 - layer * 0.35,
-                zIndex: 10 - layer,
-              }}
-            >
-              <div className="text-5xl text-mint-deep/40 leading-none">"</div>
-              <p className="mt-2 text-lg md:text-xl leading-relaxed text-foreground/90 italic">{q}</p>
-              <p className="mt-6 text-xs text-muted-foreground">— Ẩn danh</p>
-            </article>
-          );
-        })}
-      </div>
+      {/* Quote spotlight */}
+      <section className="animate-[fade-up_0.6s_ease-out]">
+        {loading ? (
+          <div className="h-[320px] flex items-center justify-center">
+            <Loader2 className="w-6 h-6 animate-spin text-mint-deep" />
+          </div>
+        ) : !current ? (
+          <div className="rounded-3xl p-10 glass-strong border border-white/60 text-center">
+            <p className="text-foreground/70 italic">Chưa có câu nói nào được duyệt. Hãy là người đầu tiên gửi vào kho dịu nhé.</p>
+          </div>
+        ) : (
+          <div className="relative min-h-[340px] flex items-center justify-center">
+            {[2, 1, 0].map((layer) => {
+              const i = (idx + layer) % quotes.length;
+              const q = quotes[i];
+              return (
+                <article key={`${q.id}-${layer}`}
+                  className="absolute inset-x-0 mx-auto max-w-md rounded-3xl shadow-card glass-strong border border-white/60 p-8 transition-all duration-500"
+                  style={{
+                    transform: `translateY(${layer * 14}px) scale(${1 - layer * 0.04})`,
+                    opacity: 1 - layer * 0.35, zIndex: 10 - layer,
+                  }}>
+                  <div className="text-5xl text-mint-deep/40 leading-none">"</div>
+                  <p className="mt-2 text-lg md:text-xl leading-relaxed text-foreground/90 italic">{q.content}</p>
+                  <p className="mt-6 text-xs text-muted-foreground">
+                    — {[q.author_name, q.work_title].filter(Boolean).join(" · ") || q.source_text || q.display_name || "Ẩn danh"}
+                  </p>
+                </article>
+              );
+            })}
+          </div>
+        )}
 
-      <div className="mt-2 flex items-center justify-center gap-3">
-        <Button onClick={prev} variant="ghost" size="sm" className="rounded-full">← Trước</Button>
-        <Button
-          onClick={toggleSave}
-          variant="ghost"
-          size="icon"
-          className={`rounded-full ${saved.includes(idx) ? "text-blush-deep bg-blush/40" : ""}`}
-        >
-          <Bookmark className="w-5 h-5" fill={saved.includes(idx) ? "currentColor" : "none"} />
-        </Button>
-        <Button onClick={next} className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">Câu tiếp →</Button>
-      </div>
+        {current && (
+          <div className="mt-3 flex items-center justify-center gap-2">
+            <Button onClick={prev} variant="ghost" size="icon" className="rounded-full"><ChevronLeft className="w-5 h-5" /></Button>
+            <Button onClick={() => setSaveQuoteId(current.id)} variant="ghost" size="icon" className="rounded-full" title="Lưu vào album">
+              <Bookmark className="w-5 h-5" />
+            </Button>
+            <Button onClick={toggleFav} variant="ghost" size="icon"
+              className={`rounded-full ${favIds.includes(current.id) ? "text-blush-deep bg-blush/40" : ""}`}>
+              <Heart className="w-5 h-5" fill={favIds.includes(current.id) ? "currentColor" : "none"} />
+            </Button>
+            <Button onClick={next} className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">Câu tiếp <ChevronRight className="w-4 h-4 ml-1" /></Button>
+          </div>
+        )}
+      </section>
 
-      {/* Collection */}
-      <section className="mt-10">
-        <h2 className="text-sm uppercase tracking-widest text-muted-foreground mb-3">Bộ sưu tập của bạn ({saved.length})</h2>
-        {saved.length === 0 ? (
-          <p className="text-sm text-muted-foreground italic">Chưa có câu nào — chạm vào dấu trang để lưu lại câu bạn yêu.</p>
+      {/* Albums */}
+      <section className="mt-12">
+        <div className="flex items-end justify-between mb-3">
+          <div>
+            <p className="text-xs uppercase tracking-widest text-muted-foreground">Bộ sưu tập</p>
+            <h2 className="text-xl font-semibold">Album của bạn</h2>
+          </div>
+          <span className="text-xs text-muted-foreground">{albums.length} album</span>
+        </div>
+        {albums.length === 0 ? (
+          <p className="text-sm text-muted-foreground italic">Chưa có album nào — chạm vào dấu trang trên một câu để tạo album đầu tiên.</p>
         ) : (
           <div className="grid sm:grid-cols-2 gap-3">
-            {saved.map((i) => (
-              <div key={i} className="rounded-2xl p-4 glass shadow-card text-sm italic text-foreground/80 border border-white/60">
-                "{QUOTES[i]}"
-              </div>
+            {albums.map((a) => (
+              <button key={a.id} onClick={() => setOpenAlbum(a)}
+                className="text-left rounded-3xl overflow-hidden bg-card border border-border shadow-card hover:scale-[1.01] transition-transform">
+                <div className="h-28 bg-gradient-to-br from-mint/40 to-blush/30 flex items-center justify-center overflow-hidden">
+                  {a.cover_image_url
+                    ? <img src={a.cover_image_url} alt="" className="w-full h-full object-cover" />
+                    : <ImageIcon className="w-8 h-8 text-mint-deep/60" />}
+                </div>
+                <div className="p-4">
+                  <div className="flex items-center justify-between gap-2">
+                    <h3 className="font-medium truncate">{a.title}</h3>
+                    <span className="text-[10px] text-muted-foreground flex items-center gap-1 shrink-0">
+                      {a.visibility === "private" ? <><Lock className="w-3 h-3" />Riêng</> : <><Globe2 className="w-3 h-3" />Public</>}
+                    </span>
+                  </div>
+                  {a.description && <p className="text-xs text-muted-foreground mt-1 line-clamp-1">{a.description}</p>}
+                  <p className="text-[10px] text-muted-foreground mt-2">Cập nhật {new Date(a.updated_at).toLocaleDateString("vi-VN")}</p>
+                </div>
+              </button>
             ))}
           </div>
         )}
       </section>
 
-      {/* Submit modal */}
-      {open && (
-        <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 animate-[fade-up_0.3s_ease-out]">
-          <div className="bg-card rounded-3xl shadow-soft max-w-md w-full p-6 relative">
-            <button onClick={() => setOpen(false)} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
-              <X className="w-5 h-5" />
-            </button>
-            <h3 className="text-xl font-semibold">Gửi một câu nói</h3>
-            <p className="text-xs text-muted-foreground mt-1">
-              Câu nói sẽ được công khai ẩn danh. Không ai biết là của bạn — chỉ có sự chữa lành được lan đi.
-            </p>
-            <textarea
-              value={draft}
-              onChange={(e) => setDraft(e.target.value)}
-              placeholder="Câu nói, trích dẫn từ sách, lời thoại phim…"
-              className="w-full mt-4 min-h-[120px] rounded-2xl bg-muted p-3 text-sm outline-none focus:ring-2 focus:ring-mint-deep/40 resize-none"
-            />
-            <Button
-              onClick={() => { setDraft(""); setOpen(false); }}
-              disabled={!draft.trim()}
-              className="mt-4 w-full rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white"
-            >
-              Gửi vào kho dịu
-            </Button>
-          </div>
+      {/* Healing works */}
+      <section className="mt-12 mb-8">
+        <div className="mb-3">
+          <p className="text-xs uppercase tracking-widest text-muted-foreground">Gợi ý chữa lành</p>
+          <h2 className="text-xl font-semibold">Tác phẩm dịu dàng</h2>
         </div>
-      )}
+        {works.length === 0 ? (
+          <p className="text-sm text-muted-foreground italic">Chưa có tác phẩm nào. Quay lại sau nhé.</p>
+        ) : (
+          <div className="space-y-3">
+            {works.map((w) => (
+              <article key={w.id} className="rounded-3xl bg-card border border-border p-4 shadow-card flex gap-4">
+                <div className="w-24 h-24 rounded-2xl bg-mint/30 flex items-center justify-center overflow-hidden shrink-0">
+                  {w.thumbnail_url
+                    ? <img src={w.thumbnail_url} alt="" className="w-full h-full object-cover" />
+                    : <ImageIcon className="w-7 h-7 text-mint-deep" />}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-mint/40 text-mint-deep">
+                      {TYPE_LABEL[w.type] ?? w.type}
+                    </span>
+                    {w.tags.slice(0, 2).map((t) => (
+                      <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground">{t}</span>
+                    ))}
+                  </div>
+                  <h4 className="font-semibold mt-1.5">{w.title}</h4>
+                  {w.description && <p className="text-sm text-muted-foreground mt-1 line-clamp-2 leading-relaxed">{w.description}</p>}
+                  {w.external_link && (
+                    <a href={w.external_link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs text-mint-deep hover:underline mt-2">
+                      Mở <ExternalLink className="w-3 h-3" />
+                    </a>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
+
+      <SubmitQuoteDialog open={submitOpen} onClose={() => setSubmitOpen(false)} onSubmitted={reload} />
+      <SaveToAlbumDialog open={!!saveQuoteId} quoteId={saveQuoteId} onClose={() => { setSaveQuoteId(null); reload(); }} />
+      <AlbumDetailDialog album={openAlbum} onClose={() => setOpenAlbum(null)} onChanged={reload} />
     </PageShell>
   );
 }
