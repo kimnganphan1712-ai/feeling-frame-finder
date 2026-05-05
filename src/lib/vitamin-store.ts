@@ -104,16 +104,23 @@ export const vitaminStore = {
   },
   async approveQuote(id: string, edits?: Partial<Quote>) {
     const { data: u } = await supabase.auth.getUser();
-    const patch: Record<string, unknown> = {
+    const patch: {
+      status: "approved";
+      reviewed_by: string | null;
+      reviewed_at: string;
+      content?: string;
+      source_text?: string | null;
+      author_name?: string | null;
+      work_title?: string | null;
+    } = {
       status: "approved",
       reviewed_by: u.user?.id ?? null,
       reviewed_at: new Date().toISOString(),
     };
-    if (edits) {
-      for (const k of ["content", "source_text", "author_name", "work_title"] as const) {
-        if (edits[k] !== undefined) patch[k] = edits[k];
-      }
-    }
+    if (edits?.content !== undefined) patch.content = edits.content;
+    if (edits?.source_text !== undefined) patch.source_text = edits.source_text;
+    if (edits?.author_name !== undefined) patch.author_name = edits.author_name;
+    if (edits?.work_title !== undefined) patch.work_title = edits.work_title;
     await supabase.from("quotes").update(patch).eq("id", id);
   },
   async rejectQuote(id: string, reason?: string) {
@@ -179,10 +186,16 @@ export const vitaminStore = {
     return { error: error?.message, id: data?.id };
   },
   async updateAlbum(id: string, patch: Partial<Album>) {
-    const allowed: Record<string, unknown> = {};
-    for (const k of ["title", "description", "visibility", "cover_image_url"] as const) {
-      if (patch[k] !== undefined) allowed[k] = patch[k];
-    }
+    const allowed: {
+      title?: string;
+      description?: string | null;
+      visibility?: AlbumVisibility;
+      cover_image_url?: string | null;
+    } = {};
+    if (patch.title !== undefined) allowed.title = patch.title;
+    if (patch.description !== undefined) allowed.description = patch.description;
+    if (patch.visibility !== undefined) allowed.visibility = patch.visibility;
+    if (patch.cover_image_url !== undefined) allowed.cover_image_url = patch.cover_image_url;
     await supabase.from("albums").update(allowed).eq("id", id);
   },
   async deleteAlbum(id: string) {
