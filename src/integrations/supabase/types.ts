@@ -14,6 +14,117 @@ export type Database = {
   }
   public: {
     Tables: {
+      album_items: {
+        Row: {
+          album_id: string
+          created_at: string
+          id: string
+          quote_id: string
+        }
+        Insert: {
+          album_id: string
+          created_at?: string
+          id?: string
+          quote_id: string
+        }
+        Update: {
+          album_id?: string
+          created_at?: string
+          id?: string
+          quote_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "album_items_album_id_fkey"
+            columns: ["album_id"]
+            isOneToOne: false
+            referencedRelation: "albums"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "album_items_quote_id_fkey"
+            columns: ["quote_id"]
+            isOneToOne: false
+            referencedRelation: "quotes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      albums: {
+        Row: {
+          cover_image_url: string | null
+          created_at: string
+          description: string | null
+          id: string
+          title: string
+          updated_at: string
+          user_id: string
+          visibility: string
+        }
+        Insert: {
+          cover_image_url?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          title: string
+          updated_at?: string
+          user_id: string
+          visibility?: string
+        }
+        Update: {
+          cover_image_url?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+          visibility?: string
+        }
+        Relationships: []
+      }
+      healing_works: {
+        Row: {
+          created_at: string
+          created_by: string
+          description: string | null
+          external_link: string | null
+          id: string
+          is_published: boolean
+          tags: string[]
+          thumbnail_url: string | null
+          title: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          description?: string | null
+          external_link?: string | null
+          id?: string
+          is_published?: boolean
+          tags?: string[]
+          thumbnail_url?: string | null
+          title: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          external_link?: string | null
+          id?: string
+          is_published?: boolean
+          tags?: string[]
+          thumbnail_url?: string | null
+          title?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       journal_entries: {
         Row: {
           body: string | null
@@ -164,6 +275,83 @@ export type Database = {
         }
         Relationships: []
       }
+      quote_favorites: {
+        Row: {
+          created_at: string
+          quote_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          quote_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          quote_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quote_favorites_quote_id_fkey"
+            columns: ["quote_id"]
+            isOneToOne: false
+            referencedRelation: "quotes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quotes: {
+        Row: {
+          author_name: string | null
+          content: string
+          created_at: string
+          display_name: string | null
+          id: string
+          note: string | null
+          reject_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          source_text: string | null
+          status: string
+          submitted_by: string
+          updated_at: string
+          work_title: string | null
+        }
+        Insert: {
+          author_name?: string | null
+          content: string
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          note?: string | null
+          reject_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          source_text?: string | null
+          status?: string
+          submitted_by: string
+          updated_at?: string
+          work_title?: string | null
+        }
+        Update: {
+          author_name?: string | null
+          content?: string
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          note?: string | null
+          reject_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          source_text?: string | null
+          status?: string
+          submitted_by?: string
+          updated_at?: string
+          work_title?: string | null
+        }
+        Relationships: []
+      }
       time_capsule_deliveries: {
         Row: {
           created_at: string
@@ -210,6 +398,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      has_role: { Args: { _role: string; _user_id: string }; Returns: boolean }
       set_journal_pin: { Args: { _pin: string }; Returns: undefined }
       verify_journal_pin: { Args: { _pin: string }; Returns: boolean }
     }
