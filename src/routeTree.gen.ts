@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as VitaminRouteImport } from './routes/vitamin'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as PodcastRouteImport } from './routes/podcast'
+import { Route as MoodBoardRouteImport } from './routes/mood-board'
 import { Route as MoodRouteImport } from './routes/mood'
 import { Route as JournalRouteImport } from './routes/journal'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -34,6 +35,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
 const PodcastRoute = PodcastRouteImport.update({
   id: '/podcast',
   path: '/podcast',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MoodBoardRoute = MoodBoardRouteImport.update({
+  id: '/mood-board',
+  path: '/mood-board',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MoodRoute = MoodRouteImport.update({
@@ -82,6 +88,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/journal': typeof JournalRoute
   '/mood': typeof MoodRoute
+  '/mood-board': typeof MoodBoardRoute
   '/podcast': typeof PodcastRoute
   '/reset-password': typeof ResetPasswordRoute
   '/vitamin': typeof VitaminRoute
@@ -95,6 +102,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/journal': typeof JournalRoute
   '/mood': typeof MoodRoute
+  '/mood-board': typeof MoodBoardRoute
   '/podcast': typeof PodcastRoute
   '/reset-password': typeof ResetPasswordRoute
   '/vitamin': typeof VitaminRoute
@@ -109,6 +117,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/journal': typeof JournalRoute
   '/mood': typeof MoodRoute
+  '/mood-board': typeof MoodBoardRoute
   '/podcast': typeof PodcastRoute
   '/reset-password': typeof ResetPasswordRoute
   '/vitamin': typeof VitaminRoute
@@ -124,6 +133,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/journal'
     | '/mood'
+    | '/mood-board'
     | '/podcast'
     | '/reset-password'
     | '/vitamin'
@@ -137,6 +147,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/journal'
     | '/mood'
+    | '/mood-board'
     | '/podcast'
     | '/reset-password'
     | '/vitamin'
@@ -150,6 +161,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/journal'
     | '/mood'
+    | '/mood-board'
     | '/podcast'
     | '/reset-password'
     | '/vitamin'
@@ -164,6 +176,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   JournalRoute: typeof JournalRoute
   MoodRoute: typeof MoodRoute
+  MoodBoardRoute: typeof MoodBoardRoute
   PodcastRoute: typeof PodcastRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   VitaminRoute: typeof VitaminRoute
@@ -194,6 +207,13 @@ declare module '@tanstack/react-router' {
       path: '/podcast'
       fullPath: '/podcast'
       preLoaderRoute: typeof PodcastRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mood-board': {
+      id: '/mood-board'
+      path: '/mood-board'
+      fullPath: '/mood-board'
+      preLoaderRoute: typeof MoodBoardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mood': {
@@ -260,6 +280,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   JournalRoute: JournalRoute,
   MoodRoute: MoodRoute,
+  MoodBoardRoute: MoodBoardRoute,
   PodcastRoute: PodcastRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   VitaminRoute: VitaminRoute,

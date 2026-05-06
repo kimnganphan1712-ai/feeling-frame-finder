@@ -19,6 +19,7 @@ import {
   Lock,
   ChevronRight,
   Heart,
+  Globe2,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -112,12 +113,11 @@ function HomePage() {
   if (phase === "mood")
     return (
       <MoodCheckIn
-        onDone={async (m) => {
-          if (user) await cloudStore.setTodayMood(user.id, m);
-          setTodayMood(m);
+        onDone={() => {
           setStreak((s) => s + 1);
           setPhase("ready");
         }}
+        onSkip={() => setPhase("ready")}
       />
     );
 
@@ -199,11 +199,18 @@ function HomePage() {
           </div>
         </div>
         <p className="mt-3 italic text-foreground/75 leading-relaxed text-sm">"{message}"</p>
-        <Link to="/mood">
-          <Button variant="ghost" size="sm" className="mt-2 rounded-full text-mint-deep hover:bg-white/40 px-3 -ml-2">
-            Xem hành trình cảm xúc <ChevronRight className="w-3.5 h-3.5 ml-1" />
-          </Button>
-        </Link>
+        <div className="mt-2 flex flex-wrap items-center gap-1">
+          <Link to="/mood">
+            <Button variant="ghost" size="sm" className="rounded-full text-mint-deep hover:bg-white/40 px-3 -ml-2">
+              Hành trình cảm xúc <ChevronRight className="w-3.5 h-3.5 ml-1" />
+            </Button>
+          </Link>
+          <Link to="/mood-board">
+            <Button variant="ghost" size="sm" className="rounded-full text-mint-deep hover:bg-white/40 px-3">
+              <Globe2 className="w-3.5 h-3.5 mr-1.5" /> Bản đồ cảm xúc
+            </Button>
+          </Link>
+        </div>
       </section>
 
       {/* Daily quote spotlight */}

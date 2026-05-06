@@ -191,6 +191,42 @@ export type Database = {
         }
         Relationships: []
       }
+      mood_checkins: {
+        Row: {
+          adjective: string
+          created_at: string
+          entry_date: string
+          id: string
+          is_public: boolean
+          sticker_color: string
+          sticker_type: string
+          user_id: string
+          username: string
+        }
+        Insert: {
+          adjective: string
+          created_at?: string
+          entry_date?: string
+          id?: string
+          is_public?: boolean
+          sticker_color: string
+          sticker_type: string
+          user_id: string
+          username: string
+        }
+        Update: {
+          adjective?: string
+          created_at?: string
+          entry_date?: string
+          id?: string
+          is_public?: boolean
+          sticker_color?: string
+          sticker_type?: string
+          user_id?: string
+          username?: string
+        }
+        Relationships: []
+      }
       mood_entries: {
         Row: {
           created_at: string
