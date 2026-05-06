@@ -20,7 +20,7 @@ export function RequireAdmin({ children }: { children: ReactNode }) {
   if (loading || !user || role === null) {
     return (
       <div className="min-h-screen bg-gradient-soft flex flex-col items-center justify-center">
-        <Mascot size="md" floating glow />
+        <Mascot size="md" variant="loading" floating glow />
         <p className="mt-4 text-sm text-muted-foreground animate-pulse">Đang kiểm tra quyền hạn…</p>
       </div>
     );

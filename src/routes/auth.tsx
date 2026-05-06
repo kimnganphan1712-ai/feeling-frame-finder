@@ -133,7 +133,7 @@ function AuthPage() {
 
         <div className="glass-strong rounded-3xl shadow-soft border border-white/60 p-7 md:p-8">
           <div className="flex flex-col items-center text-center">
-            <Mascot size="md" floating glow />
+            <Mascot size="md" variant="default" floating glow />
             <h1 className="mt-4 text-2xl font-semibold">
               {mode === "login" && "Chào bạn quay lại"}
               {mode === "signup" && "Bắt đầu cùng Hospital Playlist"}

@@ -47,7 +47,7 @@ function ResetPage() {
         </Link>
         <div className="glass-strong rounded-3xl shadow-soft border border-white/60 p-8">
           <div className="flex flex-col items-center text-center">
-            <Mascot size="md" floating glow />
+            <Mascot size="md" variant="loading" floating glow />
             <h1 className="mt-4 text-2xl font-semibold">Đặt lại mật khẩu</h1>
             <p className="text-sm text-muted-foreground mt-1">Một mật khẩu mới — một khởi đầu nhẹ nhàng hơn.</p>
           </div>

@@ -251,7 +251,7 @@ function JournalPage() {
       <PageShell mascot={false}>
         <div className="min-h-[70vh] flex flex-col items-center justify-center text-center animate-[fade-up_0.8s_ease-out] relative">
           <div className="absolute inset-0 bg-gradient-mascot opacity-40 -z-0" />
-          <Mascot size="lg" floating glow />
+          <Mascot size="lg" variant="encourage" floating glow />
           <h1 className="mt-6 text-3xl font-semibold">Phòng riêng của bạn</h1>
           <p className="mt-3 text-muted-foreground max-w-sm leading-relaxed">
             Đây là nơi an toàn, không ai đọc được. Bạn có thể nói thật mọi thứ ở đây.
@@ -334,7 +334,7 @@ function JournalPage() {
       <div className="fixed inset-0 z-40 bg-gradient-welcome flex flex-col items-center justify-center p-6 text-center animate-[fade-up_0.8s_ease-out]">
         <div className="absolute inset-0 backdrop-blur-3xl bg-white/30" />
         <div className="relative">
-          <Mascot size="xl" floating glow />
+          <Mascot size="xl" variant="comfort" floating glow />
           <p className="mt-6 text-sm text-mint-deep uppercase tracking-widest">Phòng riêng của bạn</p>
           <p className="mt-2 text-xl text-foreground/80 italic">"Bạn có thể nói thật mọi thứ ở đây."</p>
         </div>
@@ -455,7 +455,7 @@ function JournalPage() {
           >
             <BookOpen className="w-3.5 h-3.5" /> Tất cả ({entries.length})
           </button>
-          <Mascot size="xs" floating />
+          <Mascot size="xs" variant="idea" floating />
         </div>
       </header>
 
