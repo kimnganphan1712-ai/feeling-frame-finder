@@ -145,14 +145,13 @@ function HomePage() {
         <div className="relative grid md:grid-cols-[1.4fr_1fr] gap-6 p-8 md:p-12">
           <div className="flex flex-col justify-center">
             <p className="text-[11px] uppercase tracking-[0.3em] text-mint-deep mb-4">
-              một liều dịu cho hôm nay
+              Hospital Playlist
             </p>
             <h2 className="font-display text-3xl md:text-[2.4rem] leading-[1.2] text-foreground/90">
-              Một nơi dịu dàng để bạn{" "}
-              <span className="text-mint-deep italic">trở về</span> với chính mình
+              Trạm Cứu Hộ <span className="text-mint-deep italic">Cảm Xúc</span>
             </h2>
             <p className="mt-4 text-sm md:text-base text-muted-foreground leading-relaxed max-w-md">
-              Viết ra cảm xúc, nghe một podcast nhẹ, thở chậm lại và chăm sóc tâm hồn của bạn.
+              Một không gian dịu dàng để bạn gọi tên cảm xúc, viết lại hôm nay, lắng nghe chính mình và tìm về một chút bình yên.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link to="/journal">
