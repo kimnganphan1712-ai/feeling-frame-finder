@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Splash } from "@/components/Splash";
 import { MoodCheckIn } from "@/components/MoodCheckIn";
 import { PageShell } from "@/components/PageShell";
-import { Mascot } from "@/components/Mascot";
+import { Mascot, moodToMascot } from "@/components/Mascot";
 import { RequireAuth } from "@/components/RequireAuth";
 import { UserMenu } from "@/components/UserMenu";
 import { useAuth } from "@/lib/auth-context";
@@ -170,7 +170,7 @@ function HomePage() {
           <div className="hidden md:flex items-center justify-center relative">
             <div className="absolute inset-0 rounded-full bg-mint/40 blur-3xl opacity-50" />
             <div className="relative animate-[float_6s_ease-in-out_infinite]">
-              <Mascot size="lg" />
+              <Mascot size="lg" variant={moodToMascot(todayMood)} />
             </div>
           </div>
         </div>
@@ -319,7 +319,7 @@ function HomePage() {
             <div className="relative w-32 h-32">
               <div className="absolute inset-0 rounded-full bg-mint/40 blur-2xl" />
               <div className="relative animate-[float_6s_ease-in-out_infinite]">
-                <Mascot size="md" />
+                <Mascot size="md" variant="comfort" />
               </div>
             </div>
           </div>

@@ -14,7 +14,7 @@ export function RequireAuth({ children }: { children: ReactNode }) {
   if (loading || !user) {
     return (
       <div className="min-h-screen bg-gradient-soft flex flex-col items-center justify-center">
-        <Mascot size="md" floating glow />
+        <Mascot size="md" variant="loading" floating glow />
         <p className="mt-4 text-sm text-muted-foreground animate-pulse">Đang mở cửa Hospital Playlist…</p>
       </div>
     );

@@ -67,7 +67,7 @@ export function MoodCheckIn({ onDone, onSkip }: Props) {
     <div className="fixed inset-0 z-50 bg-gradient-welcome/85 backdrop-blur-md flex items-center justify-center p-4 animate-[fade-up_0.5s_ease-out]">
       <div className="glass-strong rounded-3xl shadow-soft max-w-lg w-full p-7 md:p-9 relative border border-white/60">
         <div className="flex flex-col items-center text-center">
-          <Mascot size="sm" floating />
+          <Mascot size="md" variant={thanks ? "happy" : existing ? "encourage" : "question"} floating />
 
           {!loaded ? (
             <div className="py-12 text-sm text-muted-foreground">Đang lắng nghe…</div>

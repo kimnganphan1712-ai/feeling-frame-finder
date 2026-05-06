@@ -8,7 +8,7 @@ export function PageShell({ children, mascot = true }: { children: ReactNode; ma
       <div className="max-w-3xl mx-auto px-5 pt-8">{children}</div>
       {mascot && (
         <div className="fixed bottom-24 right-4 z-30 pointer-events-none">
-          <Mascot size="sm" floating />
+          <Mascot size="sm" variant="happy" floating />
         </div>
       )}
       <BottomNav />

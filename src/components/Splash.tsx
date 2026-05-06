@@ -34,7 +34,7 @@ export function Splash({ onDone }: { onDone: () => void }) {
       </div>
 
       <div className={`transition-all duration-700 ${phase >= 1 ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}>
-        <Mascot size="xl" glow floating />
+        <Mascot size="xl" variant="default" glow floating />
       </div>
 
       <h1
