@@ -1,8 +1,8 @@
 import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
-import { LogOut, User as UserIcon } from "lucide-react";
+import { LogOut, Shield } from "lucide-react";
 import { useState, useEffect } from "react";
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, Link } from "@tanstack/react-router";
 import { cloudStore } from "@/lib/cloud-store";
 import { MOODS, MoodKey } from "@/lib/mood";
 
@@ -20,7 +20,7 @@ function EmotionBadge({ moodKey }: { moodKey: MoodKey | null }) {
 }
 
 export function UserMenu() {
-  const { user, displayName, avatarUrl, signOut } = useAuth();
+  const { user, displayName, avatarUrl, role, signOut } = useAuth();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [todayMood, setTodayMood] = useState<MoodKey | null>(null);
@@ -62,6 +62,22 @@ export function UserMenu() {
               <p className="text-sm font-semibold truncate">{name}</p>
               <p className="text-[11px] text-muted-foreground truncate">{user.email}</p>
             </div>
+            {role === "admin" && (
+              <div className="mt-1 mb-1 pb-1 border-b border-border/50">
+                <p className="px-3 pt-1 pb-1 text-[10px] uppercase tracking-widest text-mint-deep/80 flex items-center gap-1">
+                  <Shield className="w-3 h-3" /> Admin
+                </p>
+                <Link to="/admin/dashboard" onClick={() => setOpen(false)}>
+                  <Button variant="ghost" size="sm" className="w-full justify-start rounded-xl">Bảng điều khiển</Button>
+                </Link>
+                <Link to="/admin/quotes" onClick={() => setOpen(false)}>
+                  <Button variant="ghost" size="sm" className="w-full justify-start rounded-xl">Duyệt câu nói</Button>
+                </Link>
+                <Link to="/admin/healing" onClick={() => setOpen(false)}>
+                  <Button variant="ghost" size="sm" className="w-full justify-start rounded-xl">Tác phẩm gợi ý</Button>
+                </Link>
+              </div>
+            )}
             <Button
               variant="ghost"
               size="sm"
