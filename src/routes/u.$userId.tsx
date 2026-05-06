@@ -8,8 +8,8 @@ import { AlbumDetailDialog } from "@/components/vitamin/AlbumDetailDialog";
 export const Route = createFileRoute("/u/$userId")({
   head: () => ({
     meta: [
-      { title: "Hồ sơ — Soul Space" },
-      { name: "description", content: "Album công khai của thành viên Soul Space." },
+      { title: "Hồ sơ — Hospital Playlist" },
+      { name: "description", content: "Album công khai của thành viên Hospital Playlist - Trạm Cứu Hộ Cảm Xúc." },
     ],
   }),
   component: PublicProfilePage,

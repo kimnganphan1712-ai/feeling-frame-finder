@@ -35,7 +35,7 @@ function ResetPage() {
     const { error } = await supabase.auth.updateUser({ password });
     setBusy(false);
     if (error) return setErr(error.message);
-    setInfo("Mật khẩu đã được làm mới. Đang đưa bạn về Trạm Dịu…");
+    setInfo("Mật khẩu đã được làm mới. Đang đưa bạn về Hospital Playlist…");
     setTimeout(() => navigate({ to: "/" }), 1200);
   };
 
