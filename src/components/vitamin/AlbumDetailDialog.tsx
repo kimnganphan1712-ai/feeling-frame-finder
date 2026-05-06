@@ -3,7 +3,7 @@ import { X, Lock, Globe2, Trash2, ImageIcon, Loader2, Save } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { vitaminStore, type Album, type Quote } from "@/lib/vitamin-store";
 
-export function AlbumDetailDialog({ album, onClose, onChanged }: { album: Album | null; onClose: () => void; onChanged: () => void }) {
+export function AlbumDetailDialog({ album, onClose, onChanged, readOnly = false }: { album: Album | null; onClose: () => void; onChanged: () => void; readOnly?: boolean }) {
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -94,23 +94,25 @@ export function AlbumDetailDialog({ album, onClose, onChanged }: { album: Album 
           </div>
         </div>
 
-        <div className="mt-4 flex gap-2">
-          {editing ? (
-            <>
-              <Button onClick={save} disabled={busy} size="sm" className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
-                {busy ? <Loader2 className="w-3 h-3 animate-spin mr-1" /> : <Save className="w-3 h-3 mr-1" />} Lưu
-              </Button>
-              <Button onClick={() => setEditing(false)} variant="ghost" size="sm" className="rounded-full">Huỷ</Button>
-            </>
-          ) : (
-            <>
-              <Button onClick={() => setEditing(true)} variant="outline" size="sm" className="rounded-full">Chỉnh sửa</Button>
-              <Button onClick={deleteAlbum} variant="ghost" size="sm" className="rounded-full text-destructive hover:bg-destructive/10">
-                <Trash2 className="w-3 h-3 mr-1" /> Xoá album
-              </Button>
-            </>
-          )}
-        </div>
+        {!readOnly && (
+          <div className="mt-4 flex gap-2">
+            {editing ? (
+              <>
+                <Button onClick={save} disabled={busy} size="sm" className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
+                  {busy ? <Loader2 className="w-3 h-3 animate-spin mr-1" /> : <Save className="w-3 h-3 mr-1" />} Lưu
+                </Button>
+                <Button onClick={() => setEditing(false)} variant="ghost" size="sm" className="rounded-full">Huỷ</Button>
+              </>
+            ) : (
+              <>
+                <Button onClick={() => setEditing(true)} variant="outline" size="sm" className="rounded-full">Chỉnh sửa</Button>
+                <Button onClick={deleteAlbum} variant="ghost" size="sm" className="rounded-full text-destructive hover:bg-destructive/10">
+                  <Trash2 className="w-3 h-3 mr-1" /> Xoá album
+                </Button>
+              </>
+            )}
+          </div>
+        )}
 
         <div className="mt-6 border-t border-border pt-4">
           <h4 className="text-sm font-medium mb-3">Câu nói trong album</h4>
@@ -126,9 +128,11 @@ export function AlbumDetailDialog({ album, onClose, onChanged }: { album: Album 
                     <p className="italic text-foreground/90">"{q.content}"</p>
                     <p className="text-[11px] text-muted-foreground mt-1">— {q.author_name || q.work_title || q.source_text || "Ẩn danh"}</p>
                   </div>
-                  <button onClick={() => removeQuote(q.id)} className="text-muted-foreground hover:text-destructive p-1">
-                    <Trash2 className="w-4 h-4" />
-                  </button>
+                  {!readOnly && (
+                    <button onClick={() => removeQuote(q.id)} className="text-muted-foreground hover:text-destructive p-1">
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  )}
                 </div>
               ))}
             </div>

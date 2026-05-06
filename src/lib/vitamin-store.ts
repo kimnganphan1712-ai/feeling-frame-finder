@@ -215,6 +215,25 @@ export const vitaminStore = {
     await supabase.from("album_items").delete().eq("album_id", albumId).eq("quote_id", quoteId);
   },
 
+  // ---- public profile ----
+  async getPublicProfile(userId: string): Promise<{ id: string; display_name: string | null; avatar_url: string | null } | null> {
+    const { data } = await supabase
+      .from("profiles")
+      .select("id, display_name, avatar_url")
+      .eq("id", userId)
+      .maybeSingle();
+    return data ?? null;
+  },
+  async publicAlbumsOf(userId: string): Promise<Album[]> {
+    const { data } = await supabase
+      .from("albums")
+      .select("*")
+      .eq("user_id", userId)
+      .eq("visibility", "public")
+      .order("updated_at", { ascending: false });
+    return (data ?? []) as Album[];
+  },
+
   // ---- favorites ----
   async listFavoriteIds(): Promise<string[]> {
     const { data: u } = await supabase.auth.getUser();
