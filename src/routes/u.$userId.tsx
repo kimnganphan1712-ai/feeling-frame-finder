@@ -84,7 +84,7 @@ function PublicProfilePage() {
         )}
       </div>
 
-      <AlbumDetailDialog album={open} onClose={() => setOpen(null)} onChanged={reload} />
+      <AlbumDetailDialog album={open} onClose={() => setOpen(null)} onChanged={reload} readOnly />
     </PageShell>
   );
 }
