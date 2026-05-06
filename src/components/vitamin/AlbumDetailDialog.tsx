@@ -3,7 +3,7 @@ import { X, Lock, Globe2, Trash2, ImageIcon, Loader2, Save } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { vitaminStore, type Album, type Quote } from "@/lib/vitamin-store";
 
-export function AlbumDetailDialog({ album, onClose, onChanged }: { album: Album | null; onClose: () => void; onChanged: () => void }) {
+export function AlbumDetailDialog({ album, onClose, onChanged, readOnly = false }: { album: Album | null; onClose: () => void; onChanged: () => void; readOnly?: boolean }) {
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [loading, setLoading] = useState(false);
   const [editing, setEditing] = useState(false);
