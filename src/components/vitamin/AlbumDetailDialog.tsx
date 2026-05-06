@@ -94,23 +94,25 @@ export function AlbumDetailDialog({ album, onClose, onChanged, readOnly = false 
           </div>
         </div>
 
-        <div className="mt-4 flex gap-2">
-          {editing ? (
-            <>
-              <Button onClick={save} disabled={busy} size="sm" className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
-                {busy ? <Loader2 className="w-3 h-3 animate-spin mr-1" /> : <Save className="w-3 h-3 mr-1" />} Lưu
-              </Button>
-              <Button onClick={() => setEditing(false)} variant="ghost" size="sm" className="rounded-full">Huỷ</Button>
-            </>
-          ) : (
-            <>
-              <Button onClick={() => setEditing(true)} variant="outline" size="sm" className="rounded-full">Chỉnh sửa</Button>
-              <Button onClick={deleteAlbum} variant="ghost" size="sm" className="rounded-full text-destructive hover:bg-destructive/10">
-                <Trash2 className="w-3 h-3 mr-1" /> Xoá album
-              </Button>
-            </>
-          )}
-        </div>
+        {!readOnly && (
+          <div className="mt-4 flex gap-2">
+            {editing ? (
+              <>
+                <Button onClick={save} disabled={busy} size="sm" className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
+                  {busy ? <Loader2 className="w-3 h-3 animate-spin mr-1" /> : <Save className="w-3 h-3 mr-1" />} Lưu
+                </Button>
+                <Button onClick={() => setEditing(false)} variant="ghost" size="sm" className="rounded-full">Huỷ</Button>
+              </>
+            ) : (
+              <>
+                <Button onClick={() => setEditing(true)} variant="outline" size="sm" className="rounded-full">Chỉnh sửa</Button>
+                <Button onClick={deleteAlbum} variant="ghost" size="sm" className="rounded-full text-destructive hover:bg-destructive/10">
+                  <Trash2 className="w-3 h-3 mr-1" /> Xoá album
+                </Button>
+              </>
+            )}
+          </div>
+        )}
 
         <div className="mt-6 border-t border-border pt-4">
           <h4 className="text-sm font-medium mb-3">Câu nói trong album</h4>
