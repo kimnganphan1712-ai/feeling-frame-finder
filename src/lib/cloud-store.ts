@@ -1,4 +1,4 @@
-// Cloud-backed store for Trạm Dịu (per-user via Supabase RLS)
+// Cloud-backed store for Hospital Playlist - Trạm Cứu Hộ Cảm Xúc (per-user via Supabase RLS)
 import { supabase } from "@/integrations/supabase/client";
 import { MoodKey } from "./mood";
 

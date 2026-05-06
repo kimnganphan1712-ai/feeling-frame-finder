@@ -33,7 +33,7 @@ export const Route = createFileRoute("/")({
 const DAILY_QUOTES = [
   {
     text: "Hôm nay bạn không cần phải mạnh mẽ. Bạn chỉ cần thật lòng với cảm xúc của mình.",
-    source: "Soul Space",
+    source: "Hospital Playlist",
   },
   {
     text: "Có những ngày rất chậm, nhưng không có nghĩa là bạn đang đứng yên.",
@@ -41,11 +41,11 @@ const DAILY_QUOTES = [
   },
   {
     text: "Bạn xứng đáng được dịu dàng, kể cả khi bạn chưa hoàn hảo.",
-    source: "Trạm dịu",
+    source: "Hospital Playlist",
   },
   {
     text: "Bạn không cần phải vội vàng chữa lành. Cây cối còn cần cả mùa đông để đâm chồi lại.",
-    source: "Soul Space",
+    source: "Hospital Playlist",
   },
 ];
 
@@ -131,7 +131,7 @@ function HomePage() {
       {/* Header */}
       <header className="flex items-center justify-between mb-10 animate-[fade-up_0.6s_ease-out]">
         <div className="min-w-0">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-mint-deep/80">Soul Space</p>
+          <p className="text-[11px] uppercase tracking-[0.25em] text-mint-deep/80">Hospital Playlist · Trạm Cứu Hộ Cảm Xúc</p>
           <h1 className="text-xl md:text-2xl font-display font-medium mt-1 truncate">
             {greeting} <span className="text-mint-deep">🌿</span>
           </h1>
@@ -343,7 +343,7 @@ function HomePage() {
 
       {/* Footer */}
       <footer className="text-center pb-6 pt-2 text-muted-foreground">
-        <p className="font-display text-sm">Soul Space</p>
+        <p className="font-display text-sm">Hospital Playlist - Trạm Cứu Hộ Cảm Xúc</p>
         <p className="text-[11px] italic mt-1">A gentle place for your inner world.</p>
       </footer>
     </PageShell>

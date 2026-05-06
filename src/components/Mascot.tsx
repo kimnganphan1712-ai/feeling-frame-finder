@@ -29,7 +29,7 @@ export function Mascot({ size = "md", className, floating = false, glow = false 
       {glow && <div className="absolute inset-0 bg-gradient-mascot blur-2xl scale-125" />}
       <img
         src={mascotImg}
-        alt="Mascot Trạm Dịu"
+        alt="Mascot Hospital Playlist"
         className="relative w-full h-full object-contain drop-shadow-md select-none"
         draggable={false}
       />

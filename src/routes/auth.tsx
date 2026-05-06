@@ -128,7 +128,7 @@ function AuthPage() {
     <div className="min-h-screen bg-gradient-welcome flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <Link to="/" className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground mb-4">
-          <ArrowLeft className="w-3 h-3" /> Quay về Trạm Dịu
+          <ArrowLeft className="w-3 h-3" /> Quay về Hospital Playlist
         </Link>
 
         <div className="glass-strong rounded-3xl shadow-soft border border-white/60 p-7 md:p-8">
@@ -136,7 +136,7 @@ function AuthPage() {
             <Mascot size="md" floating glow />
             <h1 className="mt-4 text-2xl font-semibold">
               {mode === "login" && "Chào bạn quay lại"}
-              {mode === "signup" && "Bắt đầu cùng Trạm Dịu"}
+              {mode === "signup" && "Bắt đầu cùng Hospital Playlist"}
               {mode === "forgot" && "Quên mật khẩu"}
             </h1>
             <p className="text-sm text-muted-foreground mt-1 max-w-xs">

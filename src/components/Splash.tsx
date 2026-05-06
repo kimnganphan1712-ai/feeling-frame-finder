@@ -43,10 +43,17 @@ export function Splash({ onDone }: { onDone: () => void }) {
         }`}
         style={{ fontFamily: "var(--font-display)" }}
       >
-        Trạm Dịu
+        Hospital Playlist
       </h1>
       <p
-        className={`mt-3 text-muted-foreground text-base md:text-lg transition-all duration-700 delay-100 ${
+        className={`mt-2 text-mint-deep/80 text-sm md:text-base tracking-[0.2em] uppercase transition-all duration-700 delay-75 ${
+          phase >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        }`}
+      >
+        Trạm Cứu Hộ Cảm Xúc
+      </p>
+      <p
+        className={`mt-3 text-muted-foreground text-sm md:text-base transition-all duration-700 delay-100 ${
           phase >= 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
         }`}
       >

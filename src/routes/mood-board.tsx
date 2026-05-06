@@ -99,7 +99,7 @@ function MoodBoardPage() {
             </Button>
           </Link>
           <div className="text-center">
-            <p className="text-[10px] uppercase tracking-[0.3em] text-mint-deep/80">Soul Space</p>
+            <p className="text-[10px] uppercase tracking-[0.3em] text-mint-deep/80">Hospital Playlist</p>
             <h1 className="font-display text-base md:text-lg">Bản đồ cảm xúc</h1>
           </div>
           <div className="w-9 h-9 rounded-full bg-white/70 border border-white/70 flex items-center justify-center text-mint-deep">
