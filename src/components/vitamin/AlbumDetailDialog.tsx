@@ -128,9 +128,11 @@ export function AlbumDetailDialog({ album, onClose, onChanged, readOnly = false 
                     <p className="italic text-foreground/90">"{q.content}"</p>
                     <p className="text-[11px] text-muted-foreground mt-1">— {q.author_name || q.work_title || q.source_text || "Ẩn danh"}</p>
                   </div>
-                  <button onClick={() => removeQuote(q.id)} className="text-muted-foreground hover:text-destructive p-1">
-                    <Trash2 className="w-4 h-4" />
-                  </button>
+                  {!readOnly && (
+                    <button onClick={() => removeQuote(q.id)} className="text-muted-foreground hover:text-destructive p-1">
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  )}
                 </div>
               ))}
             </div>
