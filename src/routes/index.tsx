@@ -112,12 +112,11 @@ function HomePage() {
   if (phase === "mood")
     return (
       <MoodCheckIn
-        onDone={async (m) => {
-          if (user) await cloudStore.setTodayMood(user.id, m);
-          setTodayMood(m);
+        onDone={() => {
           setStreak((s) => s + 1);
           setPhase("ready");
         }}
+        onSkip={() => setPhase("ready")}
       />
     );
 
