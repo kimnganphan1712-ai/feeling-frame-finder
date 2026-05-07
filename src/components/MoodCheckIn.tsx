@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Sparkles, Globe2 } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { moodCheckinStore, checkAdjective, MoodCheckin } from "@/lib/mood-checkin-store";
+import { useTodayMood } from "@/lib/today-mood";
 import { STICKERS } from "@/lib/stickers";
 
 interface Props {
