@@ -101,7 +101,7 @@ export function MoodCheckIn({ onDone, onSkip }: Props) {
                   </Button>
                 </Link>
                 <Button onClick={() => onDone()} className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
-                  Vào trạm dịu
+                  Vào trạm
                 </Button>
               </div>
             </>
