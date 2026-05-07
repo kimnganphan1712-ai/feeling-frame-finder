@@ -74,6 +74,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
 import { AuthProvider } from "@/lib/auth-context";
 import { TodayMoodProvider } from "@/lib/today-mood";
 import { CapsuleNotification } from "@/components/CapsuleNotification";
+import { Toaster } from "@/components/ui/sonner";
 
 function RootComponent() {
   return (
@@ -81,6 +82,7 @@ function RootComponent() {
       <TodayMoodProvider>
         <Outlet />
         <CapsuleNotification />
+        <Toaster />
       </TodayMoodProvider>
     </AuthProvider>
   );

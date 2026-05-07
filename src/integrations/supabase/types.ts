@@ -284,6 +284,105 @@ export type Database = {
         }
         Relationships: []
       }
+      podcasts: {
+        Row: {
+          allow_comments: boolean
+          allow_favorite: boolean
+          allow_reactions: boolean
+          audio_url: string | null
+          category: string
+          content_source: string | null
+          cover_image_url: string | null
+          created_at: string
+          created_by: string
+          duration_seconds: number | null
+          emotion_tags: string[]
+          episode_number: number | null
+          healing_message: string | null
+          host: string | null
+          id: string
+          long_description: string | null
+          mood_targets: string[]
+          music_source: string | null
+          original_author: string | null
+          published_at: string | null
+          reference_link: string | null
+          self_produced: boolean
+          series: string | null
+          short_description: string
+          show_in_today: boolean
+          show_on_home: boolean
+          status: string
+          title: string
+          transcript: string | null
+          updated_at: string
+        }
+        Insert: {
+          allow_comments?: boolean
+          allow_favorite?: boolean
+          allow_reactions?: boolean
+          audio_url?: string | null
+          category?: string
+          content_source?: string | null
+          cover_image_url?: string | null
+          created_at?: string
+          created_by: string
+          duration_seconds?: number | null
+          emotion_tags?: string[]
+          episode_number?: number | null
+          healing_message?: string | null
+          host?: string | null
+          id?: string
+          long_description?: string | null
+          mood_targets?: string[]
+          music_source?: string | null
+          original_author?: string | null
+          published_at?: string | null
+          reference_link?: string | null
+          self_produced?: boolean
+          series?: string | null
+          short_description: string
+          show_in_today?: boolean
+          show_on_home?: boolean
+          status?: string
+          title: string
+          transcript?: string | null
+          updated_at?: string
+        }
+        Update: {
+          allow_comments?: boolean
+          allow_favorite?: boolean
+          allow_reactions?: boolean
+          audio_url?: string | null
+          category?: string
+          content_source?: string | null
+          cover_image_url?: string | null
+          created_at?: string
+          created_by?: string
+          duration_seconds?: number | null
+          emotion_tags?: string[]
+          episode_number?: number | null
+          healing_message?: string | null
+          host?: string | null
+          id?: string
+          long_description?: string | null
+          mood_targets?: string[]
+          music_source?: string | null
+          original_author?: string | null
+          published_at?: string | null
+          reference_link?: string | null
+          self_produced?: boolean
+          series?: string | null
+          short_description?: string
+          show_in_today?: boolean
+          show_on_home?: boolean
+          status?: string
+          title?: string
+          transcript?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
