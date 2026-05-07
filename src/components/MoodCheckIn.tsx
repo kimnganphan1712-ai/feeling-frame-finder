@@ -16,6 +16,7 @@ interface Props {
 
 export function MoodCheckIn({ onDone, onSkip }: Props) {
   const { user, displayName } = useAuth();
+  const { setCheckin } = useTodayMood();
   const [adjective, setAdjective] = useState("");
   const [stickerType, setStickerType] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
