@@ -1,20 +1,31 @@
 import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
 import { LogOut, Shield } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "@tanstack/react-router";
-import { cloudStore } from "@/lib/cloud-store";
-import { MOODS, MoodKey } from "@/lib/mood";
+import { useTodayMood } from "@/lib/today-mood";
+import { MoodSticker } from "@/components/MoodSticker";
 
-function EmotionBadge({ moodKey }: { moodKey: MoodKey | null }) {
-  const mood = MOODS.find((m) => m.key === moodKey) || MOODS.find((m) => m.key === "calm")!;
+function EmotionBadge() {
+  const { sticker } = useTodayMood();
+  if (!sticker) {
+    return (
+      <div
+        className="absolute flex items-center justify-center rounded-full bg-white border-2 border-white shadow-sm text-[10px]"
+        style={{ right: "-2px", bottom: "-2px", width: "20px", height: "20px" }}
+        title="Chưa chọn cảm xúc"
+      >
+        <span className="leading-none">🌼</span>
+      </div>
+    );
+  }
   return (
-    <div 
-      className="absolute flex items-center justify-center rounded-full bg-white border-2 border-white shadow-sm text-[10px]"
+    <div
+      className="absolute rounded-full border-2 border-white shadow-sm overflow-hidden"
       style={{ right: "-2px", bottom: "-2px", width: "20px", height: "20px" }}
-      title={mood.label}
+      title={sticker.label}
     >
-      <span className="leading-none">{mood.emoji}</span>
+      <MoodSticker sticker={sticker} size={16} />
     </div>
   );
 }
@@ -23,13 +34,6 @@ export function UserMenu() {
   const { user, displayName, avatarUrl, role, signOut } = useAuth();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const [todayMood, setTodayMood] = useState<MoodKey | null>(null);
-
-  useEffect(() => {
-    if (user) {
-      cloudStore.getTodayMood(user.id).then(setTodayMood);
-    }
-  }, [user]);
 
   if (!user) return null;
   const name = displayName || user.email?.split("@")[0] || "Bạn";
@@ -49,7 +53,7 @@ export function UserMenu() {
               {initial}
             </span>
           )}
-          <EmotionBadge moodKey={todayMood} />
+          <EmotionBadge />
         </div>
         <span className="text-xs font-medium text-foreground/80 max-w-[100px] truncate">{name}</span>
       </button>
