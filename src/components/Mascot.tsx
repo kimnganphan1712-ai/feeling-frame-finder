@@ -66,17 +66,20 @@ export function Mascot({
   return (
     <div
       className={cn(
-        "relative inline-flex items-center justify-center",
+        "relative inline-flex items-center justify-center overflow-visible bg-transparent border-0 shadow-none ring-0 outline-none",
         sizeMap[size],
         floating && "animate-float",
         className,
       )}
+      style={{ background: "transparent", border: 0, boxShadow: "none", outline: 0 }}
     >
       <img
         src={VARIANT_MAP[variant]}
         alt={VARIANT_ALT[variant]}
-        className="relative w-full h-full object-contain select-none"
-        style={{ background: "transparent" }}
+        className="relative block w-full h-full object-contain select-none bg-transparent border-0 shadow-none ring-0 outline-none"
+        style={{ background: "transparent", border: 0, boxShadow: "none", outline: 0 }}
+        width={1024}
+        height={1024}
         draggable={false}
       />
     </div>
