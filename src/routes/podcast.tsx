@@ -37,8 +37,15 @@ const EXTRA = [
 
 function PodcastPage() {
   const { user } = useAuth();
+  const { moodKey, sticker } = useTodayMood();
   const [playing, setPlaying] = useState<number | null>(3);
   const [progress, setProgress] = useState<Record<number, { completed: boolean; favorited: boolean }>>({});
+  const [dbPodcasts, setDbPodcasts] = useState<Podcast[]>([]);
+  const [nowPlayingDb, setNowPlayingDb] = useState<Podcast | null>(null);
+
+  useEffect(() => {
+    podcastStore.listVisible().then(setDbPodcasts);
+  }, []);
 
   useEffect(() => {
     if (!user) return;
@@ -48,6 +55,18 @@ function PodcastPage() {
       setProgress(map);
     });
   }, [user]);
+
+  // Sort/filter podcasts by today's mood — matching mood_targets get priority
+  const sortedPodcasts = useMemo(() => {
+    if (!moodKey) return dbPodcasts;
+    return [...dbPodcasts].sort((a, b) => {
+      const aMatch = a.mood_targets.includes(moodKey) ? 1 : 0;
+      const bMatch = b.mood_targets.includes(moodKey) ? 1 : 0;
+      return bMatch - aMatch;
+    });
+  }, [dbPodcasts, moodKey]);
+
+  const moodLabel = moodKey ? MOOD_TARGETS.find((m) => m.value === moodKey)?.label : null;
 
   const toggleDone = async (n: number) => {
     if (!user) return;
