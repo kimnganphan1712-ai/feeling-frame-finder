@@ -72,11 +72,11 @@ export function Mascot({
         className,
       )}
     >
-      {glow && <div className="absolute inset-0 bg-gradient-mascot blur-2xl scale-125" />}
       <img
         src={VARIANT_MAP[variant]}
         alt={VARIANT_ALT[variant]}
-        className="relative w-full h-full object-contain drop-shadow-md select-none"
+        className="relative w-full h-full object-contain select-none"
+        style={{ background: "transparent" }}
         draggable={false}
       />
     </div>
