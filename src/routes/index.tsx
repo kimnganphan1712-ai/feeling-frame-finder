@@ -187,10 +187,19 @@ function HomePage() {
         style={{ background: `color-mix(in oklch, ${mood.colorVar} 22%, white)` }}
       >
         <div className="flex items-center gap-3">
-          <span className="text-3xl">{mood.emoji}</span>
+          {today.sticker ? (
+            <MoodSticker sticker={today.sticker} size={48} />
+          ) : (
+            <span className="text-3xl">{mood.emoji}</span>
+          )}
           <div>
             <p className="text-[11px] uppercase tracking-widest text-foreground/60">Cảm xúc hôm nay</p>
-            <p className="font-medium text-base">{mood.label}</p>
+            <p className="font-medium text-base capitalize">
+              {today.adjective ?? mood.label}
+            </p>
+            {today.sticker && (
+              <p className="text-[11px] text-foreground/50">{today.sticker.label}</p>
+            )}
           </div>
           <div className="ml-auto text-right">
             <p className="text-[11px] uppercase tracking-widest text-foreground/60">Streak</p>
