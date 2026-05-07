@@ -1,11 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageShell } from "@/components/PageShell";
 import { RequireAuth } from "@/components/RequireAuth";
-import { useEffect, useState } from "react";
-import { Play, Pause, Check, Lock, Heart } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { Play, Pause, Check, Lock, Heart, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/auth-context";
 import { cloudStore } from "@/lib/cloud-store";
+import { podcastStore, type Podcast, MOOD_TARGETS } from "@/lib/podcast-store";
+import { useTodayMood } from "@/lib/today-mood";
 
 export const Route = createFileRoute("/podcast")({
   component: () => (

@@ -19,6 +19,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UUserIdRouteImport } from './routes/u.$userId'
 import { Route as AdminQuotesRouteImport } from './routes/admin/quotes'
+import { Route as AdminPodcastsRouteImport } from './routes/admin/podcasts'
 import { Route as AdminHealingRouteImport } from './routes/admin/healing'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
 
@@ -72,6 +73,11 @@ const AdminQuotesRoute = AdminQuotesRouteImport.update({
   path: '/admin/quotes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminPodcastsRoute = AdminPodcastsRouteImport.update({
+  id: '/admin/podcasts',
+  path: '/admin/podcasts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminHealingRoute = AdminHealingRouteImport.update({
   id: '/admin/healing',
   path: '/admin/healing',
@@ -94,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/vitamin': typeof VitaminRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/healing': typeof AdminHealingRoute
+  '/admin/podcasts': typeof AdminPodcastsRoute
   '/admin/quotes': typeof AdminQuotesRoute
   '/u/$userId': typeof UUserIdRoute
 }
@@ -108,6 +115,7 @@ export interface FileRoutesByTo {
   '/vitamin': typeof VitaminRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/healing': typeof AdminHealingRoute
+  '/admin/podcasts': typeof AdminPodcastsRoute
   '/admin/quotes': typeof AdminQuotesRoute
   '/u/$userId': typeof UUserIdRoute
 }
@@ -123,6 +131,7 @@ export interface FileRoutesById {
   '/vitamin': typeof VitaminRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/healing': typeof AdminHealingRoute
+  '/admin/podcasts': typeof AdminPodcastsRoute
   '/admin/quotes': typeof AdminQuotesRoute
   '/u/$userId': typeof UUserIdRoute
 }
@@ -139,6 +148,7 @@ export interface FileRouteTypes {
     | '/vitamin'
     | '/admin/dashboard'
     | '/admin/healing'
+    | '/admin/podcasts'
     | '/admin/quotes'
     | '/u/$userId'
   fileRoutesByTo: FileRoutesByTo
@@ -153,6 +163,7 @@ export interface FileRouteTypes {
     | '/vitamin'
     | '/admin/dashboard'
     | '/admin/healing'
+    | '/admin/podcasts'
     | '/admin/quotes'
     | '/u/$userId'
   id:
@@ -167,6 +178,7 @@ export interface FileRouteTypes {
     | '/vitamin'
     | '/admin/dashboard'
     | '/admin/healing'
+    | '/admin/podcasts'
     | '/admin/quotes'
     | '/u/$userId'
   fileRoutesById: FileRoutesById
@@ -182,6 +194,7 @@ export interface RootRouteChildren {
   VitaminRoute: typeof VitaminRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminHealingRoute: typeof AdminHealingRoute
+  AdminPodcastsRoute: typeof AdminPodcastsRoute
   AdminQuotesRoute: typeof AdminQuotesRoute
   UUserIdRoute: typeof UUserIdRoute
 }
@@ -258,6 +271,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminQuotesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/podcasts': {
+      id: '/admin/podcasts'
+      path: '/admin/podcasts'
+      fullPath: '/admin/podcasts'
+      preLoaderRoute: typeof AdminPodcastsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/healing': {
       id: '/admin/healing'
       path: '/admin/healing'
@@ -286,6 +306,7 @@ const rootRouteChildren: RootRouteChildren = {
   VitaminRoute: VitaminRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   AdminHealingRoute: AdminHealingRoute,
+  AdminPodcastsRoute: AdminPodcastsRoute,
   AdminQuotesRoute: AdminQuotesRoute,
   UUserIdRoute: UUserIdRoute,
 }
