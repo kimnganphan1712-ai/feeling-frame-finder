@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Sparkles, Globe2 } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { moodCheckinStore, checkAdjective, MoodCheckin } from "@/lib/mood-checkin-store";
+import { useTodayMood } from "@/lib/today-mood";
 import { STICKERS } from "@/lib/stickers";
 
 interface Props {
@@ -15,6 +16,7 @@ interface Props {
 
 export function MoodCheckIn({ onDone, onSkip }: Props) {
   const { user, displayName } = useAuth();
+  const { setCheckin } = useTodayMood();
   const [adjective, setAdjective] = useState("");
   const [stickerType, setStickerType] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -59,6 +61,7 @@ export function MoodCheckIn({ onDone, onSkip }: Props) {
       setError(res.error);
       return;
     }
+    if (res.data) setCheckin(res.data);
     setThanks(true);
     setTimeout(() => onDone(), 1400);
   };

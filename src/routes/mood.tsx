@@ -3,6 +3,7 @@ import { PageShell } from "@/components/PageShell";
 import { RequireAuth } from "@/components/RequireAuth";
 import { MOODS, MoodKey } from "@/lib/mood";
 import { useAuth } from "@/lib/auth-context";
+import { useTodayMood } from "@/lib/today-mood";
 import { cloudStore, JournalEntry } from "@/lib/cloud-store";
 import { useEffect, useMemo, useState } from "react";
 import { Sparkles, TrendingUp, ChevronLeft, ChevronRight, X } from "lucide-react";
@@ -17,7 +18,8 @@ export const Route = createFileRoute("/mood")({
 
 function MoodPage() {
   const { user } = useAuth();
-  const [history, setHistory] = useState<{ date: string; mood: MoodKey }[]>([]);
+  const today = useTodayMood();
+  const [historyRaw, setHistory] = useState<{ date: string; mood: MoodKey }[]>([]);
   const [entries, setEntries] = useState<JournalEntry[]>([]);
   const [cursor, setCursor] = useState(() => {
     const d = new Date(); d.setDate(1); return d;
@@ -29,6 +31,15 @@ function MoodPage() {
     cloudStore.getMoodHistory(user.id).then(setHistory);
     cloudStore.listEntries(user.id).then(setEntries);
   }, [user]);
+
+  // Merge today's pop-up check-in into history (single source of truth) so the
+  // calendar / distribution always reflect what the user just chose.
+  const history = useMemo(() => {
+    const todayKey = new Date().toISOString().slice(0, 10);
+    const filtered = historyRaw.filter((h) => h.date !== todayKey);
+    if (today.moodKey) filtered.push({ date: todayKey, mood: today.moodKey });
+    return filtered;
+  }, [historyRaw, today.moodKey]);
 
   const counts: Record<MoodKey, number> = { joy: 0, calm: 0, anger: 0, sad: 0 };
   history.forEach((h) => counts[h.mood]++);

@@ -3,12 +3,14 @@ import { useEffect, useMemo, useState } from "react";
 import { Splash } from "@/components/Splash";
 import { MoodCheckIn } from "@/components/MoodCheckIn";
 import { PageShell } from "@/components/PageShell";
-import { Mascot, moodToMascot } from "@/components/Mascot";
+import { Mascot } from "@/components/Mascot";
 import { RequireAuth } from "@/components/RequireAuth";
 import { UserMenu } from "@/components/UserMenu";
 import { useAuth } from "@/lib/auth-context";
 import { cloudStore } from "@/lib/cloud-store";
-import { MOODS, MoodKey, getMoodMessage } from "@/lib/mood";
+import { MOODS } from "@/lib/mood";
+import { useTodayMood } from "@/lib/today-mood";
+import { MoodSticker } from "@/components/MoodSticker";
 import { Button } from "@/components/ui/button";
 import {
   Headphones,
@@ -91,25 +93,22 @@ const EMOTION_COLLECTIONS = [
 
 function HomePage() {
   const { user, displayName } = useAuth();
+  const today = useTodayMood();
   const [phase, setPhase] = useState<"splash" | "mood" | "ready">("splash");
-  const [todayMood, setTodayMood] = useState<MoodKey | null>(null);
   const [streak, setStreak] = useState(0);
   const [quoteIdx, setQuoteIdx] = useState(0);
 
+  // Decide whether to skip the pop-up: if today's check-in already exists, go straight to "ready".
   useEffect(() => {
-    if (!user) return;
-    (async () => {
-      const mood = await cloudStore.getTodayMood(user.id);
-      const history = await cloudStore.getMoodHistory(user.id);
-      setStreak(history.length);
-      if (mood) {
-        setTodayMood(mood);
-        setPhase("ready");
-      }
-    })();
-  }, [user]);
+    if (!user || today.loading) return;
+    cloudStore.getMoodHistory(user.id).then((h) => setStreak(h.length));
+    if (today.checkin && phase === "splash") {
+      // splash will still play once, then short-circuit mood pop-up.
+    }
+  }, [user, today.loading, today.checkin, phase]);
 
-  if (phase === "splash") return <Splash onDone={() => setPhase("mood")} />;
+  if (phase === "splash")
+    return <Splash onDone={() => setPhase(today.checkin ? "ready" : "mood")} />;
   if (phase === "mood")
     return (
       <MoodCheckIn
@@ -121,8 +120,9 @@ function HomePage() {
       />
     );
 
-  const mood = MOODS.find((m) => m.key === todayMood) ?? MOODS[1];
-  const message = todayMood ? getMoodMessage(todayMood) : "";
+  // Single source of truth — derived from the pop-up check-in.
+  const mood = today.mood ?? MOODS[1];
+  const message = today.message;
   const greeting = displayName ? `Chào ${displayName}` : "Chào bạn quay lại";
   const quote = DAILY_QUOTES[quoteIdx];
 
@@ -170,7 +170,7 @@ function HomePage() {
           <div className="hidden md:flex items-center justify-center relative">
             <div className="absolute inset-0 rounded-full bg-mint/40 blur-3xl opacity-50" />
             <div className="relative animate-[float_6s_ease-in-out_infinite]">
-              <Mascot size="lg" variant={moodToMascot(todayMood)} />
+              <Mascot size="lg" variant={today.mascot} />
             </div>
           </div>
         </div>
@@ -187,10 +187,19 @@ function HomePage() {
         style={{ background: `color-mix(in oklch, ${mood.colorVar} 22%, white)` }}
       >
         <div className="flex items-center gap-3">
-          <span className="text-3xl">{mood.emoji}</span>
+          {today.sticker ? (
+            <MoodSticker sticker={today.sticker} size={48} />
+          ) : (
+            <span className="text-3xl">{mood.emoji}</span>
+          )}
           <div>
             <p className="text-[11px] uppercase tracking-widest text-foreground/60">Cảm xúc hôm nay</p>
-            <p className="font-medium text-base">{mood.label}</p>
+            <p className="font-medium text-base capitalize">
+              {today.adjective ?? mood.label}
+            </p>
+            {today.sticker && (
+              <p className="text-[11px] text-foreground/50">{today.sticker.label}</p>
+            )}
           </div>
           <div className="ml-auto text-right">
             <p className="text-[11px] uppercase tracking-widest text-foreground/60">Streak</p>
