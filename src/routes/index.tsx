@@ -11,6 +11,7 @@ import { cloudStore } from "@/lib/cloud-store";
 import { MOODS } from "@/lib/mood";
 import { useTodayMood } from "@/lib/today-mood";
 import { MoodSticker } from "@/components/MoodSticker";
+import { BreathingDialog } from "@/components/BreathingDialog";
 import { Button } from "@/components/ui/button";
 import {
   Headphones,
@@ -97,6 +98,7 @@ function HomePage() {
   const [phase, setPhase] = useState<"splash" | "mood" | "ready">("splash");
   const [streak, setStreak] = useState(0);
   const [quoteIdx, setQuoteIdx] = useState(0);
+  const [breathingOpen, setBreathingOpen] = useState(false);
 
   // Decide whether to skip the pop-up: if today's check-in already exists, go straight to "ready".
   useEffect(() => {
@@ -344,10 +346,16 @@ function HomePage() {
           <p className="font-medium">Hít thở 1 phút cùng mascot</p>
           <p className="text-xs text-muted-foreground">Hít vào — giữ — thở ra. Chỉ vậy thôi.</p>
         </div>
-        <Button size="sm" className="rounded-full bg-blush-deep hover:bg-blush-deep/90 text-white">
+        <Button
+          size="sm"
+          className="rounded-full bg-blush-deep hover:bg-blush-deep/90 text-white"
+          onClick={() => setBreathingOpen(true)}
+        >
           Bắt đầu
         </Button>
       </section>
+
+      <BreathingDialog open={breathingOpen} onClose={() => setBreathingOpen(false)} />
 
       {/* Footer */}
       <footer className="text-center pb-6 pt-2 text-muted-foreground">

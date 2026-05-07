@@ -14,6 +14,27 @@ export type Database = {
   }
   public: {
     Tables: {
+      achievements: {
+        Row: {
+          badge_type: string
+          id: string
+          unlocked_at: string
+          user_id: string
+        }
+        Insert: {
+          badge_type: string
+          id?: string
+          unlocked_at?: string
+          user_id: string
+        }
+        Update: {
+          badge_type?: string
+          id?: string
+          unlocked_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       album_items: {
         Row: {
           album_id: string
@@ -80,6 +101,36 @@ export type Database = {
           updated_at?: string
           user_id?: string
           visibility?: string
+        }
+        Relationships: []
+      }
+      breathing_sessions: {
+        Row: {
+          completed: boolean
+          created_at: string
+          duration_seconds: number
+          entry_date: string
+          id: string
+          planned_seconds: number
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean
+          created_at?: string
+          duration_seconds?: number
+          entry_date?: string
+          id?: string
+          planned_seconds?: number
+          user_id: string
+        }
+        Update: {
+          completed?: boolean
+          created_at?: string
+          duration_seconds?: number
+          entry_date?: string
+          id?: string
+          planned_seconds?: number
+          user_id?: string
         }
         Relationships: []
       }
@@ -198,6 +249,7 @@ export type Database = {
           entry_date: string
           id: string
           is_public: boolean
+          note_private: string | null
           sticker_color: string
           sticker_type: string
           user_id: string
@@ -209,6 +261,7 @@ export type Database = {
           entry_date?: string
           id?: string
           is_public?: boolean
+          note_private?: string | null
           sticker_color: string
           sticker_type: string
           user_id: string
@@ -220,6 +273,7 @@ export type Database = {
           entry_date?: string
           id?: string
           is_public?: boolean
+          note_private?: string | null
           sticker_color?: string
           sticker_type?: string
           user_id?: string
