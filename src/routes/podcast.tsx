@@ -94,6 +94,66 @@ function PodcastPage() {
         <p className="text-muted-foreground text-sm mt-1">Mascot ngồi nghe cùng bạn 🎧</p>
       </header>
 
+      {/* Healing podcasts from admin (DB) */}
+      <section className="mb-8 animate-[fade-up_0.6s_ease-out]">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-sm uppercase tracking-widest text-muted-foreground flex items-center gap-2">
+            <Headphones className="w-3.5 h-3.5" /> Podcast chữa lành
+          </h2>
+          {moodLabel && (
+            <span className="text-xs text-mint-deep">
+              Gợi ý theo cảm xúc: {sticker?.label ?? moodLabel}
+            </span>
+          )}
+        </div>
+        {sortedPodcasts.length === 0 ? (
+          <p className="text-xs text-muted-foreground italic">Chưa có podcast nào được đăng tải.</p>
+        ) : (
+          <div className="space-y-3">
+            {sortedPodcasts.map((p) => {
+              const matched = moodKey && p.mood_targets.includes(moodKey);
+              const isPlaying = nowPlayingDb?.id === p.id;
+              return (
+                <div key={p.id} className={`rounded-3xl p-4 glass shadow-card border ${matched ? "border-mint/60" : "border-white/60"}`}>
+                  <div className="flex gap-3">
+                    <div className="w-16 h-16 rounded-2xl bg-mint/30 overflow-hidden shrink-0">
+                      {p.cover_image_url && <img src={p.cover_image_url} alt="" className="w-full h-full object-cover" />}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start gap-2">
+                        <h3 className="font-semibold text-sm flex-1 truncate">{p.title}</h3>
+                        {matched && <span className="text-[10px] px-2 py-0.5 rounded-full bg-mint/40 text-mint-deep shrink-0">Phù hợp</span>}
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{p.short_description}</p>
+                      {p.host && <p className="text-[10px] text-muted-foreground mt-1">🎙 {p.host}</p>}
+                      <div className="flex items-center gap-2 mt-2">
+                        {p.audio_url && (
+                          <Button size="sm" onClick={() => setNowPlayingDb(isPlaying ? null : p)}
+                            className="rounded-full h-7 text-xs bg-mint-deep hover:bg-mint-deep/90 text-white">
+                            {isPlaying ? <><Pause className="w-3 h-3 mr-1" />Đang phát</> : <><Play className="w-3 h-3 mr-1" />Nghe</>}
+                          </Button>
+                        )}
+                        {p.mood_targets.slice(0, 3).map((m) => (
+                          <span key={m} className="text-[10px] text-muted-foreground">
+                            #{MOOD_TARGETS.find((x) => x.value === m)?.label ?? m}
+                          </span>
+                        ))}
+                      </div>
+                      {isPlaying && p.audio_url && (
+                        <audio src={p.audio_url} controls autoPlay className="w-full mt-3" />
+                      )}
+                      {p.healing_message && (
+                        <p className="mt-3 text-xs italic text-mint-deep border-l-2 border-mint pl-2">💌 {p.healing_message}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </section>
+
       {/* Progress */}
       <section className="rounded-3xl p-5 glass shadow-card animate-[fade-up_0.6s_ease-out]">
         <div className="flex items-center justify-between mb-2">
