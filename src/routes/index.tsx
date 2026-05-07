@@ -170,7 +170,7 @@ function HomePage() {
           <div className="hidden md:flex items-center justify-center relative">
             <div className="absolute inset-0 rounded-full bg-mint/40 blur-3xl opacity-50" />
             <div className="relative animate-[float_6s_ease-in-out_infinite]">
-              <Mascot size="lg" variant={moodToMascot(todayMood)} />
+              <Mascot size="lg" variant={today.mascot} />
             </div>
           </div>
         </div>
