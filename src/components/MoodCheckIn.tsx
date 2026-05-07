@@ -61,6 +61,7 @@ export function MoodCheckIn({ onDone, onSkip }: Props) {
       setError(res.error);
       return;
     }
+    if (res.data) setCheckin(res.data);
     setThanks(true);
     setTimeout(() => onDone(), 1400);
   };
