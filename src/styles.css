@@ -45,8 +45,8 @@
   --color-blush: var(--blush);
   --color-blush-deep: var(--blush-deep);
 
-  --font-display: "Quicksand", "Inter", system-ui, sans-serif;
-  --font-sans: "Quicksand", "Inter", system-ui, sans-serif;
+  --font-display: "Comfortaa", "Playfair Display", "Quicksand", system-ui, serif;
+  --font-sans: "Nunito", "Be Vietnam Pro", "Inter", system-ui, sans-serif;
 
   --animate-breathe: breathe 4s ease-in-out infinite;
   --animate-float: float 6s ease-in-out infinite;
@@ -162,17 +162,34 @@
 
 @layer base {
   * { border-color: var(--color-border); }
+  html { font-size: 17px; }
+  @media (min-width: 768px) {
+    html { font-size: 18px; }
+  }
   body {
     background: var(--gradient-soft);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    font-weight: 500;
+    line-height: 1.7;
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
+  p { line-height: 1.75; }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    font-weight: 600;
-    letter-spacing: -0.01em;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    color: oklch(0.28 0.05 220);
   }
+  h1 { font-size: clamp(2.5rem, 6vw, 4rem); }
+  h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+  h3 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
+  h4 { font-size: 1.125rem; }
+  small, .text-xs { font-size: 0.875rem; }
+  button { font-family: var(--font-sans); font-weight: 600; }
 }
 
 @layer utilities {
