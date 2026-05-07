@@ -9,6 +9,8 @@ import { UserMenu } from "@/components/UserMenu";
 import { useAuth } from "@/lib/auth-context";
 import { cloudStore } from "@/lib/cloud-store";
 import { MOODS, MoodKey, getMoodMessage } from "@/lib/mood";
+import { useTodayMood } from "@/lib/today-mood";
+import { MoodSticker } from "@/components/MoodSticker";
 import { Button } from "@/components/ui/button";
 import {
   Headphones,
