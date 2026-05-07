@@ -72,13 +72,16 @@ function RootShell({ children }: { children: React.ReactNode }) {
 }
 
 import { AuthProvider } from "@/lib/auth-context";
+import { TodayMoodProvider } from "@/lib/today-mood";
 import { CapsuleNotification } from "@/components/CapsuleNotification";
 
 function RootComponent() {
   return (
     <AuthProvider>
-      <Outlet />
-      <CapsuleNotification />
+      <TodayMoodProvider>
+        <Outlet />
+        <CapsuleNotification />
+      </TodayMoodProvider>
     </AuthProvider>
   );
 }
