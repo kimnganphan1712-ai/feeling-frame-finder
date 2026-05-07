@@ -9,6 +9,7 @@ export interface MoodCheckin {
   sticker_color: string;
   entry_date: string;
   is_public: boolean;
+  note_private?: string | null;
   created_at: string;
 }
 
@@ -67,6 +68,24 @@ export const moodCheckinStore = {
       .order("created_at", { ascending: false })
       .limit(limit);
     return (data ?? []) as MoodCheckin[];
+  },
+
+  async listMine(userId: string): Promise<MoodCheckin[]> {
+    const { data } = await supabase
+      .from("mood_checkins")
+      .select("*")
+      .eq("user_id", userId)
+      .order("entry_date", { ascending: true });
+    return (data ?? []) as MoodCheckin[];
+  },
+
+  async updateNote(id: string, note: string): Promise<{ error?: string }> {
+    const { error } = await supabase
+      .from("mood_checkins")
+      .update({ note_private: note })
+      .eq("id", id);
+    if (error) return { error: error.message };
+    return {};
   },
 
   async deleteOne(id: string): Promise<{ error?: string }> {
