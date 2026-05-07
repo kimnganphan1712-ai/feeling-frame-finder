@@ -93,25 +93,22 @@ const EMOTION_COLLECTIONS = [
 
 function HomePage() {
   const { user, displayName } = useAuth();
+  const today = useTodayMood();
   const [phase, setPhase] = useState<"splash" | "mood" | "ready">("splash");
-  const [todayMood, setTodayMood] = useState<MoodKey | null>(null);
   const [streak, setStreak] = useState(0);
   const [quoteIdx, setQuoteIdx] = useState(0);
 
+  // Decide whether to skip the pop-up: if today's check-in already exists, go straight to "ready".
   useEffect(() => {
-    if (!user) return;
-    (async () => {
-      const mood = await cloudStore.getTodayMood(user.id);
-      const history = await cloudStore.getMoodHistory(user.id);
-      setStreak(history.length);
-      if (mood) {
-        setTodayMood(mood);
-        setPhase("ready");
-      }
-    })();
-  }, [user]);
+    if (!user || today.loading) return;
+    cloudStore.getMoodHistory(user.id).then((h) => setStreak(h.length));
+    if (today.checkin && phase === "splash") {
+      // splash will still play once, then short-circuit mood pop-up.
+    }
+  }, [user, today.loading, today.checkin, phase]);
 
-  if (phase === "splash") return <Splash onDone={() => setPhase("mood")} />;
+  if (phase === "splash")
+    return <Splash onDone={() => setPhase(today.checkin ? "ready" : "mood")} />;
   if (phase === "mood")
     return (
       <MoodCheckIn
@@ -123,8 +120,9 @@ function HomePage() {
       />
     );
 
-  const mood = MOODS.find((m) => m.key === todayMood) ?? MOODS[1];
-  const message = todayMood ? getMoodMessage(todayMood) : "";
+  // Single source of truth — derived from the pop-up check-in.
+  const mood = today.mood ?? MOODS[1];
+  const message = today.message;
   const greeting = displayName ? `Chào ${displayName}` : "Chào bạn quay lại";
   const quote = DAILY_QUOTES[quoteIdx];
 
