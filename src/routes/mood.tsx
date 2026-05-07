@@ -3,6 +3,7 @@ import { PageShell } from "@/components/PageShell";
 import { RequireAuth } from "@/components/RequireAuth";
 import { MOODS, MoodKey } from "@/lib/mood";
 import { useAuth } from "@/lib/auth-context";
+import { useTodayMood } from "@/lib/today-mood";
 import { cloudStore, JournalEntry } from "@/lib/cloud-store";
 import { useEffect, useMemo, useState } from "react";
 import { Sparkles, TrendingUp, ChevronLeft, ChevronRight, X } from "lucide-react";
