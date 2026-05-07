@@ -45,8 +45,8 @@
   --color-blush: var(--blush);
   --color-blush-deep: var(--blush-deep);
 
-  --font-display: "Quicksand", "Inter", system-ui, sans-serif;
-  --font-sans: "Quicksand", "Inter", system-ui, sans-serif;
+  --font-display: "Comfortaa", "Playfair Display", "Quicksand", system-ui, serif;
+  --font-sans: "Nunito", "Be Vietnam Pro", "Inter", system-ui, sans-serif;
 
   --animate-breathe: breathe 4s ease-in-out infinite;
   --animate-float: float 6s ease-in-out infinite;
