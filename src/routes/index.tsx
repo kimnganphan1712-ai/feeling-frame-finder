@@ -158,12 +158,12 @@ function HomePage() {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link to="/journal">
                 <Button className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white shadow-soft px-5">
-                  <BookHeart className="w-4 h-4 mr-2" /> Viết nhật ký hôm nay
+                  <BookHeart className="w-4 h-4 mr-2" /> Mở hồ sơ cảm xúc
                 </Button>
               </Link>
               <Link to="/podcast">
                 <Button variant="outline" className="rounded-full border-mint-deep/40 text-mint-deep hover:bg-mint/30 px-5">
-                  <Headphones className="w-4 h-4 mr-2" /> Nghe podcast chữa lành
+                  <Headphones className="w-4 h-4 mr-2" /> Tần số chữa lành
                 </Button>
               </Link>
             </div>
