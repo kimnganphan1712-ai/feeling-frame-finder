@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import { localDateKey } from "@/lib/utils";
 
 export interface MoodCheckin {
   id: string;
