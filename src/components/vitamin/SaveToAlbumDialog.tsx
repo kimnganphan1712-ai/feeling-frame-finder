@@ -20,9 +20,10 @@ export function SaveToAlbumDialog({ open, quoteId, onClose }: { open: boolean; q
     setSavedTo([]);
   }, [open]);
 
-  if (!open || !quoteId) return null;
+  if (!open) return null;
 
   const addTo = async (id: string) => {
+    if (!quoteId) return;
     setBusyId(id);
     await vitaminStore.addQuoteToAlbum(id, quoteId);
     setSavedTo((s) => [...s, id]);
@@ -35,11 +36,12 @@ export function SaveToAlbumDialog({ open, quoteId, onClose }: { open: boolean; q
     if (coverFile) coverUrl = await vitaminStore.uploadImage(coverFile, "album");
     const res = await vitaminStore.createAlbum({ title, visibility: vis, cover_image_url: coverUrl });
     if (res.id) {
-      await vitaminStore.addQuoteToAlbum(res.id, quoteId);
+      if (quoteId) await vitaminStore.addQuoteToAlbum(res.id, quoteId);
       const a = await vitaminStore.myAlbums();
       setAlbums(a);
-      setSavedTo((s) => [...s, res.id!]);
+      if (quoteId) setSavedTo((s) => [...s, res.id!]);
       setTitle(""); setCoverFile(null); setCreating(false);
+      if (!quoteId) onClose();
     }
     setBusyId(null);
   };
