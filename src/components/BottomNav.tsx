@@ -1,13 +1,14 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Home, Heart, Headphones, BookHeart, Sparkles } from "lucide-react";
+import { Home, BookHeart, Headphones, Sparkles, Globe2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+// Concept "Hospital Playlist": dùng tên dịu dàng, label rút gọn để vừa mobile.
 const items = [
-  { to: "/", label: "Trang chủ", icon: Home },
-  { to: "/mood", label: "Cảm xúc", icon: Heart },
-  { to: "/podcast", label: "Podcast", icon: Headphones },
-  { to: "/journal", label: "Nhật ký", icon: BookHeart },
-  { to: "/vitamin", label: "Vitamin", icon: Sparkles },
+  { to: "/", label: "Trạm", icon: Home, full: "Trạm cảm xúc" },
+  { to: "/journal", label: "Hồ sơ", icon: BookHeart, full: "Hồ sơ cảm xúc" },
+  { to: "/podcast", label: "Tần số", icon: Headphones, full: "Tần số chữa lành" },
+  { to: "/vitamin", label: "Dưỡng chất", icon: Sparkles, full: "Dưỡng chất tinh thần" },
+  { to: "/mood-board", label: "Kết nối", icon: Globe2, full: "Không gian kết nối" },
 ] as const;
 
 export function BottomNav() {
