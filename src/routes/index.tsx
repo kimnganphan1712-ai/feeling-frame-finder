@@ -83,14 +83,6 @@ const HEALING_SUGGESTIONS = [
   },
 ];
 
-const EMOTION_COLLECTIONS = [
-  { title: "Khi bạn thấy cô đơn", desc: "Cho những đêm dài lặng tiếng.", emoji: "🌙" },
-  { title: "Khi bạn cần ngủ ngon", desc: "Tiếng thở của một giấc dịu.", emoji: "🌿" },
-  { title: "Khi bạn nhớ một người", desc: "Một chỗ để giữ nỗi nhớ ấm.", emoji: "🤍" },
-  { title: "Khi bạn muốn bắt đầu lại", desc: "Bắt đầu nhỏ thôi cũng được.", emoji: "🌱" },
-  { title: "Khi bạn thấy mình không đủ tốt", desc: "Bạn đã đủ, từ lúc bạn ở đây.", emoji: "🪷" },
-  { title: "Khi bạn cần một cái ôm tinh thần", desc: "Một vòng tay vô hình, gửi bạn.", emoji: "🫧" },
-];
 
 function HomePage() {
   const { user, displayName } = useAuth();
