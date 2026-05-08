@@ -20,7 +20,7 @@ export const store = {
   },
   setTodayMood(mood: MoodKey) {
     localStorage.setItem(KEY_MOOD, mood);
-    const today = new Date().toISOString().slice(0, 10);
+    const today = localDateKey();
     const history = this.getHistory().filter((h) => h.date !== today);
     history.push({ date: today, mood });
     localStorage.setItem(KEY_HISTORY, JSON.stringify(history));
