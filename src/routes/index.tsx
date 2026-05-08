@@ -61,10 +61,10 @@ const HEALING_SUGGESTIONS = [
     tint: "var(--mint)",
   },
   {
-    tag: "Journal",
-    title: "Gọi tên cảm xúc",
-    desc: "Một bài viết hướng dẫn bạn viết ra điều mình đang cảm thấy mà không phán xét.",
-    to: "/journal" as const,
+    tag: "Đơn thuốc",
+    title: "Đơn thuốc tinh thần hôm nay",
+    desc: "Một toa thuốc dịu dàng được kê riêng cho trái tim bạn hôm nay.",
+    to: "/prescription" as const,
     tint: "var(--blush)",
   },
   {

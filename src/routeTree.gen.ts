@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VitaminRouteImport } from './routes/vitamin'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as PrescriptionRouteImport } from './routes/prescription'
 import { Route as PodcastRouteImport } from './routes/podcast'
 import { Route as MoodBoardRouteImport } from './routes/mood-board'
 import { Route as MoodRouteImport } from './routes/mood'
@@ -32,6 +33,11 @@ const VitaminRoute = VitaminRouteImport.update({
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrescriptionRoute = PrescriptionRouteImport.update({
+  id: '/prescription',
+  path: '/prescription',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PodcastRoute = PodcastRouteImport.update({
@@ -102,6 +108,7 @@ export interface FileRoutesByFullPath {
   '/mood': typeof MoodRoute
   '/mood-board': typeof MoodBoardRoute
   '/podcast': typeof PodcastRoute
+  '/prescription': typeof PrescriptionRoute
   '/reset-password': typeof ResetPasswordRoute
   '/vitamin': typeof VitaminRoute
   '/admin/community': typeof AdminCommunityRoute
@@ -118,6 +125,7 @@ export interface FileRoutesByTo {
   '/mood': typeof MoodRoute
   '/mood-board': typeof MoodBoardRoute
   '/podcast': typeof PodcastRoute
+  '/prescription': typeof PrescriptionRoute
   '/reset-password': typeof ResetPasswordRoute
   '/vitamin': typeof VitaminRoute
   '/admin/community': typeof AdminCommunityRoute
@@ -135,6 +143,7 @@ export interface FileRoutesById {
   '/mood': typeof MoodRoute
   '/mood-board': typeof MoodBoardRoute
   '/podcast': typeof PodcastRoute
+  '/prescription': typeof PrescriptionRoute
   '/reset-password': typeof ResetPasswordRoute
   '/vitamin': typeof VitaminRoute
   '/admin/community': typeof AdminCommunityRoute
@@ -153,6 +162,7 @@ export interface FileRouteTypes {
     | '/mood'
     | '/mood-board'
     | '/podcast'
+    | '/prescription'
     | '/reset-password'
     | '/vitamin'
     | '/admin/community'
@@ -169,6 +179,7 @@ export interface FileRouteTypes {
     | '/mood'
     | '/mood-board'
     | '/podcast'
+    | '/prescription'
     | '/reset-password'
     | '/vitamin'
     | '/admin/community'
@@ -185,6 +196,7 @@ export interface FileRouteTypes {
     | '/mood'
     | '/mood-board'
     | '/podcast'
+    | '/prescription'
     | '/reset-password'
     | '/vitamin'
     | '/admin/community'
@@ -202,6 +214,7 @@ export interface RootRouteChildren {
   MoodRoute: typeof MoodRoute
   MoodBoardRoute: typeof MoodBoardRoute
   PodcastRoute: typeof PodcastRoute
+  PrescriptionRoute: typeof PrescriptionRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   VitaminRoute: typeof VitaminRoute
   AdminCommunityRoute: typeof AdminCommunityRoute
@@ -226,6 +239,13 @@ declare module '@tanstack/react-router' {
       path: '/reset-password'
       fullPath: '/reset-password'
       preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/prescription': {
+      id: '/prescription'
+      path: '/prescription'
+      fullPath: '/prescription'
+      preLoaderRoute: typeof PrescriptionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/podcast': {
@@ -322,6 +342,7 @@ const rootRouteChildren: RootRouteChildren = {
   MoodRoute: MoodRoute,
   MoodBoardRoute: MoodBoardRoute,
   PodcastRoute: PodcastRoute,
+  PrescriptionRoute: PrescriptionRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   VitaminRoute: VitaminRoute,
   AdminCommunityRoute: AdminCommunityRoute,
