@@ -177,7 +177,7 @@ export function MoodCheckIn({ onDone, onSkip }: Props) {
                   disabled={submitting}
                   className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white px-7 py-5 text-base shadow-soft transition-all"
                 >
-                  {submitting ? "Đang gửi…" : "Gửi về trạm"}
+                  {submitting ? "Đang gửi…" : existing ? "Cập nhật cảm xúc" : "Gửi về trạm"}
                 </Button>
               </div>
 
