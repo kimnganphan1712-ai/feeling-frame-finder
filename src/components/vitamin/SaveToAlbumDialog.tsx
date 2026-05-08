@@ -52,10 +52,12 @@ export function SaveToAlbumDialog({ open, quoteId, onClose }: { open: boolean; q
         <button onClick={onClose} className="absolute top-4 right-4 text-muted-foreground hover:text-foreground">
           <X className="w-5 h-5" />
         </button>
-        <h3 className="text-xl font-semibold">Lưu vào album</h3>
-        <p className="text-xs text-muted-foreground mt-1">Chọn album sẵn có hoặc tạo album mới.</p>
+        <h3 className="text-xl font-semibold">{quoteId ? "Lưu vào album" : "Tạo album mới"}</h3>
+        <p className="text-xs text-muted-foreground mt-1">
+          {quoteId ? "Chọn album sẵn có hoặc tạo album mới." : "Đặt tên, chọn chế độ và ảnh bìa cho album của bạn."}
+        </p>
 
-        {loading ? (
+        {quoteId && (loading ? (
           <div className="py-10 flex justify-center"><Loader2 className="w-5 h-5 animate-spin text-mint-deep" /></div>
         ) : (
           <div className="mt-4 space-y-2 max-h-[40vh] overflow-y-auto pr-1">
@@ -83,7 +85,7 @@ export function SaveToAlbumDialog({ open, quoteId, onClose }: { open: boolean; q
               );
             })}
           </div>
-        )}
+        ))}
 
         {creating ? (
           <div className="mt-4 space-y-3 border-t border-border pt-4">
