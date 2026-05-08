@@ -24,6 +24,7 @@ import { Route as AdminQuotesRouteImport } from './routes/admin/quotes'
 import { Route as AdminProjectPageRouteImport } from './routes/admin/project-page'
 import { Route as AdminPodcastsRouteImport } from './routes/admin/podcasts'
 import { Route as AdminHealingRouteImport } from './routes/admin/healing'
+import { Route as AdminEmotionCornersRouteImport } from './routes/admin/emotion-corners'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
 import { Route as AdminCommunityRouteImport } from './routes/admin/community'
 
@@ -102,6 +103,11 @@ const AdminHealingRoute = AdminHealingRouteImport.update({
   path: '/admin/healing',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminEmotionCornersRoute = AdminEmotionCornersRouteImport.update({
+  id: '/admin/emotion-corners',
+  path: '/admin/emotion-corners',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
   id: '/admin/dashboard',
   path: '/admin/dashboard',
@@ -126,6 +132,7 @@ export interface FileRoutesByFullPath {
   '/vitamin': typeof VitaminRoute
   '/admin/community': typeof AdminCommunityRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/emotion-corners': typeof AdminEmotionCornersRoute
   '/admin/healing': typeof AdminHealingRoute
   '/admin/podcasts': typeof AdminPodcastsRoute
   '/admin/project-page': typeof AdminProjectPageRoute
@@ -145,6 +152,7 @@ export interface FileRoutesByTo {
   '/vitamin': typeof VitaminRoute
   '/admin/community': typeof AdminCommunityRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/emotion-corners': typeof AdminEmotionCornersRoute
   '/admin/healing': typeof AdminHealingRoute
   '/admin/podcasts': typeof AdminPodcastsRoute
   '/admin/project-page': typeof AdminProjectPageRoute
@@ -165,6 +173,7 @@ export interface FileRoutesById {
   '/vitamin': typeof VitaminRoute
   '/admin/community': typeof AdminCommunityRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/emotion-corners': typeof AdminEmotionCornersRoute
   '/admin/healing': typeof AdminHealingRoute
   '/admin/podcasts': typeof AdminPodcastsRoute
   '/admin/project-page': typeof AdminProjectPageRoute
@@ -186,6 +195,7 @@ export interface FileRouteTypes {
     | '/vitamin'
     | '/admin/community'
     | '/admin/dashboard'
+    | '/admin/emotion-corners'
     | '/admin/healing'
     | '/admin/podcasts'
     | '/admin/project-page'
@@ -205,6 +215,7 @@ export interface FileRouteTypes {
     | '/vitamin'
     | '/admin/community'
     | '/admin/dashboard'
+    | '/admin/emotion-corners'
     | '/admin/healing'
     | '/admin/podcasts'
     | '/admin/project-page'
@@ -224,6 +235,7 @@ export interface FileRouteTypes {
     | '/vitamin'
     | '/admin/community'
     | '/admin/dashboard'
+    | '/admin/emotion-corners'
     | '/admin/healing'
     | '/admin/podcasts'
     | '/admin/project-page'
@@ -244,6 +256,7 @@ export interface RootRouteChildren {
   VitaminRoute: typeof VitaminRoute
   AdminCommunityRoute: typeof AdminCommunityRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminEmotionCornersRoute: typeof AdminEmotionCornersRoute
   AdminHealingRoute: typeof AdminHealingRoute
   AdminPodcastsRoute: typeof AdminPodcastsRoute
   AdminProjectPageRoute: typeof AdminProjectPageRoute
@@ -358,6 +371,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminHealingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/emotion-corners': {
+      id: '/admin/emotion-corners'
+      path: '/admin/emotion-corners'
+      fullPath: '/admin/emotion-corners'
+      preLoaderRoute: typeof AdminEmotionCornersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/dashboard': {
       id: '/admin/dashboard'
       path: '/admin/dashboard'
@@ -388,6 +408,7 @@ const rootRouteChildren: RootRouteChildren = {
   VitaminRoute: VitaminRoute,
   AdminCommunityRoute: AdminCommunityRoute,
   AdminDashboardRoute: AdminDashboardRoute,
+  AdminEmotionCornersRoute: AdminEmotionCornersRoute,
   AdminHealingRoute: AdminHealingRoute,
   AdminPodcastsRoute: AdminPodcastsRoute,
   AdminProjectPageRoute: AdminProjectPageRoute,

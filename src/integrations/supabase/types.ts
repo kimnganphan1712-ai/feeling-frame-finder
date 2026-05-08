@@ -134,6 +134,39 @@ export type Database = {
         }
         Relationships: []
       }
+      emotion_corner_events: {
+        Row: {
+          corner_key: string
+          created_at: string
+          cta_index: number | null
+          cta_label: string | null
+          cta_target: string | null
+          event_type: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          corner_key: string
+          created_at?: string
+          cta_index?: number | null
+          cta_label?: string | null
+          cta_target?: string | null
+          event_type: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          corner_key?: string
+          created_at?: string
+          cta_index?: number | null
+          cta_label?: string | null
+          cta_target?: string | null
+          event_type?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       healing_works: {
         Row: {
           created_at: string

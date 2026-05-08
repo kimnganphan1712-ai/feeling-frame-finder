@@ -3,7 +3,7 @@ import { RequireAdmin } from "@/components/RequireAdmin";
 import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
 import { PageShell } from "@/components/PageShell";
-import { Quote, Sparkles, LogOut, Headphones, Globe2, Stethoscope } from "lucide-react";
+import { Quote, Sparkles, LogOut, Headphones, Globe2, Stethoscope, BarChart3 } from "lucide-react";
 
 export const Route = createFileRoute("/admin/dashboard")({
   component: () => (
@@ -73,6 +73,14 @@ function AdminDashboard() {
             title="Trang Phác đồ chữa lành"
             description="Chỉnh nội dung, ảnh và thứ tự các phần của trang dự án (về Hospital Playlist)."
             tint="var(--mint)"
+          />
+        </Link>
+        <Link to="/admin/emotion-corners">
+          <AdminCard
+            icon={<BarChart3 className="w-6 h-6" />}
+            title="Tương tác Góc cảm xúc"
+            description="Xem người dùng mở góc cảm xúc nào và chọn hành động chữa lành nào nhiều nhất."
+            tint="var(--blush)"
           />
         </Link>
       </section>

@@ -1,10 +1,11 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Mascot } from "@/components/Mascot";
 import { BookHeart, Headphones, Heart, RefreshCw, Sparkles, Wind } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { logEmotionCornerEvent } from "@/lib/emotion-corner-analytics";
 
 export interface EmotionCorner {
   key: string;
@@ -43,6 +44,12 @@ export function EmotionCornerDialog({ corner, open, onOpenChange }: Props) {
     const idx = seed % corner.quotes.length;
     return corner.quotes[idx];
   }, [corner, seed]);
+
+  useEffect(() => {
+    if (open && corner) {
+      logEmotionCornerEvent({ cornerKey: corner.key, eventType: "open" });
+    }
+  }, [open, corner]);
 
   if (!corner) return null;
 
@@ -88,7 +95,15 @@ export function EmotionCornerDialog({ corner, open, onOpenChange }: Props) {
                   key={i}
                   size="sm"
                   variant="outline"
-                  onClick={() => setSeed((s) => s + 1)}
+                  onClick={() => {
+                    setSeed((s) => s + 1);
+                    logEmotionCornerEvent({
+                      cornerKey: corner.key,
+                      eventType: "random_quote",
+                      ctaLabel: cta.label,
+                      ctaIndex: i,
+                    });
+                  }}
                   className="rounded-full"
                 >
                   <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
@@ -99,7 +114,20 @@ export function EmotionCornerDialog({ corner, open, onOpenChange }: Props) {
             const Icon = cta.icon ? ICONS[cta.icon] ?? Heart : Heart;
             const primary = i === 0;
             return (
-              <Link key={i} to={cta.to as "/journal"} onClick={() => onOpenChange(false)}>
+              <Link
+                key={i}
+                to={cta.to as "/journal"}
+                onClick={() => {
+                  logEmotionCornerEvent({
+                    cornerKey: corner.key,
+                    eventType: "cta_click",
+                    ctaLabel: cta.label,
+                    ctaTarget: cta.to,
+                    ctaIndex: i,
+                  });
+                  onOpenChange(false);
+                }}
+              >
                 <Button
                   size="sm"
                   className={
