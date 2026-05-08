@@ -252,9 +252,9 @@ function JournalPage() {
         <div className="min-h-[70vh] flex flex-col items-center justify-center text-center animate-[fade-up_0.8s_ease-out] relative">
           <div className="absolute inset-0 bg-gradient-mascot opacity-40 -z-0" />
           <Mascot size="lg" variant="encourage" floating glow />
-          <h1 className="mt-6 text-3xl font-semibold">Phòng riêng của bạn</h1>
+          <h1 className="mt-6 text-3xl font-semibold">Hồ sơ cảm xúc</h1>
           <p className="mt-3 text-muted-foreground max-w-sm leading-relaxed">
-            Đây là nơi an toàn, không ai đọc được. Bạn có thể nói thật mọi thứ ở đây.
+            Căn phòng riêng để bạn lưu lại những điều trái tim đã đi qua.
           </p>
           <div className="mt-6 flex items-center gap-2 text-xs text-mint-deep">
             <Lock className="w-3.5 h-3.5" /> Riêng tư · Khoá bằng PIN 6 số
