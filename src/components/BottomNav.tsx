@@ -1,14 +1,14 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Home, BookHeart, Headphones, Sparkles, Globe2 } from "lucide-react";
+import { Home, BookHeart, Headphones, Sparkles, Globe2, Stethoscope } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// Concept "Hospital Playlist": dùng tên dịu dàng, label rút gọn để vừa mobile.
 const items = [
   { to: "/", label: "Trạm", icon: Home, full: "Trạm cảm xúc" },
   { to: "/journal", label: "Hồ sơ", icon: BookHeart, full: "Hồ sơ cảm xúc" },
   { to: "/podcast", label: "Tần số", icon: Headphones, full: "Tần số chữa lành" },
   { to: "/vitamin", label: "Dưỡng chất", icon: Sparkles, full: "Dưỡng chất tinh thần" },
   { to: "/mood-board", label: "Kết nối", icon: Globe2, full: "Không gian kết nối" },
+  { to: "/about", label: "Phác đồ", icon: Stethoscope, full: "Phác đồ chữa lành" },
 ] as const;
 
 export function BottomNav() {
@@ -16,12 +16,12 @@ export function BottomNav() {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-40 px-3 pb-3 pt-2 pointer-events-none">
-      <div className="glass-strong shadow-soft rounded-3xl mx-auto max-w-lg pointer-events-auto border border-mint/40">
-        <ul className="flex items-center justify-around px-1 py-2">
+      <div className="glass-strong shadow-soft rounded-3xl mx-auto max-w-2xl pointer-events-auto border border-mint/40">
+        <ul className="flex items-center justify-around px-1 py-2 overflow-x-auto no-scrollbar gap-1">
           {items.map(({ to, label, icon: Icon, full }) => {
             const active = path === to;
             return (
-              <li key={to}>
+              <li key={to} className="shrink-0">
                 <Link
                   to={to}
                   title={full}
