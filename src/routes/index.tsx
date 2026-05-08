@@ -12,6 +12,7 @@ import { MOODS } from "@/lib/mood";
 import { useTodayMood } from "@/lib/today-mood";
 import { MoodSticker } from "@/components/MoodSticker";
 import { BreathingDialog } from "@/components/BreathingDialog";
+import { EmotionCornerDialog, EMOTION_CORNERS, type EmotionCorner } from "@/components/EmotionCornerDialog";
 import { Button } from "@/components/ui/button";
 import {
   Headphones,
@@ -83,14 +84,6 @@ const HEALING_SUGGESTIONS = [
   },
 ];
 
-const EMOTION_COLLECTIONS = [
-  { title: "Khi bạn thấy cô đơn", desc: "Cho những đêm dài lặng tiếng.", emoji: "🌙" },
-  { title: "Khi bạn cần ngủ ngon", desc: "Tiếng thở của một giấc dịu.", emoji: "🌿" },
-  { title: "Khi bạn nhớ một người", desc: "Một chỗ để giữ nỗi nhớ ấm.", emoji: "🤍" },
-  { title: "Khi bạn muốn bắt đầu lại", desc: "Bắt đầu nhỏ thôi cũng được.", emoji: "🌱" },
-  { title: "Khi bạn thấy mình không đủ tốt", desc: "Bạn đã đủ, từ lúc bạn ở đây.", emoji: "🪷" },
-  { title: "Khi bạn cần một cái ôm tinh thần", desc: "Một vòng tay vô hình, gửi bạn.", emoji: "🫧" },
-];
 
 function HomePage() {
   const { user, displayName } = useAuth();
@@ -99,6 +92,7 @@ function HomePage() {
   const [streak, setStreak] = useState(0);
   const [quoteIdx, setQuoteIdx] = useState(0);
   const [breathingOpen, setBreathingOpen] = useState(false);
+  const [activeCorner, setActiveCorner] = useState<EmotionCorner | null>(null);
 
   // Decide whether to skip the pop-up: if today's check-in already exists, go straight to "ready".
   useEffect(() => {
@@ -290,19 +284,32 @@ function HomePage() {
       {/* Emotion collections */}
       <SectionHeader kicker="góc cảm xúc" title="Chọn một góc cho hôm nay" />
       <section className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-        {EMOTION_COLLECTIONS.map((c) => (
-          <div
-            key={c.title}
-            className="group rounded-3xl bg-card border border-border/60 shadow-card p-5 hover:-translate-y-0.5 hover:shadow-soft transition-all duration-300 cursor-pointer"
+        {EMOTION_CORNERS.map((c) => (
+          <button
+            key={c.key}
+            type="button"
+            onClick={() => setActiveCorner(c)}
+            className="group text-left rounded-3xl bg-card border border-border/60 shadow-card p-5 hover:-translate-y-0.5 hover:shadow-soft hover:bg-gradient-to-br hover:from-white hover:to-mint/15 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-mint-deep/40"
           >
-            <div className="w-14 h-14 rounded-2xl bg-mint/30 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+            <div className="w-14 h-14 rounded-2xl bg-mint/30 flex items-center justify-center text-2xl group-hover:scale-110 group-hover:rotate-3 transition-transform">
               {c.emoji}
             </div>
-            <h4 className="mt-3 font-display text-sm md:text-base text-foreground/90 leading-snug">{c.title}</h4>
+            <h4 className="mt-3 font-display text-sm md:text-base text-foreground/90 leading-snug group-hover:text-mint-deep transition-colors">
+              {c.title}
+            </h4>
             <p className="mt-1 text-[11px] md:text-xs text-muted-foreground italic">{c.desc}</p>
-          </div>
+            <p className="mt-3 text-[10px] uppercase tracking-[0.2em] text-mint-deep/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
+              Chạm để mở góc này <ChevronRight className="w-3 h-3" />
+            </p>
+          </button>
         ))}
       </section>
+
+      <EmotionCornerDialog
+        corner={activeCorner}
+        open={!!activeCorner}
+        onOpenChange={(o) => !o && setActiveCorner(null)}
+      />
 
       {/* Private journal */}
       <section className="mt-12 mb-6 relative rounded-[28px] overflow-hidden border border-mint/40 shadow-card">
