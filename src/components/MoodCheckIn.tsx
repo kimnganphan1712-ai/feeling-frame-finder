@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Sparkles, Globe2 } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { moodCheckinStore, checkAdjective, MoodCheckin } from "@/lib/mood-checkin-store";
-import { useTodayMood } from "@/lib/today-mood";
+import { useTodayMood, stickerToMascot } from "@/lib/today-mood";
 import { STICKERS } from "@/lib/stickers";
 
 interface Props {
@@ -66,11 +66,14 @@ export function MoodCheckIn({ onDone, onSkip }: Props) {
     setTimeout(() => onDone(), 1400);
   };
 
+  const selectedSticker = STICKERS.find((s) => s.type === stickerType) ?? null;
+  const liveMascot = thanks ? "happy" : selectedSticker ? stickerToMascot(selectedSticker.type) : existing ? "encourage" : "question";
+
   return (
     <div className="fixed inset-0 z-50 bg-gradient-welcome/85 backdrop-blur-md flex items-center justify-center p-4 animate-[fade-up_0.7s_ease-out]">
-      <div className="glass-strong rounded-[2rem] shadow-[0_20px_60px_-20px_rgba(80,120,140,0.25)] max-w-lg w-full p-8 md:p-10 relative border-0 ring-1 ring-white/50">
+      <div className="glass-strong rounded-[2rem] shadow-[0_20px_60px_-20px_rgba(80,120,140,0.25)] max-w-xl w-full p-8 md:p-10 relative border-0 ring-1 ring-white/50">
         <div className="flex flex-col items-center text-center">
-          <Mascot size="md" variant={thanks ? "happy" : existing ? "encourage" : "question"} floating />
+          <Mascot size="md" variant={liveMascot} floating />
 
           {!loaded ? (
             <div className="py-12 text-sm text-muted-foreground">Đang lắng nghe…</div>
@@ -144,18 +147,41 @@ export function MoodCheckIn({ onDone, onSkip }: Props) {
               <p className="mt-4 text-sm md:text-[15px] text-mint-deep/90 font-medium">
                 Chọn một tín hiệu để trạm hiểu bạn hơn
               </p>
-              <div className="mt-4 flex flex-wrap justify-center gap-4">
+              <div className="mt-4 grid grid-cols-5 gap-x-3 gap-y-4 sm:gap-x-5 sm:gap-y-5 justify-items-center w-full max-w-md">
                 {STICKERS.map((s) => (
-                  <MoodSticker
+                  <button
                     key={s.type}
-                    sticker={s}
-                    size={56}
-                    selected={stickerType === s.type}
+                    type="button"
                     onClick={() => { setStickerType(s.type); if (error) setError(null); }}
-                    title={s.label}
-                  />
+                    className="flex flex-col items-center gap-1.5 group focus:outline-none"
+                  >
+                    <MoodSticker
+                      sticker={s}
+                      size={52}
+                      selected={stickerType === s.type}
+                      title={s.label}
+                    />
+                    <span
+                      className={`text-[11px] sm:text-xs leading-tight transition-colors ${
+                        stickerType === s.type
+                          ? "text-mint-deep font-semibold"
+                          : "text-muted-foreground group-hover:text-foreground/80"
+                      }`}
+                    >
+                      {s.label}
+                    </span>
+                  </button>
                 ))}
               </div>
+
+              {selectedSticker?.reaction && (
+                <p
+                  key={selectedSticker.type}
+                  className="mt-4 text-sm md:text-[15px] text-foreground/85 italic max-w-md animate-[fade-up_0.4s_ease-out]"
+                >
+                  {selectedSticker.reaction}
+                </p>
+              )}
 
               {error && (
                 <p className="mt-4 text-sm text-blush-deep bg-blush/30 px-4 py-2 rounded-full">

@@ -14,12 +14,16 @@ export function stickerToMoodKey(stickerType: string | null | undefined): MoodKe
   switch (stickerType) {
     case "happy_yellow":
     case "grateful_pink":
+    case "hopeful_teal":
       return "joy";
     case "calm_green":
-    case "special_blue":
       return "calm";
+    case "angry_coral":
+    case "stress_peach":
     case "stress_red":
       return "anger";
+    case "sad_purple":
+    case "tired_blue":
     case "worry_purple":
     case "empty_gray":
       return "sad";
@@ -31,17 +35,18 @@ export function stickerToMoodKey(stickerType: string | null | undefined): MoodKe
 export function stickerToMascot(stickerType: string | null | undefined): MascotVariant {
   switch (stickerType) {
     case "happy_yellow":
-      return "happy";
     case "grateful_pink":
+    case "hopeful_teal":
       return "happy";
     case "calm_green":
       return "default";
-    case "special_blue":
-      return "question";
+    case "angry_coral":
+    case "stress_peach":
     case "stress_red":
       return "encourage";
+    case "sad_purple":
+    case "tired_blue":
     case "worry_purple":
-      return "comfort";
     case "empty_gray":
       return "comfort";
     default:
