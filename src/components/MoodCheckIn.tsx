@@ -67,8 +67,8 @@ export function MoodCheckIn({ onDone, onSkip }: Props) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-gradient-welcome/85 backdrop-blur-md flex items-center justify-center p-4 animate-[fade-up_0.5s_ease-out]">
-      <div className="glass-strong rounded-3xl shadow-soft max-w-lg w-full p-7 md:p-9 relative border border-white/60">
+    <div className="fixed inset-0 z-50 bg-gradient-welcome/85 backdrop-blur-md flex items-center justify-center p-4 animate-[fade-up_0.7s_ease-out]">
+      <div className="glass-strong rounded-[2rem] shadow-[0_20px_60px_-20px_rgba(80,120,140,0.25)] max-w-lg w-full p-8 md:p-10 relative border-0 ring-1 ring-white/50">
         <div className="flex flex-col items-center text-center">
           <Mascot size="md" variant={thanks ? "happy" : existing ? "encourage" : "question"} floating />
 
