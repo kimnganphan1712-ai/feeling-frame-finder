@@ -1,10 +1,11 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Mascot } from "@/components/Mascot";
 import { BookHeart, Headphones, Heart, RefreshCw, Sparkles, Wind } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { logEmotionCornerEvent } from "@/lib/emotion-corner-analytics";
 
 export interface EmotionCorner {
   key: string;
