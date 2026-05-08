@@ -39,6 +39,8 @@ function VitaminPage() {
   const [submitOpen, setSubmitOpen] = useState(false);
   const [saveQuoteId, setSaveQuoteId] = useState<string | null>(null);
   const [openAlbum, setOpenAlbum] = useState<Album | null>(null);
+  const [createAlbumOpen, setCreateAlbumOpen] = useState(false);
+  const [workTab, setWorkTab] = useState<string>("all");
 
   const reload = async () => {
     setLoading(true);
