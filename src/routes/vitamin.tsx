@@ -60,8 +60,9 @@ function VitaminPage() {
     <PageShell>
       <header className="flex items-start justify-between mb-6 animate-[fade-up_0.6s_ease-out]">
         <div>
-          <p className="text-xs uppercase tracking-widest text-muted-foreground">Vitamin tâm hồn</p>
-          <h1 className="text-3xl font-semibold mt-1">Một câu nói, một liều dịu</h1>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground">Hospital Playlist</p>
+          <h1 className="text-3xl font-semibold mt-1">Dưỡng chất tinh thần</h1>
+          <p className="text-muted-foreground text-sm mt-1">Một chút câu chữ, một chút ánh sáng, một chút dịu dàng cho tâm hồn.</p>
         </div>
         <Button size="sm" onClick={() => setSubmitOpen(true)} className="rounded-full bg-blush-deep hover:bg-blush-deep/90 text-white">
           <Plus className="w-4 h-4 mr-1" /> Gửi câu nói

@@ -22,6 +22,7 @@ import { Route as AdminQuotesRouteImport } from './routes/admin/quotes'
 import { Route as AdminPodcastsRouteImport } from './routes/admin/podcasts'
 import { Route as AdminHealingRouteImport } from './routes/admin/healing'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
+import { Route as AdminCommunityRouteImport } from './routes/admin/community'
 
 const VitaminRoute = VitaminRouteImport.update({
   id: '/vitamin',
@@ -88,6 +89,11 @@ const AdminDashboardRoute = AdminDashboardRouteImport.update({
   path: '/admin/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminCommunityRoute = AdminCommunityRouteImport.update({
+  id: '/admin/community',
+  path: '/admin/community',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -98,6 +104,7 @@ export interface FileRoutesByFullPath {
   '/podcast': typeof PodcastRoute
   '/reset-password': typeof ResetPasswordRoute
   '/vitamin': typeof VitaminRoute
+  '/admin/community': typeof AdminCommunityRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/healing': typeof AdminHealingRoute
   '/admin/podcasts': typeof AdminPodcastsRoute
@@ -113,6 +120,7 @@ export interface FileRoutesByTo {
   '/podcast': typeof PodcastRoute
   '/reset-password': typeof ResetPasswordRoute
   '/vitamin': typeof VitaminRoute
+  '/admin/community': typeof AdminCommunityRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/healing': typeof AdminHealingRoute
   '/admin/podcasts': typeof AdminPodcastsRoute
@@ -129,6 +137,7 @@ export interface FileRoutesById {
   '/podcast': typeof PodcastRoute
   '/reset-password': typeof ResetPasswordRoute
   '/vitamin': typeof VitaminRoute
+  '/admin/community': typeof AdminCommunityRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/healing': typeof AdminHealingRoute
   '/admin/podcasts': typeof AdminPodcastsRoute
@@ -146,6 +155,7 @@ export interface FileRouteTypes {
     | '/podcast'
     | '/reset-password'
     | '/vitamin'
+    | '/admin/community'
     | '/admin/dashboard'
     | '/admin/healing'
     | '/admin/podcasts'
@@ -161,6 +171,7 @@ export interface FileRouteTypes {
     | '/podcast'
     | '/reset-password'
     | '/vitamin'
+    | '/admin/community'
     | '/admin/dashboard'
     | '/admin/healing'
     | '/admin/podcasts'
@@ -176,6 +187,7 @@ export interface FileRouteTypes {
     | '/podcast'
     | '/reset-password'
     | '/vitamin'
+    | '/admin/community'
     | '/admin/dashboard'
     | '/admin/healing'
     | '/admin/podcasts'
@@ -192,6 +204,7 @@ export interface RootRouteChildren {
   PodcastRoute: typeof PodcastRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   VitaminRoute: typeof VitaminRoute
+  AdminCommunityRoute: typeof AdminCommunityRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminHealingRoute: typeof AdminHealingRoute
   AdminPodcastsRoute: typeof AdminPodcastsRoute
@@ -292,6 +305,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/community': {
+      id: '/admin/community'
+      path: '/admin/community'
+      fullPath: '/admin/community'
+      preLoaderRoute: typeof AdminCommunityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -304,6 +324,7 @@ const rootRouteChildren: RootRouteChildren = {
   PodcastRoute: PodcastRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   VitaminRoute: VitaminRoute,
+  AdminCommunityRoute: AdminCommunityRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   AdminHealingRoute: AdminHealingRoute,
   AdminPodcastsRoute: AdminPodcastsRoute,

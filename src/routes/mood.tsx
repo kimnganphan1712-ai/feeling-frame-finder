@@ -237,7 +237,7 @@ function MoodPage() {
   return (
     <PageShell>
       <header className="mb-6 animate-[fade-up_0.6s_ease-out]">
-        <p className="text-xs uppercase tracking-widest text-muted-foreground">Cảm xúc</p>
+        <p className="text-xs uppercase tracking-widest text-muted-foreground">Hospital Playlist</p>
         <h1 className="text-3xl font-semibold mt-1">Hành trình của bạn</h1>
         <p className="text-muted-foreground text-sm mt-1">
           Mỗi sticker là một ngày bạn dám gọi tên cảm xúc của mình.

@@ -3,10 +3,11 @@ import { useEffect, useMemo, useState } from "react";
 import { RequireAuth } from "@/components/RequireAuth";
 import { MoodSticker } from "@/components/MoodSticker";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, Globe2, Trash2 } from "lucide-react";
+import { ChevronLeft, Globe2, Trash2, MessageCircle } from "lucide-react";
 import { moodCheckinStore, MoodCheckin } from "@/lib/mood-checkin-store";
 import { STICKERS } from "@/lib/stickers";
 import { useAuth } from "@/lib/auth-context";
+import { siteSettingsStore, SITE_KEYS } from "@/lib/site-settings-store";
 
 export const Route = createFileRoute("/mood-board")({
   component: () => (
@@ -34,12 +35,14 @@ function MoodBoardPage() {
   const [items, setItems] = useState<MoodCheckin[]>([]);
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [discordUrl, setDiscordUrl] = useState<string | null>(null);
 
   useEffect(() => {
     moodCheckinStore.listRecentPublic(80).then((rows) => {
       setItems(rows);
       setLoading(false);
     });
+    siteSettingsStore.get(SITE_KEYS.discordInvite).then(setDiscordUrl);
   }, []);
 
   useEffect(() => {
@@ -100,7 +103,7 @@ function MoodBoardPage() {
           </Link>
           <div className="text-center">
             <p className="text-[10px] uppercase tracking-[0.3em] text-mint-deep/80">Hospital Playlist</p>
-            <h1 className="font-display text-base md:text-lg">Bản đồ cảm xúc</h1>
+            <h1 className="font-display text-base md:text-lg">Không gian kết nối</h1>
           </div>
           <div className="w-9 h-9 rounded-full bg-white/70 border border-white/70 flex items-center justify-center text-mint-deep">
             <Globe2 className="w-4 h-4" />
@@ -109,10 +112,46 @@ function MoodBoardPage() {
       </header>
 
       <section className="max-w-5xl mx-auto px-4 pt-8 pb-4 text-center">
-        <p className="text-[10px] uppercase tracking-[0.3em] text-mint-deep/80">global mood board</p>
+        <p className="text-[10px] uppercase tracking-[0.3em] text-mint-deep/80">community space</p>
         <h2 className="mt-2 font-display text-2xl md:text-3xl text-foreground/85">
-          Hôm nay mọi người đang cảm thấy thế nào
+          Nơi bạn thấy rằng mình không đơn độc
         </h2>
+        <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto italic">
+          Trong những ngày nhiều cảm xúc, có rất nhiều người cũng đang cùng thở với bạn.
+        </p>
+      </section>
+
+      {/* Discord card */}
+      <section className="max-w-5xl mx-auto px-4 pb-6">
+        <div className="rounded-3xl glass border border-white/60 p-5 md:p-6 flex items-center gap-4 shadow-card">
+          <div className="w-12 h-12 rounded-2xl bg-mint/40 flex items-center justify-center text-mint-deep shrink-0">
+            <MessageCircle className="w-6 h-6" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="font-display text-base md:text-lg text-foreground/90">Cộng đồng Discord</p>
+            {discordUrl ? (
+              <p className="text-xs text-muted-foreground italic">Một góc nhỏ để cùng nhau lắng nghe và sẻ chia.</p>
+            ) : (
+              <p className="text-xs text-muted-foreground italic">
+                Không gian kết nối đang được chuẩn bị. Bác sĩ cảm xúc sẽ mở cửa sớm thôi.
+              </p>
+            )}
+          </div>
+          {discordUrl && (
+            <a href={discordUrl} target="_blank" rel="noreferrer">
+              <Button size="sm" className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
+                Tham gia
+              </Button>
+            </a>
+          )}
+        </div>
+      </section>
+
+      <section className="max-w-5xl mx-auto px-4 pb-2 text-center">
+        <p className="text-[10px] uppercase tracking-[0.3em] text-mint-deep/80">global mood board</p>
+        <h3 className="mt-2 font-display text-xl md:text-2xl text-foreground/85">
+          Bản đồ cảm xúc cộng đồng
+        </h3>
         <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto italic">
           Mỗi sticker là một người đang cùng thở với bạn — chỉ một tính từ, không phán xét.
         </p>

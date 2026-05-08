@@ -89,9 +89,9 @@ function PodcastPage() {
   return (
     <PageShell>
       <header className="mb-6 animate-[fade-up_0.6s_ease-out]">
-        <p className="text-xs uppercase tracking-widest text-muted-foreground">Podcast</p>
-        <h1 className="text-3xl font-semibold mt-1">10 bài học nền tảng</h1>
-        <p className="text-muted-foreground text-sm mt-1">Mascot ngồi nghe cùng bạn 🎧</p>
+        <p className="text-xs uppercase tracking-widest text-muted-foreground">Hospital Playlist</p>
+        <h1 className="text-3xl font-semibold mt-1">Tần số chữa lành</h1>
+        <p className="text-muted-foreground text-sm mt-1">Những tấm postcard âm thanh nhỏ mang theo năng lượng bình yên.</p>
       </header>
 
       {/* Healing podcasts from admin (DB) */}
