@@ -200,38 +200,51 @@ function VitaminPage() {
             </button>
           ))}
         </div>
-        {works.length === 0 ? (
-          <p className="text-sm text-muted-foreground italic">Chưa có tác phẩm nào. Quay lại sau nhé.</p>
-        ) : (
-          <div className="space-y-3">
-            {works.map((w) => (
-              <article key={w.id} className="rounded-3xl bg-card border border-border p-4 shadow-card flex gap-4">
-                <div className="w-24 h-24 rounded-2xl bg-mint/30 flex items-center justify-center overflow-hidden shrink-0">
-                  {w.thumbnail_url
-                    ? <img src={w.thumbnail_url} alt="" className="w-full h-full object-cover" />
-                    : <ImageIcon className="w-7 h-7 text-mint-deep" />}
+        {(() => {
+          const filtered = workTab === "all" ? works : works.filter((w) => (w.type || "other") === workTab);
+          if (filtered.length === 0) {
+            return (
+              <div className="rounded-3xl p-8 bg-gradient-to-br from-blush/15 to-mint/15 border border-white/60 text-center">
+                <div className="w-14 h-14 mx-auto rounded-2xl bg-white/70 flex items-center justify-center">
+                  <Sparkles className="w-6 h-6 text-blush-deep" />
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-mint/40 text-mint-deep">
-                      {TYPE_LABEL[w.type] ?? w.type}
-                    </span>
-                    {w.tags.slice(0, 2).map((t) => (
-                      <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground">{t}</span>
-                    ))}
+                <p className="mt-4 text-sm text-foreground/70 italic">
+                  Chưa có tác phẩm gợi ý nào lúc này. Hãy quay lại sau nhé.
+                </p>
+              </div>
+            );
+          }
+          return (
+            <div className="grid sm:grid-cols-2 gap-3">
+              {filtered.map((w) => (
+                <article key={w.id} className="rounded-3xl bg-card border border-border p-4 shadow-card flex gap-4 hover:shadow-soft transition-shadow">
+                  <div className="w-24 h-24 rounded-2xl bg-mint/30 flex items-center justify-center overflow-hidden shrink-0">
+                    {w.thumbnail_url
+                      ? <img src={w.thumbnail_url} alt="" className="w-full h-full object-cover" />
+                      : <ImageIcon className="w-7 h-7 text-mint-deep" />}
                   </div>
-                  <h4 className="font-semibold mt-1.5">{w.title}</h4>
-                  {w.description && <p className="text-sm text-muted-foreground mt-1 line-clamp-2 leading-relaxed">{w.description}</p>}
-                  {w.external_link && (
-                    <a href={w.external_link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs text-mint-deep hover:underline mt-2">
-                      Mở <ExternalLink className="w-3 h-3" />
-                    </a>
-                  )}
-                </div>
-              </article>
-            ))}
-          </div>
-        )}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-mint/40 text-mint-deep">
+                        {TYPE_LABEL[w.type] ?? w.type}
+                      </span>
+                      {w.tags.slice(0, 2).map((t) => (
+                        <span key={t} className="text-[10px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground">{t}</span>
+                      ))}
+                    </div>
+                    <h4 className="font-semibold mt-1.5">{w.title}</h4>
+                    {w.description && <p className="text-sm text-muted-foreground mt-1 line-clamp-2 leading-relaxed">{w.description}</p>}
+                    {w.external_link && (
+                      <a href={w.external_link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs text-mint-deep hover:underline mt-2">
+                        Mở <ExternalLink className="w-3 h-3" />
+                      </a>
+                    )}
+                  </div>
+                </article>
+              ))}
+            </div>
+          );
+        })()}
       </section>
 
       <SubmitQuoteDialog open={submitOpen} onClose={() => setSubmitOpen(false)} onSubmitted={reload} />
