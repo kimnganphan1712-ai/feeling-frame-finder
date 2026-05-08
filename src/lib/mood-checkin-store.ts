@@ -54,7 +54,7 @@ export const moodCheckinStore = {
   }): Promise<{ data?: MoodCheckin; error?: string }> {
     const { data, error } = await supabase
       .from("mood_checkins")
-      .insert(payload)
+      .insert({ ...payload, entry_date: localDateKey() })
       .select("*")
       .single();
     if (error) return { error: error.message };
