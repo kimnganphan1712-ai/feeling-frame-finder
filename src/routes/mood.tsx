@@ -489,32 +489,6 @@ function MoodPage() {
         </div>
       </section>
 
-      {/* Breathing chart */}
-      <section className="mt-6 rounded-3xl p-5 glass shadow-card animate-[fade-up_0.6s_ease-out]">
-        <h2 className="font-semibold mb-3">Thời gian bạn đã thở cùng mình</h2>
-        <div className="flex items-end gap-1 h-32">
-          {breathingSeries.map((d) => {
-            const h = (d.minutes / breathingDayMaxMin) * 100;
-            return (
-              <div key={d.date} className="flex-1 flex flex-col items-center justify-end gap-1" title={`${d.date} · ${d.minutes} phút`}>
-                <div className="w-full rounded-t-md transition-all"
-                  style={{
-                    height: `${Math.max(2, h)}%`,
-                    background: d.minutes > 0 ? "var(--mint-deep)" : "color-mix(in oklch, var(--muted) 60%, white)",
-                    opacity: d.minutes > 0 ? 0.85 : 0.5,
-                  }}
-                />
-              </div>
-            );
-          })}
-        </div>
-        <div className="mt-3 text-[11px] text-muted-foreground">
-          {bestBreathingDay
-            ? `Ngày bạn dành nhiều thời gian nhất cho hơi thở là ${bestBreathingDay.date.slice(8, 10)}/${bestBreathingDay.date.slice(5, 7)} (${bestBreathingDay.minutes} phút).`
-            : "Chỉ cần giữ 1 phút mỗi ngày, chuỗi của bạn sẽ tiếp tục lớn lên."}
-        </div>
-      </section>
-
       <div className="h-10" />
 
       {/* Day detail modal */}
