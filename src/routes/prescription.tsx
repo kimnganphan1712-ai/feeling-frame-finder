@@ -401,7 +401,7 @@ function MoodPrescriptionPanel({
         <Button size="sm" variant="outline" className="rounded-full" onClick={() => onCopy(card.message)}>
           <Copy className="w-3.5 h-3.5 mr-1.5" /> Sao chép
         </Button>
-        <Link to="/journal" search={{ prompt: journalPrompt } as never}>
+        <Link to="/journal">
           <Button size="sm" variant="outline" className="rounded-full">
             <BookHeart className="w-3.5 h-3.5 mr-1.5" /> Viết vào hồ sơ
           </Button>
