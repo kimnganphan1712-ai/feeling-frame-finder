@@ -217,7 +217,7 @@ function HomePage() {
           </Link>
           <Link to="/mood-board">
             <Button variant="ghost" size="sm" className="rounded-full text-mint-deep hover:bg-white/40 px-3">
-              <Globe2 className="w-3.5 h-3.5 mr-1.5" /> Bản đồ cảm xúc
+              <Globe2 className="w-3.5 h-3.5 mr-1.5" /> Không gian kết nối
             </Button>
           </Link>
         </div>
