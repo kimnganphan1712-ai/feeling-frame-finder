@@ -45,6 +45,12 @@ export function EmotionCornerDialog({ corner, open, onOpenChange }: Props) {
     return corner.quotes[idx];
   }, [corner, seed]);
 
+  useEffect(() => {
+    if (open && corner) {
+      logEmotionCornerEvent({ cornerKey: corner.key, eventType: "open" });
+    }
+  }, [open, corner]);
+
   if (!corner) return null;
 
   return (
