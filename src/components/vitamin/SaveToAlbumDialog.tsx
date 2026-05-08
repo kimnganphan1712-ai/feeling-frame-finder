@@ -18,7 +18,8 @@ export function SaveToAlbumDialog({ open, quoteId, onClose }: { open: boolean; q
     setLoading(true);
     vitaminStore.myAlbums().then((a) => { setAlbums(a); setLoading(false); });
     setSavedTo([]);
-  }, [open]);
+    setCreating(!quoteId);
+  }, [open, quoteId]);
 
   if (!open) return null;
 
