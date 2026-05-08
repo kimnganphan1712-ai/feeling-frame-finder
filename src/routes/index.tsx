@@ -92,6 +92,7 @@ function HomePage() {
   const [streak, setStreak] = useState(0);
   const [quoteIdx, setQuoteIdx] = useState(0);
   const [breathingOpen, setBreathingOpen] = useState(false);
+  const [activeCorner, setActiveCorner] = useState<EmotionCorner | null>(null);
 
   // Decide whether to skip the pop-up: if today's check-in already exists, go straight to "ready".
   useEffect(() => {
