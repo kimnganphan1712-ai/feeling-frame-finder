@@ -3,7 +3,7 @@ import { PageShell } from "@/components/PageShell";
 import { RequireAuth } from "@/components/RequireAuth";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Bookmark, Plus, Heart, ChevronLeft, ChevronRight, ImageIcon, Lock, Globe2, Loader2, ExternalLink } from "lucide-react";
+import { Bookmark, Plus, Heart, ChevronLeft, ChevronRight, ImageIcon, Lock, Globe2, Loader2, ExternalLink, Sparkles, Quote as QuoteIcon, BookOpen, Film, Music, Mic, Star } from "lucide-react";
 import { vitaminStore, type Quote, type HealingWork, type Album } from "@/lib/vitamin-store";
 import { SubmitQuoteDialog } from "@/components/vitamin/SubmitQuoteDialog";
 import { SaveToAlbumDialog } from "@/components/vitamin/SaveToAlbumDialog";
