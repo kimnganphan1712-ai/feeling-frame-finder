@@ -29,6 +29,10 @@ export function MoodCheckIn({ onDone, onSkip }: Props) {
     if (!user) return;
     moodCheckinStore.getToday(user.id).then((row) => {
       setExisting(row);
+      if (row) {
+        setAdjective(row.adjective ?? "");
+        setStickerType(row.sticker_type);
+      }
       setLoaded(true);
     });
   }, [user]);
@@ -77,41 +81,10 @@ export function MoodCheckIn({ onDone, onSkip }: Props) {
 
           {!loaded ? (
             <div className="py-12 text-sm text-muted-foreground">Đang lắng nghe…</div>
-          ) : existing ? (
-            <>
-              <h2 className="mt-4 text-xl md:text-2xl font-display font-medium">
-                Bạn đã gửi cảm xúc hôm nay rồi
-              </h2>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Hẹn gặp bạn vào ngày mai nhé. Hôm nay bạn đã gọi tên cảm xúc của mình rồi.
-              </p>
-              <div className="mt-5 flex items-center gap-3 px-4 py-3 rounded-2xl bg-white/60 border border-white/70">
-                <MoodSticker sticker={{
-                  type: existing.sticker_type,
-                  label: existing.adjective,
-                  color: existing.sticker_color,
-                  face: (STICKERS.find(s => s.type === existing.sticker_type)?.face) ?? "calm",
-                }} size={48} />
-                <div className="text-left">
-                  <p className="font-medium capitalize">{existing.adjective}</p>
-                  <p className="text-xs text-muted-foreground">{existing.username}</p>
-                </div>
-              </div>
-              <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-                <Link to="/mood-board">
-                  <Button variant="outline" className="rounded-full">
-                    <Globe2 className="w-4 h-4 mr-2" /> Xem bản đồ cảm xúc
-                  </Button>
-                </Link>
-                <Button onClick={() => onDone()} className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
-                  Vào trạm
-                </Button>
-              </div>
-            </>
           ) : thanks ? (
             <div className="py-6 animate-[fade-up_0.5s_ease-out]">
               <div className="inline-flex items-center gap-2 text-mint-deep text-xs">
-                <Sparkles className="w-3.5 h-3.5" /> Đã gửi tới bản đồ cảm xúc
+                <Sparkles className="w-3.5 h-3.5" /> {existing ? "Đã cập nhật cảm xúc của bạn" : "Đã gửi tới bản đồ cảm xúc"}
               </div>
               <p className="mt-3 text-base text-foreground/85 italic">
                 Cảm ơn bạn đã chia sẻ một tính từ hôm nay.
@@ -120,10 +93,12 @@ export function MoodCheckIn({ onDone, onSkip }: Props) {
           ) : (
             <>
               <h2 className="mt-5 text-2xl md:text-3xl font-display font-medium leading-snug max-w-md">
-                Chào mừng bạn đến Trạm cứu hộ cảm xúc
+                {existing ? "Cảm xúc của bạn hôm nay" : "Chào mừng bạn đến Trạm cứu hộ cảm xúc"}
               </h2>
               <p className="mt-3 text-base md:text-[17px] text-muted-foreground max-w-md leading-relaxed">
-                Hôm nay, hãy để nơi này ôm ấp cảm xúc của bạn một chút nhé. Chỉ cần một từ thôi — cảm xúc nào cũng xứng đáng được lắng nghe.
+                {existing
+                  ? "Nếu cảm xúc của bạn đã đổi trong ngày, bạn có thể cập nhật lại tại đây — bản đồ cộng đồng sẽ chỉ giữ trạng thái mới nhất."
+                  : "Hôm nay, hãy để nơi này ôm ấp cảm xúc của bạn một chút nhé. Chỉ cần một từ thôi — cảm xúc nào cũng xứng đáng được lắng nghe."}
               </p>
 
               <div className="w-full mt-7">
@@ -202,7 +177,7 @@ export function MoodCheckIn({ onDone, onSkip }: Props) {
                   disabled={submitting}
                   className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white px-7 py-5 text-base shadow-soft transition-all"
                 >
-                  {submitting ? "Đang gửi…" : "Gửi về trạm"}
+                  {submitting ? "Đang gửi…" : existing ? "Cập nhật cảm xúc" : "Gửi về trạm"}
                 </Button>
               </div>
 

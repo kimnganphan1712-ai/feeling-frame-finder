@@ -1,13 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
+import { format } from "date-fns";
+import { vi } from "date-fns/locale";
+import { CalendarIcon, ChevronLeft, Globe2, MessageCircle, Trash2 } from "lucide-react";
 import { RequireAuth } from "@/components/RequireAuth";
 import { MoodSticker } from "@/components/MoodSticker";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, Globe2, Trash2, MessageCircle } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { moodCheckinStore, MoodCheckin } from "@/lib/mood-checkin-store";
 import { STICKERS } from "@/lib/stickers";
 import { useAuth } from "@/lib/auth-context";
 import { siteSettingsStore, SITE_KEYS } from "@/lib/site-settings-store";
+import { cn, localDateKey } from "@/lib/utils";
 
 export const Route = createFileRoute("/mood-board")({
   component: () => (
@@ -18,35 +23,52 @@ export const Route = createFileRoute("/mood-board")({
 });
 
 interface Placed extends MoodCheckin {
-  left: number; // %
-  top: number;  // %
-  rot: number;  // deg
+  left: number;
+  top: number;
+  rot: number;
 }
 
-// Deterministic pseudo-random based on id so positions are stable per item
 function seeded(id: string, salt: number) {
   let h = salt;
   for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
   return (h % 1000) / 1000;
 }
 
+function dateKeyFromDate(d: Date) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
 function MoodBoardPage() {
   const { user } = useAuth();
+  const todayKey = localDateKey();
+  const yesterdayKey = useMemo(() => {
+    const d = new Date();
+    d.setDate(d.getDate() - 1);
+    return dateKeyFromDate(d);
+  }, []);
+
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const selectedKey = dateKeyFromDate(selectedDate);
+
   const [items, setItems] = useState<MoodCheckin[]>([]);
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const [discordUrl, setDiscordUrl] = useState<string | null>(null);
+  const [pickerOpen, setPickerOpen] = useState(false);
 
   useEffect(() => {
-    moodCheckinStore.listRecentPublic(80).then((rows) => {
+    setLoading(true);
+    moodCheckinStore.listPublicByDate(selectedKey).then((rows) => {
       setItems(rows);
       setLoading(false);
     });
     siteSettingsStore.get(SITE_KEYS.discordInvite).then(setDiscordUrl);
-  }, []);
+  }, [selectedKey]);
 
   useEffect(() => {
-    // best-effort admin check via profile role; ignore failure
     (async () => {
       if (!user) return;
       const { supabase } = await import("@/integrations/supabase/client");
@@ -55,14 +77,26 @@ function MoodBoardPage() {
     })();
   }, [user]);
 
+  // Aggregate by mood for stats
+  const stats = useMemo(() => {
+    const map = new Map<string, { count: number; sample: MoodCheckin }>();
+    for (const it of items) {
+      const cur = map.get(it.sticker_type);
+      if (cur) cur.count += 1;
+      else map.set(it.sticker_type, { count: 1, sample: it });
+    }
+    return Array.from(map.entries())
+      .map(([type, v]) => ({ type, ...v }))
+      .sort((a, b) => b.count - a.count);
+  }, [items]);
+
   const placed: Placed[] = useMemo(() => {
-    // grid-aware scatter: distribute across rows then jitter
     const cols = 4;
     return items.map((it, i) => {
       const row = Math.floor(i / cols);
       const col = i % cols;
       const baseX = (col + 0.5) * (100 / cols);
-      const baseY = row * 130 + 80; // px-ish offsets handled via top%
+      const baseY = row * 130 + 80;
       const jitterX = (seeded(it.id, 7) - 0.5) * 14;
       const jitterY = (seeded(it.id, 13) - 0.5) * 30;
       const rot = (seeded(it.id, 23) - 0.5) * 10;
@@ -75,25 +109,36 @@ function MoodBoardPage() {
     });
   }, [items]);
 
-  const totalHeight = Math.max(800, Math.ceil(items.length / 4) * 170 + 200);
+  const totalHeight = Math.max(500, Math.ceil(items.length / 4) * 170 + 200);
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Xoá mood này?")) return;
+    if (!confirm("Xoá cảm xúc này khỏi bản đồ?")) return;
     const res = await moodCheckinStore.deleteOne(id);
     if (!res.error) setItems((arr) => arr.filter((x) => x.id !== id));
+  };
+
+  const isToday = selectedKey === todayKey;
+  const isYesterday = selectedKey === yesterdayKey;
+  const dateLabelLong = isToday
+    ? "hôm nay"
+    : isYesterday
+      ? "hôm qua"
+      : `ngày ${format(selectedDate, "dd/MM/yyyy", { locale: vi })}`;
+
+  const setQuickDate = (kind: "today" | "yesterday") => {
+    const d = new Date();
+    if (kind === "yesterday") d.setDate(d.getDate() - 1);
+    setSelectedDate(d);
   };
 
   return (
     <div
       className="min-h-screen relative"
       style={{
-        background: "linear-gradient(180deg, #fbfaf6 0%, #f4f6f3 100%)",
         backgroundImage:
           "linear-gradient(180deg, #fbfaf6 0%, #f4f6f3 100%), repeating-linear-gradient(0deg, rgba(120,140,120,0.06) 0 1px, transparent 1px 32px), repeating-linear-gradient(90deg, rgba(120,140,120,0.06) 0 1px, transparent 1px 32px)",
-        backgroundBlendMode: "normal",
       }}
     >
-      {/* Top bar */}
       <header className="sticky top-0 z-20 backdrop-blur-md bg-white/40 border-b border-white/60">
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link to="/">
@@ -147,27 +192,122 @@ function MoodBoardPage() {
         </div>
       </section>
 
+      {/* Mood board section */}
       <section className="max-w-5xl mx-auto px-4 pb-2 text-center">
         <p className="text-[10px] uppercase tracking-[0.3em] text-mint-deep/80">global mood board</p>
         <h3 className="mt-2 font-display text-xl md:text-2xl text-foreground/85">
           Bản đồ cảm xúc cộng đồng
         </h3>
         <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto italic">
-          Mỗi sticker là một người đang cùng thở với bạn — chỉ một tính từ, không phán xét.
+          Những cảm xúc được chia sẻ vào {dateLabelLong}. Mỗi người chỉ để lại một dấu cảm xúc trong ngày.
         </p>
       </section>
 
+      {/* Date filter */}
+      <section className="max-w-5xl mx-auto px-4 pt-4">
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          <Button
+            size="sm"
+            variant={isToday ? "default" : "outline"}
+            onClick={() => setQuickDate("today")}
+            className={cn("rounded-full", isToday && "bg-mint-deep hover:bg-mint-deep/90 text-white")}
+          >
+            Hôm nay
+          </Button>
+          <Button
+            size="sm"
+            variant={isYesterday ? "default" : "outline"}
+            onClick={() => setQuickDate("yesterday")}
+            className={cn("rounded-full", isYesterday && "bg-mint-deep hover:bg-mint-deep/90 text-white")}
+          >
+            Hôm qua
+          </Button>
+          <Popover open={pickerOpen} onOpenChange={setPickerOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                size="sm"
+                variant={!isToday && !isYesterday ? "default" : "outline"}
+                className={cn(
+                  "rounded-full",
+                  !isToday && !isYesterday && "bg-mint-deep hover:bg-mint-deep/90 text-white",
+                )}
+              >
+                <CalendarIcon className="w-3.5 h-3.5 mr-1.5" />
+                {!isToday && !isYesterday
+                  ? format(selectedDate, "dd/MM/yyyy", { locale: vi })
+                  : "Chọn ngày"}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="center">
+              <Calendar
+                mode="single"
+                selected={selectedDate}
+                onSelect={(d) => {
+                  if (d) {
+                    setSelectedDate(d);
+                    setPickerOpen(false);
+                  }
+                }}
+                disabled={(date) => date > new Date()}
+                initialFocus
+                className={cn("p-3 pointer-events-auto")}
+              />
+            </PopoverContent>
+          </Popover>
+        </div>
+      </section>
+
+      {/* Stats summary */}
+      {!loading && items.length > 0 && (
+        <section className="max-w-5xl mx-auto px-4 pt-6">
+          <div className="rounded-3xl glass border border-white/60 p-4 md:p-5 shadow-card">
+            <p className="text-[11px] uppercase tracking-[0.25em] text-mint-deep/80 text-center mb-3">
+              Tổng quan {dateLabelLong}
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              {stats.map((s) => {
+                const sticker = STICKERS.find((x) => x.type === s.type) ?? {
+                  type: s.type,
+                  label: s.sample.adjective,
+                  color: s.sample.sticker_color,
+                  face: "calm" as const,
+                };
+                return (
+                  <div
+                    key={s.type}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/70 border border-white/70"
+                  >
+                    <MoodSticker sticker={sticker} size={28} />
+                    <span className="text-xs text-foreground/80">{sticker.label}</span>
+                    <span className="text-xs font-semibold text-mint-deep">{s.count}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Sticker scatter */}
       <div
-        className="relative max-w-5xl mx-auto px-2 md:px-4"
-        style={{ height: totalHeight }}
+        className="relative max-w-5xl mx-auto px-2 md:px-4 mt-6"
+        style={{ height: items.length === 0 ? 240 : totalHeight }}
       >
         {loading && (
           <div className="text-center text-muted-foreground py-12 text-sm">Đang tải bản đồ…</div>
         )}
         {!loading && items.length === 0 && (
-          <div className="text-center text-muted-foreground py-12">
-            <p className="text-sm">Chưa có ai gửi cảm xúc hôm nay.</p>
-            <p className="text-xs mt-1 italic">Bạn có thể là người đầu tiên gọi tên cảm xúc của mình.</p>
+          <div className="text-center py-12 max-w-md mx-auto">
+            <p className="text-sm text-muted-foreground">
+              {isToday
+                ? "Hôm nay chưa có ai gửi cảm xúc vào bản đồ cộng đồng."
+                : `Chưa có cập nhật cảm xúc nào cho ${dateLabelLong}.`}
+            </p>
+            <p className="text-xs mt-2 italic text-muted-foreground/80">
+              {isToday
+                ? "Hãy là người đầu tiên gọi tên cảm xúc của mình."
+                : "Bản đồ ngày này hiện đang yên lặng."}
+            </p>
           </div>
         )}
 
