@@ -87,7 +87,7 @@ export function SubmitQuoteDialog({ open, onClose, onSubmitted }: { open: boolea
             {err && <div className="text-xs text-destructive bg-destructive/10 rounded-xl px-3 py-2">{err}</div>}
 
             <Button onClick={submit} disabled={busy} className="w-full rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
-              {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : "Gửi vào kho dịu"}
+              {busy ? <Loader2 className="w-4 h-4 animate-spin" /> : "Gửi câu nói"}
             </Button>
           </div>
         )}
