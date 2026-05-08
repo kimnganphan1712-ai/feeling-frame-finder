@@ -87,7 +87,13 @@ function VitaminPage() {
           </div>
         ) : !current ? (
           <div className="rounded-3xl p-10 glass-strong border border-white/60 text-center">
-            <p className="text-foreground/70 italic">Chưa có câu nói nào được duyệt. Hãy là người đầu tiên gửi vào kho dịu nhé.</p>
+            <div className="w-14 h-14 mx-auto rounded-2xl bg-mint/40 flex items-center justify-center">
+              <QuoteIcon className="w-6 h-6 text-mint-deep" />
+            </div>
+            <p className="mt-4 text-foreground/70 italic">Chưa có câu nói nào được duyệt. Hãy là người đầu tiên gửi một câu nói nhé.</p>
+            <Button onClick={() => setSubmitOpen(true)} className="mt-4 rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
+              <Plus className="w-4 h-4 mr-1" /> Gửi câu nói đầu tiên
+            </Button>
           </div>
         ) : (
           <div className="relative min-h-[340px] flex items-center justify-center">
