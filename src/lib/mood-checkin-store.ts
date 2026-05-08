@@ -54,7 +54,10 @@ export const moodCheckinStore = {
   }): Promise<{ data?: MoodCheckin; error?: string }> {
     const { data, error } = await supabase
       .from("mood_checkins")
-      .insert({ ...payload, entry_date: localDateKey() })
+      .upsert(
+        { ...payload, entry_date: localDateKey() },
+        { onConflict: "user_id,entry_date" },
+      )
       .select("*")
       .single();
     if (error) return { error: error.message };
@@ -68,6 +71,16 @@ export const moodCheckinStore = {
       .eq("is_public", true)
       .order("created_at", { ascending: false })
       .limit(limit);
+    return (data ?? []) as MoodCheckin[];
+  },
+
+  async listPublicByDate(dateKey: string): Promise<MoodCheckin[]> {
+    const { data } = await supabase
+      .from("mood_checkins")
+      .select("*")
+      .eq("is_public", true)
+      .eq("entry_date", dateKey)
+      .order("created_at", { ascending: false });
     return (data ?? []) as MoodCheckin[];
   },
 
