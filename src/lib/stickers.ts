@@ -17,7 +17,7 @@ export interface StickerOption {
   color: string; // background color (hex)
   face: StickerFace;
   /** Short, gentle reaction line shown when this sticker is picked. */
-  reaction: string;
+  reaction?: string;
 }
 
 export const STICKERS: StickerOption[] = [
