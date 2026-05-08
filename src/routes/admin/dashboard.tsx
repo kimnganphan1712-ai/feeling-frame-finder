@@ -67,6 +67,14 @@ function AdminDashboard() {
             tint="var(--blush)"
           />
         </Link>
+        <Link to="/admin/project-page">
+          <AdminCard
+            icon={<Stethoscope className="w-6 h-6" />}
+            title="Trang Phác đồ chữa lành"
+            description="Chỉnh nội dung, ảnh và thứ tự các phần của trang dự án (về Hospital Playlist)."
+            tint="var(--mint)"
+          />
+        </Link>
       </section>
     </PageShell>
   );
