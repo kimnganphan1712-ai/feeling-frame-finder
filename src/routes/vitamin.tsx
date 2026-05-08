@@ -249,6 +249,7 @@ function VitaminPage() {
 
       <SubmitQuoteDialog open={submitOpen} onClose={() => setSubmitOpen(false)} onSubmitted={reload} />
       <SaveToAlbumDialog open={!!saveQuoteId} quoteId={saveQuoteId} onClose={() => { setSaveQuoteId(null); reload(); }} />
+      <SaveToAlbumDialog open={createAlbumOpen} quoteId={null} onClose={() => { setCreateAlbumOpen(false); reload(); }} />
       <AlbumDetailDialog album={openAlbum} onClose={() => setOpenAlbum(null)} onChanged={reload} />
     </PageShell>
   );
