@@ -153,7 +153,7 @@ function PrescriptionPage() {
           </div>
           <div className="mt-7 flex items-end justify-between gap-3">
             <div className="text-right ml-auto">
-              <div className="font-handwritten text-2xl text-mint-deep">Bác sĩ cảm xúc</div>
+              <div className="font-display italic text-2xl text-mint-deep">Bác sĩ cảm xúc</div>
               <div className="text-[11px] text-muted-foreground">Trạm cứu hộ cảm xúc</div>
             </div>
           </div>
@@ -259,7 +259,7 @@ function PrescriptionPage() {
 
       {/* Random comfort */}
       <section className="animate-[fade-up_1s_ease-out]">
-        <div className="rounded-3xl bg-gradient-to-br from-cream/60 to-mint/20 p-6 md:p-8 text-center ring-1 ring-white/60">
+        <div className="rounded-3xl bg-gradient-to-br from-mint/20 to-blush/20 p-6 md:p-8 text-center ring-1 ring-white/60">
           <div className="text-xs uppercase tracking-wider text-muted-foreground">
             Bốc một viên thuốc tinh thần
           </div>
@@ -299,9 +299,9 @@ function PrescriptionPage() {
             <div
               key={i}
               className="mb-3 break-inside-avoid rounded-2xl p-4 bg-white/70 ring-1 ring-white/70 shadow-sm hover:shadow-soft hover:-rotate-1 transition-all"
-              style={{ background: i % 3 === 0 ? "var(--cream)" : i % 3 === 1 ? "var(--mint-soft)" : "var(--blush-soft)" }}
+              style={{ background: i % 3 === 0 ? "var(--mint-soft, oklch(0.96 0.02 195))" : i % 3 === 1 ? "oklch(0.95 0.03 195)" : "oklch(0.95 0.03 350)" }}
             >
-              <p className="text-sm md:text-[15px] leading-relaxed text-foreground/85 font-handwritten">
+              <p className="text-sm md:text-[15px] leading-relaxed text-foreground/85 font-display italic">
                 “{n}”
               </p>
               <button
