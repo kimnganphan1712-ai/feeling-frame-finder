@@ -116,14 +116,14 @@ export function MoodCheckIn({ onDone, onSkip }: Props) {
             </div>
           ) : (
             <>
-              <h2 className="mt-4 text-xl md:text-2xl font-display font-medium">
-                Hôm nay cảm xúc của bạn là gì?
+              <h2 className="mt-5 text-2xl md:text-3xl font-display font-medium leading-snug max-w-md">
+                Chào mừng bạn đến Trạm cứu hộ cảm xúc
               </h2>
-              <p className="mt-2 text-sm text-muted-foreground max-w-sm">
-                Hãy mô tả cảm xúc của bạn bằng 1 tính từ và chọn một sticker phù hợp nhé.
+              <p className="mt-3 text-base md:text-[17px] text-muted-foreground max-w-md leading-relaxed">
+                Hôm nay, hãy để nơi này ôm ấp cảm xúc của bạn một chút nhé. Chỉ cần một từ thôi — cảm xúc nào cũng xứng đáng được lắng nghe.
               </p>
 
-              <div className="w-full mt-5">
+              <div className="w-full mt-7">
                 <input
                   type="text"
                   value={adjective}
@@ -133,23 +133,23 @@ export function MoodCheckIn({ onDone, onSkip }: Props) {
                     if (error) setError(null);
                   }}
                   maxLength={24}
-                  placeholder="Ví dụ: bình yên, biết ơn, mệt mỏi, trống rỗng, vui vẻ..."
-                  className="w-full text-center text-base md:text-lg font-display rounded-2xl px-4 py-3 bg-white/70 border border-white/80 focus:outline-none focus:ring-2 focus:ring-mint-deep/40 placeholder:text-muted-foreground/60"
+                  placeholder="Ví dụ: bình yên, mệt mỏi, chênh vênh, biết ơn…"
+                  className="w-full text-center text-lg md:text-xl font-display rounded-3xl px-5 py-4 bg-white/70 border-0 ring-1 ring-white/70 focus:outline-none focus:ring-2 focus:ring-mint-deep/40 placeholder:text-muted-foreground/60 shadow-sm transition-all"
                 />
-                <div className="mt-1 text-[11px] text-muted-foreground text-right pr-1">
+                <div className="mt-1.5 text-[11px] text-muted-foreground text-right pr-2">
                   {adjective.length}/20
                 </div>
               </div>
 
-              <p className="mt-2 text-[11px] uppercase tracking-[0.25em] text-mint-deep/80">
-                chọn sticker đại diện
+              <p className="mt-4 text-sm md:text-[15px] text-mint-deep/90 font-medium">
+                Chọn một tín hiệu để trạm hiểu bạn hơn
               </p>
-              <div className="mt-3 flex flex-wrap justify-center gap-3">
+              <div className="mt-4 flex flex-wrap justify-center gap-4">
                 {STICKERS.map((s) => (
                   <MoodSticker
                     key={s.type}
                     sticker={s}
-                    size={52}
+                    size={56}
                     selected={stickerType === s.type}
                     onClick={() => { setStickerType(s.type); if (error) setError(null); }}
                     title={s.label}
@@ -158,30 +158,30 @@ export function MoodCheckIn({ onDone, onSkip }: Props) {
               </div>
 
               {error && (
-                <p className="mt-4 text-xs text-blush-deep bg-blush/30 px-3 py-2 rounded-full">
+                <p className="mt-4 text-sm text-blush-deep bg-blush/30 px-4 py-2 rounded-full">
                   {error}
                 </p>
               )}
 
-              <div className="mt-6 flex flex-wrap items-center justify-center gap-2 w-full">
+              <div className="mt-7 flex flex-wrap items-center justify-center gap-3 w-full">
                 <Button
                   variant="ghost"
                   onClick={onSkip}
-                  className="rounded-full text-muted-foreground hover:text-foreground"
+                  className="rounded-full text-muted-foreground hover:text-foreground text-base"
                 >
                   Bỏ qua hôm nay
                 </Button>
                 <Button
                   onClick={handleSubmit}
                   disabled={submitting}
-                  className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white px-6 shadow-soft"
+                  className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white px-7 py-5 text-base shadow-soft transition-all"
                 >
-                  {submitting ? "Đang gửi…" : "Gửi cảm xúc"}
+                  {submitting ? "Đang gửi…" : "Gửi về trạm"}
                 </Button>
               </div>
 
-              <p className="mt-4 text-[11px] text-muted-foreground italic max-w-xs">
-                Cảm xúc của bạn sẽ được hiển thị công khai trên bản đồ cảm xúc — chỉ một tính từ, để giữ sự riêng tư.
+              <p className="mt-5 text-xs md:text-[13px] text-muted-foreground italic max-w-sm leading-relaxed">
+                Cảm xúc của bạn sẽ trở thành một chấm sáng ẩn danh trên bản đồ cảm xúc chung. Không ai biết đó là bạn — chỉ biết rằng hôm nay, có một người cũng đang ôm ấp cảm xúc giống mình.
               </p>
             </>
           )}
