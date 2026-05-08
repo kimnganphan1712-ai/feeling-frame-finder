@@ -3,7 +3,7 @@ import { RequireAdmin } from "@/components/RequireAdmin";
 import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
 import { PageShell } from "@/components/PageShell";
-import { Quote, Sparkles, LogOut, Headphones, Globe2 } from "lucide-react";
+import { Quote, Sparkles, LogOut, Headphones, Globe2, Stethoscope } from "lucide-react";
 
 export const Route = createFileRoute("/admin/dashboard")({
   component: () => (
@@ -65,6 +65,14 @@ function AdminDashboard() {
             title="Không gian kết nối"
             description="Cập nhật link Discord cộng đồng cho khu kết nối."
             tint="var(--blush)"
+          />
+        </Link>
+        <Link to="/admin/project-page">
+          <AdminCard
+            icon={<Stethoscope className="w-6 h-6" />}
+            title="Trang Phác đồ chữa lành"
+            description="Chỉnh nội dung, ảnh và thứ tự các phần của trang dự án (về Hospital Playlist)."
+            tint="var(--mint)"
           />
         </Link>
       </section>

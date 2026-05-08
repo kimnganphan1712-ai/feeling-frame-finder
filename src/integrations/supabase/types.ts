@@ -464,6 +464,153 @@ export type Database = {
         }
         Relationships: []
       }
+      project_contact_submissions: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          is_read: boolean
+          message: string
+          name: string
+          organization: string | null
+          partnership_type: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          is_read?: boolean
+          message: string
+          name: string
+          organization?: string | null
+          partnership_type?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          is_read?: boolean
+          message?: string
+          name?: string
+          organization?: string | null
+          partnership_type?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      project_page_items: {
+        Row: {
+          color: string | null
+          created_at: string
+          description: string | null
+          extra: Json
+          icon: string | null
+          id: string
+          image_url: string | null
+          is_visible: boolean
+          kind: string
+          link: string | null
+          section_slug: string
+          sort_order: number
+          subtitle: string | null
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          extra?: Json
+          icon?: string | null
+          id?: string
+          image_url?: string | null
+          is_visible?: boolean
+          kind: string
+          link?: string | null
+          section_slug: string
+          sort_order?: number
+          subtitle?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          extra?: Json
+          icon?: string | null
+          id?: string
+          image_url?: string | null
+          is_visible?: boolean
+          kind?: string
+          link?: string | null
+          section_slug?: string
+          sort_order?: number
+          subtitle?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      project_page_sections: {
+        Row: {
+          button_link: string | null
+          button_text: string | null
+          created_at: string
+          description: string | null
+          extra: Json
+          id: string
+          image_gallery: string[]
+          image_main: string | null
+          image_secondary: string | null
+          is_visible: boolean
+          slug: string
+          sort_order: number
+          subtitle: string | null
+          title: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          button_link?: string | null
+          button_text?: string | null
+          created_at?: string
+          description?: string | null
+          extra?: Json
+          id?: string
+          image_gallery?: string[]
+          image_main?: string | null
+          image_secondary?: string | null
+          is_visible?: boolean
+          slug: string
+          sort_order?: number
+          subtitle?: string | null
+          title?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          button_link?: string | null
+          button_text?: string | null
+          created_at?: string
+          description?: string | null
+          extra?: Json
+          id?: string
+          image_gallery?: string[]
+          image_main?: string | null
+          image_secondary?: string | null
+          is_visible?: boolean
+          slug?: string
+          sort_order?: number
+          subtitle?: string | null
+          title?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       quote_favorites: {
         Row: {
           created_at: string

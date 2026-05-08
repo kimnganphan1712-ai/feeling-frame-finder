@@ -17,9 +17,11 @@ import { Route as MoodBoardRouteImport } from './routes/mood-board'
 import { Route as MoodRouteImport } from './routes/mood'
 import { Route as JournalRouteImport } from './routes/journal'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UUserIdRouteImport } from './routes/u.$userId'
 import { Route as AdminQuotesRouteImport } from './routes/admin/quotes'
+import { Route as AdminProjectPageRouteImport } from './routes/admin/project-page'
 import { Route as AdminPodcastsRouteImport } from './routes/admin/podcasts'
 import { Route as AdminHealingRouteImport } from './routes/admin/healing'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
@@ -65,6 +67,11 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -78,6 +85,11 @@ const UUserIdRoute = UUserIdRouteImport.update({
 const AdminQuotesRoute = AdminQuotesRouteImport.update({
   id: '/admin/quotes',
   path: '/admin/quotes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminProjectPageRoute = AdminProjectPageRouteImport.update({
+  id: '/admin/project-page',
+  path: '/admin/project-page',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminPodcastsRoute = AdminPodcastsRouteImport.update({
@@ -103,6 +115,7 @@ const AdminCommunityRoute = AdminCommunityRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/journal': typeof JournalRoute
   '/mood': typeof MoodRoute
@@ -115,11 +128,13 @@ export interface FileRoutesByFullPath {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/healing': typeof AdminHealingRoute
   '/admin/podcasts': typeof AdminPodcastsRoute
+  '/admin/project-page': typeof AdminProjectPageRoute
   '/admin/quotes': typeof AdminQuotesRoute
   '/u/$userId': typeof UUserIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/journal': typeof JournalRoute
   '/mood': typeof MoodRoute
@@ -132,12 +147,14 @@ export interface FileRoutesByTo {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/healing': typeof AdminHealingRoute
   '/admin/podcasts': typeof AdminPodcastsRoute
+  '/admin/project-page': typeof AdminProjectPageRoute
   '/admin/quotes': typeof AdminQuotesRoute
   '/u/$userId': typeof UUserIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/journal': typeof JournalRoute
   '/mood': typeof MoodRoute
@@ -150,6 +167,7 @@ export interface FileRoutesById {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/healing': typeof AdminHealingRoute
   '/admin/podcasts': typeof AdminPodcastsRoute
+  '/admin/project-page': typeof AdminProjectPageRoute
   '/admin/quotes': typeof AdminQuotesRoute
   '/u/$userId': typeof UUserIdRoute
 }
@@ -157,6 +175,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/auth'
     | '/journal'
     | '/mood'
@@ -169,11 +188,13 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/healing'
     | '/admin/podcasts'
+    | '/admin/project-page'
     | '/admin/quotes'
     | '/u/$userId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/auth'
     | '/journal'
     | '/mood'
@@ -186,11 +207,13 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/healing'
     | '/admin/podcasts'
+    | '/admin/project-page'
     | '/admin/quotes'
     | '/u/$userId'
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/auth'
     | '/journal'
     | '/mood'
@@ -203,12 +226,14 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/healing'
     | '/admin/podcasts'
+    | '/admin/project-page'
     | '/admin/quotes'
     | '/u/$userId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
   JournalRoute: typeof JournalRoute
   MoodRoute: typeof MoodRoute
@@ -221,6 +246,7 @@ export interface RootRouteChildren {
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminHealingRoute: typeof AdminHealingRoute
   AdminPodcastsRoute: typeof AdminPodcastsRoute
+  AdminProjectPageRoute: typeof AdminProjectPageRoute
   AdminQuotesRoute: typeof AdminQuotesRoute
   UUserIdRoute: typeof UUserIdRoute
 }
@@ -283,6 +309,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -302,6 +335,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/quotes'
       fullPath: '/admin/quotes'
       preLoaderRoute: typeof AdminQuotesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/project-page': {
+      id: '/admin/project-page'
+      path: '/admin/project-page'
+      fullPath: '/admin/project-page'
+      preLoaderRoute: typeof AdminProjectPageRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/podcasts': {
@@ -337,6 +377,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
   JournalRoute: JournalRoute,
   MoodRoute: MoodRoute,
@@ -349,18 +390,10 @@ const rootRouteChildren: RootRouteChildren = {
   AdminDashboardRoute: AdminDashboardRoute,
   AdminHealingRoute: AdminHealingRoute,
   AdminPodcastsRoute: AdminPodcastsRoute,
+  AdminProjectPageRoute: AdminProjectPageRoute,
   AdminQuotesRoute: AdminQuotesRoute,
   UUserIdRoute: UUserIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
