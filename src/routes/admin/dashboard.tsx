@@ -75,6 +75,14 @@ function AdminDashboard() {
             tint="var(--mint)"
           />
         </Link>
+        <Link to="/admin/emotion-corners">
+          <AdminCard
+            icon={<BarChart3 className="w-6 h-6" />}
+            title="Tương tác Góc cảm xúc"
+            description="Xem người dùng mở góc cảm xúc nào và chọn hành động chữa lành nào nhiều nhất."
+            tint="var(--blush)"
+          />
+        </Link>
       </section>
     </PageShell>
   );
