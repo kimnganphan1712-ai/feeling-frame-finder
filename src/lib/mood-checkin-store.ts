@@ -35,7 +35,7 @@ export function checkAdjective(raw: string): { ok: boolean; value: string; error
 
 export const moodCheckinStore = {
   async getToday(userId: string): Promise<MoodCheckin | null> {
-    const today = new Date().toISOString().slice(0, 10);
+    const today = localDateKey();
     const { data } = await supabase
       .from("mood_checkins")
       .select("*")
