@@ -99,7 +99,7 @@ export function EmotionCornerDialog({ corner, open, onOpenChange }: Props) {
             const Icon = cta.icon ? ICONS[cta.icon] ?? Heart : Heart;
             const primary = i === 0;
             return (
-              <Link key={i} to={cta.to} onClick={() => onOpenChange(false)}>
+              <Link key={i} to={cta.to as "/journal"} onClick={() => onOpenChange(false)}>
                 <Button
                   size="sm"
                   className={
