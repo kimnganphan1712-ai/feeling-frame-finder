@@ -12,6 +12,7 @@ import { MOODS } from "@/lib/mood";
 import { useTodayMood } from "@/lib/today-mood";
 import { MoodSticker } from "@/components/MoodSticker";
 import { BreathingDialog } from "@/components/BreathingDialog";
+import { EmotionCornerDialog, EMOTION_CORNERS, type EmotionCorner } from "@/components/EmotionCornerDialog";
 import { Button } from "@/components/ui/button";
 import {
   Headphones,
