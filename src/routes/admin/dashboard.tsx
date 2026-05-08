@@ -3,7 +3,7 @@ import { RequireAdmin } from "@/components/RequireAdmin";
 import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
 import { PageShell } from "@/components/PageShell";
-import { Quote, Sparkles, LogOut, Headphones, Globe2, Stethoscope } from "lucide-react";
+import { Quote, Sparkles, LogOut, Headphones, Globe2, Stethoscope, BarChart3 } from "lucide-react";
 
 export const Route = createFileRoute("/admin/dashboard")({
   component: () => (
