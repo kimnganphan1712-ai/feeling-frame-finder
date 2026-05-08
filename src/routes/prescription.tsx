@@ -355,7 +355,7 @@ function MoodPrescriptionPanel({
   onSave: (t: string) => void;
   isSaved: boolean;
 }) {
-  const journalPrompt = encodeURIComponent(card.question);
+  
   return (
     <div
       className={`rounded-3xl p-6 md:p-7 bg-gradient-to-br ${card.color} ring-1 ring-white/70 animate-[fade-up_0.5s_ease-out]`}
