@@ -18,8 +18,16 @@ export const Route = createFileRoute("/vitamin")({
 });
 
 const TYPE_LABEL: Record<string, string> = {
-  film: "Phim", book: "Sách", podcast: "Podcast", playlist: "Playlist", article: "Bài viết", other: "Khác",
+  film: "Phim", book: "Sách", music: "Nhạc", podcast: "Podcast", playlist: "Playlist", article: "Bài viết", other: "Khác",
 };
+const WORK_TABS: Array<{ key: string; label: string; icon: typeof Film }> = [
+  { key: "all", label: "Tất cả", icon: Sparkles },
+  { key: "film", label: "Phim", icon: Film },
+  { key: "book", label: "Sách", icon: BookOpen },
+  { key: "music", label: "Nhạc", icon: Music },
+  { key: "podcast", label: "Podcast", icon: Mic },
+  { key: "other", label: "Khác", icon: Star },
+];
 
 function VitaminPage() {
   const [quotes, setQuotes] = useState<Quote[]>([]);
