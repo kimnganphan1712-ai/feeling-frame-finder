@@ -66,11 +66,6 @@ export function UserMenu() {
               <p className="text-sm font-semibold truncate">{name}</p>
               <p className="text-[11px] text-muted-foreground truncate">{user.email}</p>
             </div>
-            <Link to="/about" onClick={() => setOpen(false)}>
-              <Button variant="ghost" size="sm" className="w-full justify-start rounded-xl mt-1">
-                <Stethoscope className="w-4 h-4 mr-2 text-mint-deep" /> Phác đồ chữa lành
-              </Button>
-            </Link>
             {role === "admin" && (
               <div className="mt-1 mb-1 pb-1 border-b border-border/50">
                 <p className="px-3 pt-1 pb-1 text-[10px] uppercase tracking-widest text-mint-deep/80 flex items-center gap-1">
