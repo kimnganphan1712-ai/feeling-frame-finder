@@ -29,6 +29,10 @@ export function MoodCheckIn({ onDone, onSkip }: Props) {
     if (!user) return;
     moodCheckinStore.getToday(user.id).then((row) => {
       setExisting(row);
+      if (row) {
+        setAdjective(row.adjective ?? "");
+        setStickerType(row.sticker_type);
+      }
       setLoaded(true);
     });
   }, [user]);
