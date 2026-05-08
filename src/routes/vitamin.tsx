@@ -135,15 +135,29 @@ function VitaminPage() {
 
       {/* Albums */}
       <section className="mt-12">
-        <div className="flex items-end justify-between mb-3">
+        <div className="flex items-end justify-between mb-3 gap-3">
           <div>
             <p className="text-xs uppercase tracking-widest text-muted-foreground">Bộ sưu tập</p>
             <h2 className="text-xl font-semibold">Album của bạn</h2>
           </div>
-          <span className="text-xs text-muted-foreground">{albums.length} album</span>
+          <Button size="sm" onClick={() => setCreateAlbumOpen(true)}
+            className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
+            <Plus className="w-4 h-4 mr-1" /> Tạo album
+          </Button>
         </div>
         {albums.length === 0 ? (
-          <p className="text-sm text-muted-foreground italic">Chưa có album nào — chạm vào dấu trang trên một câu để tạo album đầu tiên.</p>
+          <div className="rounded-3xl p-8 bg-gradient-to-br from-mint/20 to-blush/15 border border-white/60 text-center">
+            <div className="w-14 h-14 mx-auto rounded-2xl bg-white/70 flex items-center justify-center">
+              <Bookmark className="w-6 h-6 text-mint-deep" />
+            </div>
+            <p className="mt-4 text-sm text-foreground/70 italic">
+              Bạn chưa có album nào. Hãy lưu lại những câu nói bạn yêu thích để tạo album đầu tiên.
+            </p>
+            <Button onClick={() => setCreateAlbumOpen(true)} variant="ghost"
+              className="mt-3 rounded-full border border-mint-deep/40 text-mint-deep">
+              <Plus className="w-4 h-4 mr-1" /> Tạo album mới
+            </Button>
+          </div>
         ) : (
           <div className="grid sm:grid-cols-2 gap-3">
             {albums.map((a) => (
@@ -175,6 +189,16 @@ function VitaminPage() {
         <div className="mb-3">
           <p className="text-xs uppercase tracking-widest text-muted-foreground">Gợi ý chữa lành</p>
           <h2 className="text-xl font-semibold">Tác phẩm dịu dàng</h2>
+        </div>
+        <div className="flex gap-2 flex-wrap mb-4">
+          {WORK_TABS.map(({ key, label, icon: Icon }) => (
+            <button key={key} onClick={() => setWorkTab(key)}
+              className={`inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full transition-colors ${
+                workTab === key ? "bg-mint-deep text-white" : "bg-muted text-foreground/70 hover:bg-mint/30"
+              }`}>
+              <Icon className="w-3.5 h-3.5" /> {label}
+            </button>
+          ))}
         </div>
         {works.length === 0 ? (
           <p className="text-sm text-muted-foreground italic">Chưa có tác phẩm nào. Quay lại sau nhé.</p>
