@@ -21,6 +21,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UUserIdRouteImport } from './routes/u.$userId'
 import { Route as AdminQuotesRouteImport } from './routes/admin/quotes'
+import { Route as AdminProjectPageRouteImport } from './routes/admin/project-page'
 import { Route as AdminPodcastsRouteImport } from './routes/admin/podcasts'
 import { Route as AdminHealingRouteImport } from './routes/admin/healing'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
@@ -86,6 +87,11 @@ const AdminQuotesRoute = AdminQuotesRouteImport.update({
   path: '/admin/quotes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminProjectPageRoute = AdminProjectPageRouteImport.update({
+  id: '/admin/project-page',
+  path: '/admin/project-page',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminPodcastsRoute = AdminPodcastsRouteImport.update({
   id: '/admin/podcasts',
   path: '/admin/podcasts',
@@ -122,6 +128,7 @@ export interface FileRoutesByFullPath {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/healing': typeof AdminHealingRoute
   '/admin/podcasts': typeof AdminPodcastsRoute
+  '/admin/project-page': typeof AdminProjectPageRoute
   '/admin/quotes': typeof AdminQuotesRoute
   '/u/$userId': typeof UUserIdRoute
 }
@@ -140,6 +147,7 @@ export interface FileRoutesByTo {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/healing': typeof AdminHealingRoute
   '/admin/podcasts': typeof AdminPodcastsRoute
+  '/admin/project-page': typeof AdminProjectPageRoute
   '/admin/quotes': typeof AdminQuotesRoute
   '/u/$userId': typeof UUserIdRoute
 }
@@ -159,6 +167,7 @@ export interface FileRoutesById {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/healing': typeof AdminHealingRoute
   '/admin/podcasts': typeof AdminPodcastsRoute
+  '/admin/project-page': typeof AdminProjectPageRoute
   '/admin/quotes': typeof AdminQuotesRoute
   '/u/$userId': typeof UUserIdRoute
 }
@@ -179,6 +188,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/healing'
     | '/admin/podcasts'
+    | '/admin/project-page'
     | '/admin/quotes'
     | '/u/$userId'
   fileRoutesByTo: FileRoutesByTo
@@ -197,6 +207,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/healing'
     | '/admin/podcasts'
+    | '/admin/project-page'
     | '/admin/quotes'
     | '/u/$userId'
   id:
@@ -215,6 +226,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/healing'
     | '/admin/podcasts'
+    | '/admin/project-page'
     | '/admin/quotes'
     | '/u/$userId'
   fileRoutesById: FileRoutesById
@@ -234,6 +246,7 @@ export interface RootRouteChildren {
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminHealingRoute: typeof AdminHealingRoute
   AdminPodcastsRoute: typeof AdminPodcastsRoute
+  AdminProjectPageRoute: typeof AdminProjectPageRoute
   AdminQuotesRoute: typeof AdminQuotesRoute
   UUserIdRoute: typeof UUserIdRoute
 }
@@ -324,6 +337,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminQuotesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/project-page': {
+      id: '/admin/project-page'
+      path: '/admin/project-page'
+      fullPath: '/admin/project-page'
+      preLoaderRoute: typeof AdminProjectPageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/podcasts': {
       id: '/admin/podcasts'
       path: '/admin/podcasts'
@@ -370,6 +390,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminDashboardRoute: AdminDashboardRoute,
   AdminHealingRoute: AdminHealingRoute,
   AdminPodcastsRoute: AdminPodcastsRoute,
+  AdminProjectPageRoute: AdminProjectPageRoute,
   AdminQuotesRoute: AdminQuotesRoute,
   UUserIdRoute: UUserIdRoute,
 }
