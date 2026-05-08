@@ -3,12 +3,12 @@ import { Home, BookHeart, Headphones, Sparkles, Globe2, Stethoscope } from "luci
 import { cn } from "@/lib/utils";
 
 const items = [
+  { to: "/about", label: "Phác đồ", icon: Stethoscope, full: "Phác đồ chữa lành" },
   { to: "/", label: "Trạm", icon: Home, full: "Trạm cảm xúc" },
   { to: "/journal", label: "Hồ sơ", icon: BookHeart, full: "Hồ sơ cảm xúc" },
   { to: "/podcast", label: "Tần số", icon: Headphones, full: "Tần số chữa lành" },
   { to: "/vitamin", label: "Dưỡng chất", icon: Sparkles, full: "Dưỡng chất tinh thần" },
   { to: "/mood-board", label: "Kết nối", icon: Globe2, full: "Không gian kết nối" },
-  { to: "/about", label: "Phác đồ", icon: Stethoscope, full: "Phác đồ chữa lành" },
 ] as const;
 
 export function BottomNav() {
