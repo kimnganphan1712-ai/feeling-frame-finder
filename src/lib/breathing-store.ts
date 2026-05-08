@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import { localDateKey } from "@/lib/utils";
 
 export interface BreathingSession {
   id: string;
@@ -56,7 +57,7 @@ export const breathingStore = {
     planned_seconds: number;
     completed: boolean;
   }): Promise<BreathingSession | null> {
-    const today = new Date().toISOString().slice(0, 10);
+    const today = localDateKey();
     const { data } = await supabase
       .from("breathing_sessions")
       .insert({
@@ -89,7 +90,7 @@ export const breathingStore = {
     }
     // current streak ending today or yesterday
     let current = 0;
-    const today = new Date().toISOString().slice(0, 10);
+    const today = localDateKey();
     const yesterday = (() => {
       const d = new Date();
       d.setDate(d.getDate() - 1);

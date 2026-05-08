@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import { localDateKey } from "@/lib/utils";
 
 export interface MoodCheckin {
   id: string;
@@ -34,7 +35,7 @@ export function checkAdjective(raw: string): { ok: boolean; value: string; error
 
 export const moodCheckinStore = {
   async getToday(userId: string): Promise<MoodCheckin | null> {
-    const today = new Date().toISOString().slice(0, 10);
+    const today = localDateKey();
     const { data } = await supabase
       .from("mood_checkins")
       .select("*")
@@ -53,7 +54,7 @@ export const moodCheckinStore = {
   }): Promise<{ data?: MoodCheckin; error?: string }> {
     const { data, error } = await supabase
       .from("mood_checkins")
-      .insert(payload)
+      .insert({ ...payload, entry_date: localDateKey() })
       .select("*")
       .single();
     if (error) return { error: error.message };

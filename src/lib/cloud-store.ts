@@ -1,5 +1,6 @@
 // Cloud-backed store for Hospital Playlist - Trạm Cứu Hộ Cảm Xúc (per-user via Supabase RLS)
 import { supabase } from "@/integrations/supabase/client";
+import { localDateKey } from "@/lib/utils";
 import { MoodKey } from "./mood";
 
 export interface MoodEntry {
@@ -30,14 +31,14 @@ export interface CapsuleDelivery {
 export const cloudStore = {
   // ----- mood -----
   async getTodayMood(userId: string): Promise<MoodKey | null> {
-    const today = new Date().toISOString().slice(0, 10);
+    const today = localDateKey();
     const { data } = await supabase
       .from("mood_entries").select("mood")
       .eq("user_id", userId).eq("entry_date", today).maybeSingle();
     return (data?.mood as MoodKey) ?? null;
   },
   async setTodayMood(userId: string, mood: MoodKey) {
-    const today = new Date().toISOString().slice(0, 10);
+    const today = localDateKey();
     await supabase.from("mood_entries")
       .upsert({ user_id: userId, entry_date: today, mood }, { onConflict: "user_id,entry_date" });
   },
@@ -105,7 +106,7 @@ export const cloudStore = {
     });
   },
   async getDueCapsules(userId: string): Promise<CapsuleDelivery[]> {
-    const today = new Date().toISOString().slice(0, 10);
+    const today = localDateKey();
     const { data } = await supabase.from("time_capsule_deliveries")
       .select("id,entry_id,deliver_at,interval_kind,delivered_at,read_at, entry:journal_entries(id,title,body,mood,cover_image_url,created_at,updated_at)")
       .eq("user_id", userId).is("read_at", null).lte("deliver_at", today)
