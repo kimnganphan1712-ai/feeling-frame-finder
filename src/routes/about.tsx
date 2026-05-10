@@ -6,6 +6,11 @@ import { Mascot } from "@/components/Mascot";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { CinematicBanner } from "@/components/CinematicBanner";
+import { PosterFrame } from "@/components/PosterFrame";
+import { Lightbox, type LightboxImage } from "@/components/Lightbox";
+import { siteImagesStore, IMAGE_SLOTS, type SiteImage } from "@/lib/site-images-store";
+import aboutHeroFallback from "@/assets/hp-doctors-corridor.jpg";
 import {
   projectPageStore,
   bySlug,
@@ -26,6 +31,7 @@ import {
   Send,
   Loader2,
   ArrowRight,
+  Camera,
 } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -97,13 +103,32 @@ function AboutPage() {
     );
   }
 
+  const heroSection = sections.find((s) => s.slug === "hero");
+
   return (
     <PageShell mascot={false}>
       <div className="space-y-16 pb-12">
+        <CinematicBanner
+          slot={IMAGE_SLOTS.aboutHero}
+          fallbackSrc={aboutHeroFallback}
+          kicker="Phác đồ chữa lành"
+          title={heroSection?.title || "Hospital Playlist"}
+          subtitle={heroSection?.subtitle || "Một trạm cảm xúc dịu dàng cho những ngày lòng mỏi mệt."}
+          height="lg"
+        >
+          {heroSection?.button_text && (
+            <a href={heroSection.button_link || "#contact"}>
+              <Button size="lg" className="rounded-full bg-warm hover:bg-warm/90 text-navy px-6">
+                {heroSection.button_text} <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </a>
+          )}
+        </CinematicBanner>
+
         {ordered.map((s) => {
           switch (s.slug) {
             case "hero":
-              return <HeroSection key={s.id} s={s} />;
+              return null;
             case "why":
               return <WhySection key={s.id} s={s} />;
             case "founder":
@@ -120,8 +145,64 @@ function AboutPage() {
               return null;
           }
         })}
+
+        <GallerySection />
       </div>
     </PageShell>
+  );
+}
+
+function GallerySection() {
+  const [imgs, setImgs] = useState<SiteImage[]>([]);
+  const [open, setOpen] = useState<number>(-1);
+
+  useEffect(() => {
+    siteImagesStore.listBySlot(IMAGE_SLOTS.aboutGallery).then(setImgs);
+  }, []);
+
+  if (imgs.length === 0) return null;
+
+  const lightboxImgs: LightboxImage[] = imgs.map((i) => ({
+    url: i.url,
+    alt: i.alt ?? undefined,
+    caption: i.caption ?? undefined,
+  }));
+
+  return (
+    <section className="animate-[fade-up_0.7s_ease-out]">
+      <div className="text-center mb-7">
+        <p className="text-[11px] uppercase tracking-[0.25em] text-mint-deep/80 mb-2 inline-flex items-center gap-2 justify-center">
+          <Camera className="w-3.5 h-3.5" /> Khoảnh khắc
+        </p>
+        <h2 className="font-display text-2xl md:text-3xl leading-snug">Gallery — những khung hình của dự án</h2>
+        <p className="mt-3 text-sm md:text-base text-muted-foreground max-w-xl mx-auto">
+          Chạm vào mỗi khung để xem lớn hơn.
+        </p>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+        {imgs.map((img, i) => (
+          <PosterFrame
+            key={img.id}
+            src={img.url}
+            alt={img.alt ?? ""}
+            caption={img.caption ?? undefined}
+            aspect={i % 5 === 0 ? "portrait" : "square"}
+            tone={i % 2 === 0 ? "scrub" : "warm"}
+            onClick={() => setOpen(i)}
+          />
+        ))}
+      </div>
+
+      {open >= 0 && (
+        <Lightbox
+          images={lightboxImgs}
+          index={open}
+          onClose={() => setOpen(-1)}
+          onIndex={setOpen}
+        />
+      )}
+    </section>
   );
 }
 

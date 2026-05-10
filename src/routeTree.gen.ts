@@ -20,6 +20,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UUserIdRouteImport } from './routes/u.$userId'
+import { Route as AdminSiteImagesRouteImport } from './routes/admin/site-images'
 import { Route as AdminQuotesRouteImport } from './routes/admin/quotes'
 import { Route as AdminProjectPageRouteImport } from './routes/admin/project-page'
 import { Route as AdminPodcastsRouteImport } from './routes/admin/podcasts'
@@ -83,6 +84,11 @@ const UUserIdRoute = UUserIdRouteImport.update({
   path: '/u/$userId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminSiteImagesRoute = AdminSiteImagesRouteImport.update({
+  id: '/admin/site-images',
+  path: '/admin/site-images',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminQuotesRoute = AdminQuotesRouteImport.update({
   id: '/admin/quotes',
   path: '/admin/quotes',
@@ -137,6 +143,7 @@ export interface FileRoutesByFullPath {
   '/admin/podcasts': typeof AdminPodcastsRoute
   '/admin/project-page': typeof AdminProjectPageRoute
   '/admin/quotes': typeof AdminQuotesRoute
+  '/admin/site-images': typeof AdminSiteImagesRoute
   '/u/$userId': typeof UUserIdRoute
 }
 export interface FileRoutesByTo {
@@ -157,6 +164,7 @@ export interface FileRoutesByTo {
   '/admin/podcasts': typeof AdminPodcastsRoute
   '/admin/project-page': typeof AdminProjectPageRoute
   '/admin/quotes': typeof AdminQuotesRoute
+  '/admin/site-images': typeof AdminSiteImagesRoute
   '/u/$userId': typeof UUserIdRoute
 }
 export interface FileRoutesById {
@@ -178,6 +186,7 @@ export interface FileRoutesById {
   '/admin/podcasts': typeof AdminPodcastsRoute
   '/admin/project-page': typeof AdminProjectPageRoute
   '/admin/quotes': typeof AdminQuotesRoute
+  '/admin/site-images': typeof AdminSiteImagesRoute
   '/u/$userId': typeof UUserIdRoute
 }
 export interface FileRouteTypes {
@@ -200,6 +209,7 @@ export interface FileRouteTypes {
     | '/admin/podcasts'
     | '/admin/project-page'
     | '/admin/quotes'
+    | '/admin/site-images'
     | '/u/$userId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -220,6 +230,7 @@ export interface FileRouteTypes {
     | '/admin/podcasts'
     | '/admin/project-page'
     | '/admin/quotes'
+    | '/admin/site-images'
     | '/u/$userId'
   id:
     | '__root__'
@@ -240,6 +251,7 @@ export interface FileRouteTypes {
     | '/admin/podcasts'
     | '/admin/project-page'
     | '/admin/quotes'
+    | '/admin/site-images'
     | '/u/$userId'
   fileRoutesById: FileRoutesById
 }
@@ -261,6 +273,7 @@ export interface RootRouteChildren {
   AdminPodcastsRoute: typeof AdminPodcastsRoute
   AdminProjectPageRoute: typeof AdminProjectPageRoute
   AdminQuotesRoute: typeof AdminQuotesRoute
+  AdminSiteImagesRoute: typeof AdminSiteImagesRoute
   UUserIdRoute: typeof UUserIdRoute
 }
 
@@ -343,6 +356,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UUserIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/site-images': {
+      id: '/admin/site-images'
+      path: '/admin/site-images'
+      fullPath: '/admin/site-images'
+      preLoaderRoute: typeof AdminSiteImagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/quotes': {
       id: '/admin/quotes'
       path: '/admin/quotes'
@@ -413,17 +433,9 @@ const rootRouteChildren: RootRouteChildren = {
   AdminPodcastsRoute: AdminPodcastsRoute,
   AdminProjectPageRoute: AdminProjectPageRoute,
   AdminQuotesRoute: AdminQuotesRoute,
+  AdminSiteImagesRoute: AdminSiteImagesRoute,
   UUserIdRoute: UUserIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}

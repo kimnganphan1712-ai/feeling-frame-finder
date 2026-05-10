@@ -721,6 +721,48 @@ export type Database = {
         }
         Relationships: []
       }
+      site_images: {
+        Row: {
+          alt: string | null
+          caption: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          is_featured: boolean
+          slot: string
+          sort_order: number
+          tag: string | null
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          alt?: string | null
+          caption?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_featured?: boolean
+          slot: string
+          sort_order?: number
+          tag?: string | null
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          alt?: string | null
+          caption?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          is_featured?: boolean
+          slot?: string
+          sort_order?: number
+          tag?: string | null
+          updated_at?: string
+          url?: string
+        }
+        Relationships: []
+      }
       site_settings: {
         Row: {
           key: string
