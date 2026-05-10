@@ -35,7 +35,7 @@ function PublicProfilePage() {
     <PageShell>
       <div className="max-w-3xl mx-auto px-4 py-8">
         <Link to="/vitamin" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6">
-          <ArrowLeft className="w-4 h-4" /> Về Vitamin
+          <ArrowLeft className="w-4 h-4" /> Về Vitamin cho tâm hồn
         </Link>
 
         {loading ? (
