@@ -144,7 +144,7 @@ function HomePage() {
               Hospital Playlist
             </p>
             <h2 className="font-display text-3xl md:text-[2.4rem] leading-[1.2] text-foreground/90">
-              <span className="text-mint-deep italic">Hospital Playlist</span>
+              Hospital <span className="text-mint-deep italic">Playlist</span>
             </h2>
             <p className="mt-4 text-sm md:text-base text-muted-foreground leading-relaxed max-w-md">
               Một không gian dịu dàng để bạn gọi tên cảm xúc, viết lại hôm nay, lắng nghe chính mình và tìm về một chút bình yên.
