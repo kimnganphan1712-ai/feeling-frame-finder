@@ -39,14 +39,23 @@
   --color-mood-anger: var(--mood-anger);
   --color-mood-sad: var(--mood-sad);
 
-  /* Brand */
+  /* Brand — Hospital Playlist cinematic */
   --color-mint: var(--mint);
   --color-mint-deep: var(--mint-deep);
   --color-blush: var(--blush);
   --color-blush-deep: var(--blush-deep);
 
-  --font-display: "Comfortaa", "Playfair Display", "Quicksand", system-ui, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Twemoji Mozilla", serif;
-  --font-sans: "Nunito", "Be Vietnam Pro", "Inter", system-ui, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Twemoji Mozilla", sans-serif;
+  --color-scrub: var(--scrub-blue);
+  --color-scrub-deep: var(--primary-blue);
+  --color-navy: var(--deep-navy);
+  --color-warm: var(--warm-yellow);
+  --color-cream: var(--soft-cream);
+  --color-mist: var(--mist-blue);
+  --color-charcoal: var(--charcoal);
+
+  --font-display: "Anton", "Bebas Neue", "Playfair Display", system-ui, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", serif;
+  --font-serif: "Playfair Display", "Lora", Georgia, serif;
+  --font-sans: "Lora", "Be Vietnam Pro", "Nunito", system-ui, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
 
   --animate-breathe: breathe 4s ease-in-out infinite;
   --animate-float: float 6s ease-in-out infinite;
@@ -87,77 +96,90 @@
 :root {
   --radius: 1.25rem;
 
-  /* Soft pastel mint + blush palette */
-  --background: oklch(0.985 0.012 180);
-  --foreground: oklch(0.32 0.04 220);
+  /* Hospital Playlist palette */
+  --primary-blue: #0E5E9C;
+  --scrub-blue: #4FA3D9;
+  --deep-navy: #102A43;
+  --warm-yellow: #F6C445;
+  --soft-cream: #FFF7E6;
+  --mist-blue: #EAF6FA;
+  --charcoal: #1F2933;
 
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.32 0.04 220);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.32 0.04 220);
+  --background: #FFFBF2; /* warm cream */
+  --foreground: #102A43; /* deep navy text */
 
-  --primary: oklch(0.72 0.09 195);
-  --primary-foreground: oklch(0.99 0.005 200);
+  --card: #FFFFFF;
+  --card-foreground: #102A43;
+  --popover: #FFFFFF;
+  --popover-foreground: #102A43;
 
-  --secondary: oklch(0.93 0.04 350);
-  --secondary-foreground: oklch(0.4 0.08 350);
+  --primary: #0E5E9C;
+  --primary-foreground: #FFF7E6;
 
-  --muted: oklch(0.96 0.015 200);
-  --muted-foreground: oklch(0.55 0.03 220);
+  --secondary: #FFF1C9;
+  --secondary-foreground: #6B4B00;
 
-  --accent: oklch(0.9 0.06 350);
-  --accent-foreground: oklch(0.4 0.08 350);
+  --muted: #EAF6FA;
+  --muted-foreground: #486581;
+
+  --accent: #F6C445;
+  --accent-foreground: #1F2933;
 
   --destructive: oklch(0.7 0.15 25);
-  --destructive-foreground: oklch(0.99 0.005 200);
+  --destructive-foreground: #FFFFFF;
 
-  --border: oklch(0.92 0.02 200);
-  --input: oklch(0.94 0.018 200);
-  --ring: oklch(0.72 0.09 195);
+  --border: #DCEAF3;
+  --input: #E5EFF6;
+  --ring: #0E5E9C;
 
-  /* Brand */
-  --mint: oklch(0.91 0.04 195);
-  --mint-deep: oklch(0.72 0.09 195);
-  --blush: oklch(0.93 0.04 350);
-  --blush-deep: oklch(0.78 0.09 355);
+  /* Brand — kept (legacy) but remapped to scrub blue + warm yellow */
+  --mint: #DCEAF3;
+  --mint-deep: #0E5E9C;
+  --blush: #FFF1C9;
+  --blush-deep: #C9941A;
 
-  /* Mood palette */
-  --mood-joy: oklch(0.82 0.11 200);     /* xanh - vui */
-  --mood-calm: oklch(0.88 0.12 90);     /* vàng - bình thường */
-  --mood-anger: oklch(0.74 0.15 25);    /* đỏ - tức giận */
-  --mood-sad: oklch(0.74 0.1 310);      /* tím - buồn */
+  /* Mood palette (cinematic) */
+  --mood-joy: #4FA3D9;
+  --mood-calm: #F6C445;
+  --mood-anger: #E07A5F;
+  --mood-sad: #8FA1B7;
 
   /* Gradients */
-  --gradient-welcome: linear-gradient(135deg, oklch(0.97 0.02 195) 0%, oklch(0.94 0.04 350) 100%);
-  --gradient-soft: linear-gradient(180deg, oklch(0.985 0.012 180) 0%, oklch(0.96 0.025 350) 100%);
-  --gradient-mascot: radial-gradient(circle at 50% 40%, oklch(0.95 0.05 195) 0%, transparent 70%);
+  --gradient-welcome: linear-gradient(135deg, #FFF7E6 0%, #EAF6FA 60%, #DCEAF3 100%);
+  --gradient-soft: linear-gradient(180deg, #FFFBF2 0%, #F4FAFD 100%);
+  --gradient-hero: linear-gradient(180deg, rgba(16, 42, 67, 0.55) 0%, rgba(16, 42, 67, 0.85) 100%);
+  --gradient-cinematic: linear-gradient(135deg, #102A43 0%, #0E5E9C 100%);
+  --gradient-mascot: radial-gradient(circle at 50% 40%, #EAF6FA 0%, transparent 70%);
 
   /* Shadows */
-  --shadow-soft: 0 8px 24px -8px oklch(0.72 0.09 195 / 0.25);
-  --shadow-glow: 0 0 60px oklch(0.85 0.08 195 / 0.4);
-  --shadow-card: 0 4px 20px -4px oklch(0.7 0.05 220 / 0.12);
+  --shadow-soft: 0 8px 24px -8px rgba(14, 94, 156, 0.25);
+  --shadow-glow: 0 0 60px rgba(246, 196, 69, 0.35);
+  --shadow-card: 0 6px 24px -8px rgba(16, 42, 67, 0.18);
+  --shadow-cinematic: 0 24px 60px -20px rgba(16, 42, 67, 0.55);
 }
 
 .dark {
-  --background: oklch(0.22 0.03 230);
-  --foreground: oklch(0.95 0.01 200);
-  --card: oklch(0.27 0.035 230);
-  --card-foreground: oklch(0.95 0.01 200);
-  --popover: oklch(0.27 0.035 230);
-  --popover-foreground: oklch(0.95 0.01 200);
-  --primary: oklch(0.78 0.1 195);
-  --primary-foreground: oklch(0.22 0.03 230);
-  --secondary: oklch(0.35 0.05 350);
-  --secondary-foreground: oklch(0.95 0.01 200);
-  --muted: oklch(0.3 0.03 230);
-  --muted-foreground: oklch(0.7 0.02 200);
-  --accent: oklch(0.35 0.05 350);
-  --accent-foreground: oklch(0.95 0.01 200);
+  --background: #0B1B2C;
+  --foreground: #F4FAFD;
+  --card: #14283F;
+  --card-foreground: #F4FAFD;
+  --popover: #14283F;
+  --popover-foreground: #F4FAFD;
+  --primary: #4FA3D9;
+  --primary-foreground: #0B1B2C;
+  --secondary: #3A2D10;
+  --secondary-foreground: #F6C445;
+  --muted: #1A3151;
+  --muted-foreground: #B5C8DA;
+  --accent: #F6C445;
+  --accent-foreground: #0B1B2C;
   --destructive: oklch(0.65 0.18 25);
-  --destructive-foreground: oklch(0.99 0.005 200);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.78 0.1 195);
+  --destructive-foreground: #FFFFFF;
+  --border: rgba(244, 250, 253, 0.1);
+  --input: rgba(244, 250, 253, 0.12);
+  --ring: #4FA3D9;
+  --mint: #1A3151;
+  --mint-deep: #4FA3D9;
 }
 
 @layer base {
@@ -178,7 +200,7 @@
     background: var(--gradient-soft);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    font-weight: 500;
+    font-weight: 400;
     line-height: 1.7;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
@@ -187,34 +209,53 @@
   p { line-height: 1.75; }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    font-weight: 700;
-    letter-spacing: -0.015em;
-    line-height: 1.25;
-    color: oklch(0.28 0.05 220);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.15;
+    color: var(--deep-navy);
+    text-transform: none;
   }
-  h1 { font-size: clamp(2.5rem, 6vw, 4rem); }
-  h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
-  h3 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
-  h4 { font-size: 1.125rem; }
+  h1 { font-size: clamp(2.75rem, 7vw, 5rem); letter-spacing: 0.02em; }
+  h2 { font-size: clamp(2rem, 4.5vw, 3rem); }
+  h3 { font-size: clamp(1.35rem, 2.6vw, 1.75rem); }
+  h4 { font-size: 1.15rem; }
   small, .text-xs { font-size: 0.875rem; }
   button { font-family: var(--font-sans); font-weight: 600; }
 }
 
 @layer utilities {
   .glass {
-    background: oklch(1 0 0 / 0.7);
+    background: rgba(255, 255, 255, 0.78);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
   }
   .glass-strong {
-    background: oklch(1 0 0 / 0.85);
+    background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
+  }
+  .glass-dark {
+    background: rgba(16, 42, 67, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
   }
   .shadow-soft { box-shadow: var(--shadow-soft); }
   .shadow-glow { box-shadow: var(--shadow-glow); }
   .shadow-card { box-shadow: var(--shadow-card); }
+  .shadow-cinematic { box-shadow: var(--shadow-cinematic); }
   .bg-gradient-welcome { background: var(--gradient-welcome); }
   .bg-gradient-soft { background: var(--gradient-soft); }
+  .bg-gradient-hero { background: var(--gradient-hero); }
+  .bg-gradient-cinematic { background: var(--gradient-cinematic); }
   .bg-gradient-mascot { background: var(--gradient-mascot); }
+  .text-warm { color: var(--warm-yellow); }
+  .text-navy { color: var(--deep-navy); }
+  .text-scrub { color: var(--primary-blue); }
+  .font-display { font-family: var(--font-display); }
+  .font-serif { font-family: var(--font-serif); }
+  .heading-cinematic {
+    font-family: var(--font-display);
+    letter-spacing: 0.04em;
+    line-height: 1.05;
+  }
 }
