@@ -7,7 +7,7 @@ import { PageShell } from "@/components/PageShell";
 import { ImageUploader } from "@/components/about/ImageUploader";
 import { siteSettingsStore, SITE_KEYS } from "@/lib/site-settings-store";
 import { toast } from "sonner";
-import { Quote, Sparkles, LogOut, Headphones, Globe2, Stethoscope, BarChart3, Image as ImageIcon } from "lucide-react";
+import { Quote, Sparkles, LogOut, Headphones, Globe2, Stethoscope, BarChart3, Image as ImageIcon, Images } from "lucide-react";
 
 export const Route = createFileRoute("/admin/dashboard")({
   component: () => (
@@ -91,6 +91,9 @@ function AdminDashboard() {
         </Link>
         <Link to="/admin/emotion-corners">
           <AdminCard icon={<BarChart3 className="w-6 h-6" />} title="Tương tác Góc cảm xúc" description="Xem người dùng mở góc cảm xúc nào và chọn hành động chữa lành nào nhiều nhất." tone="warm" />
+        </Link>
+        <Link to="/admin/site-images">
+          <AdminCard icon={<Images className="w-6 h-6" />} title="Thư viện ảnh website" description="Upload, sắp xếp, caption ảnh cho hero, gallery, banner từng trang. Có thể đổi ảnh bất cứ lúc nào." tone="scrub" />
         </Link>
       </section>
     </PageShell>
