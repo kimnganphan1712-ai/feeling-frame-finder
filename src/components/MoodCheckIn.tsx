@@ -74,8 +74,8 @@ export function MoodCheckIn({ onDone, onSkip }: Props) {
   const liveMascot = thanks ? "happy" : selectedSticker ? stickerToMascot(selectedSticker.type) : existing ? "encourage" : "question";
 
   return (
-    <div className="fixed inset-0 z-50 bg-gradient-welcome/85 backdrop-blur-md flex items-center justify-center p-4 animate-[fade-up_0.7s_ease-out]">
-      <div className="glass-strong rounded-[2rem] shadow-[0_20px_60px_-20px_rgba(80,120,140,0.25)] max-w-xl w-full p-8 md:p-10 relative border-0 ring-1 ring-white/50">
+    <div className="fixed inset-0 z-50 bg-gradient-welcome/85 backdrop-blur-md flex items-start sm:items-center justify-center p-3 sm:p-4 overflow-y-auto animate-[fade-up_0.7s_ease-out]">
+      <div className="glass-strong rounded-[2rem] shadow-[0_20px_60px_-20px_rgba(80,120,140,0.25)] w-full max-w-xl my-auto p-5 sm:p-8 md:p-10 relative border-0 ring-1 ring-white/50 max-h-[92vh] overflow-y-auto">
         <div className="flex flex-col items-center text-center">
           <Mascot size="md" variant={liveMascot} floating />
 
