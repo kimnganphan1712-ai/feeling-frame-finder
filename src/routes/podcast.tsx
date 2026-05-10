@@ -7,6 +7,9 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/auth-context";
 import { podcastStore, type Podcast, MOOD_TARGETS } from "@/lib/podcast-store";
 import { useTodayMood } from "@/lib/today-mood";
+import { CinematicBanner } from "@/components/CinematicBanner";
+import { IMAGE_SLOTS } from "@/lib/site-images-store";
+import podcastFallback from "@/assets/hp-headphones.jpg";
 
 export const Route = createFileRoute("/podcast")({
   component: () => (
@@ -40,11 +43,15 @@ function PodcastPage() {
 
   return (
     <PageShell>
-      <header className="mb-6 animate-[fade-up_0.6s_ease-out]">
-        <p className="text-xs uppercase tracking-widest text-muted-foreground">Hospital Playlist</p>
-        <h1 className="text-3xl font-semibold mt-1">Tần số chữa lành</h1>
-        <p className="text-muted-foreground text-sm mt-1">Những tấm postcard âm thanh nhỏ mang theo năng lượng bình yên.</p>
-      </header>
+      <CinematicBanner
+        slot={IMAGE_SLOTS.podcastBanner}
+        fallbackSrc={podcastFallback}
+        kicker="Track 02 — Frequency"
+        title="Tần số chữa lành"
+        subtitle="Những tấm postcard âm thanh nhỏ mang theo năng lượng bình yên."
+        height="md"
+      />
+      <div className="h-6" />
 
       {/* Healing podcasts from admin (DB) */}
       <section className="mb-8 animate-[fade-up_0.6s_ease-out]">

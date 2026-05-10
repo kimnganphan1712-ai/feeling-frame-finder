@@ -8,6 +8,9 @@ import { vitaminStore, type Quote, type HealingWork, type Album } from "@/lib/vi
 import { SubmitQuoteDialog } from "@/components/vitamin/SubmitQuoteDialog";
 import { SaveToAlbumDialog } from "@/components/vitamin/SaveToAlbumDialog";
 import { AlbumDetailDialog } from "@/components/vitamin/AlbumDetailDialog";
+import { CinematicBanner } from "@/components/CinematicBanner";
+import { IMAGE_SLOTS } from "@/lib/site-images-store";
+import vitaminFallback from "@/assets/hp-cassette.jpg";
 
 export const Route = createFileRoute("/vitamin")({
   component: () => (
@@ -68,16 +71,19 @@ function VitaminPage() {
 
   return (
     <PageShell>
-      <header className="flex items-start justify-between mb-6 animate-[fade-up_0.6s_ease-out]">
-        <div>
-          <p className="text-xs uppercase tracking-widest text-muted-foreground">Hospital Playlist</p>
-          <h1 className="text-3xl font-semibold mt-1">Vitamin cho tâm hồn</h1>
-          <p className="text-muted-foreground text-sm mt-1">Một chút câu chữ, một chút ánh sáng, một chút dịu dàng cho tâm hồn.</p>
-        </div>
-        <Button size="sm" onClick={() => setSubmitOpen(true)} className="rounded-full bg-blush-deep hover:bg-blush-deep/90 text-white">
+      <CinematicBanner
+        slot={IMAGE_SLOTS.vitaminBanner}
+        fallbackSrc={vitaminFallback}
+        kicker="Track 03 — Vitamin"
+        title="Vitamin cho tâm hồn"
+        subtitle="Một chút câu chữ, một chút ánh sáng, một chút dịu dàng cho tâm hồn."
+        height="md"
+      >
+        <Button size="sm" onClick={() => setSubmitOpen(true)} className="rounded-full bg-warm hover:bg-warm/90 text-navy">
           <Plus className="w-4 h-4 mr-1" /> Gửi câu nói
         </Button>
-      </header>
+      </CinematicBanner>
+      <div className="h-6" />
 
       {/* Quote spotlight */}
       <section className="animate-[fade-up_0.6s_ease-out]">

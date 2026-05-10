@@ -4,6 +4,9 @@ import { PageShell } from "@/components/PageShell";
 import { RequireAuth } from "@/components/RequireAuth";
 import { Mascot } from "@/components/Mascot";
 import { Button } from "@/components/ui/button";
+import { CinematicBanner } from "@/components/CinematicBanner";
+import { IMAGE_SLOTS } from "@/lib/site-images-store";
+import prescriptionFallback from "@/assets/hp-prescription.jpg";
 import { useTodayMood } from "@/lib/today-mood";
 import { localDateKey } from "@/lib/utils";
 import {
@@ -99,19 +102,21 @@ function PrescriptionPage() {
 
   return (
     <PageShell mascot={false}>
-      {/* Hero */}
-      <section className="text-center pt-6 pb-2 animate-[fade-up_0.6s_ease-out]">
-        <div className="flex justify-center gap-3 mb-3">
+      <CinematicBanner
+        slot={IMAGE_SLOTS.prescriptionBanner}
+        fallbackSrc={prescriptionFallback}
+        kicker="Track 01 — Prescription"
+        title="Đơn thuốc tinh thần"
+        subtitle="Những lời nhắn dịu dàng được kê riêng cho trái tim hôm nay."
+        height="md"
+      />
+
+      <section className="text-center pt-2 pb-2 animate-[fade-up_0.6s_ease-out]">
+        <div className="flex justify-center gap-3 mb-2">
           <Mascot variant="idea" size="sm" floating />
           <Mascot variant="comfort" size="sm" floating />
         </div>
-        <h1 className="font-display text-3xl md:text-4xl font-medium leading-tight">
-          Đơn thuốc tinh thần
-        </h1>
-        <p className="mt-3 text-base md:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
-          Những lời nhắn dịu dàng được kê riêng cho trái tim hôm nay.
-        </p>
-        <p className="mt-2 text-sm text-muted-foreground/80 max-w-xl mx-auto">
+        <p className="text-sm text-muted-foreground/85 max-w-xl mx-auto">
           Mỗi ngày, bạn có thể nhận một lời nhắn nhỏ, một toa thuốc tinh thần, hoặc một gợi ý dịu
           dàng để đi qua hôm nay nhẹ hơn một chút.
         </p>

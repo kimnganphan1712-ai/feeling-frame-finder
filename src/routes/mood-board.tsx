@@ -12,6 +12,9 @@ import { moodCheckinStore, MoodCheckin } from "@/lib/mood-checkin-store";
 import { STICKERS } from "@/lib/stickers";
 import { useAuth } from "@/lib/auth-context";
 import { siteSettingsStore, SITE_KEYS } from "@/lib/site-settings-store";
+import { CinematicBanner } from "@/components/CinematicBanner";
+import { IMAGE_SLOTS } from "@/lib/site-images-store";
+import moodBoardFallback from "@/assets/hp-friends.jpg";
 import { cn, localDateKey } from "@/lib/utils";
 
 export const Route = createFileRoute("/mood-board")({
@@ -156,18 +159,19 @@ function MoodBoardPage() {
         </div>
       </header>
 
-      <section className="max-w-5xl mx-auto px-4 pt-8 pb-4 text-center">
-        <p className="text-[10px] uppercase tracking-[0.3em] text-mint-deep/80">community space</p>
-        <h2 className="mt-2 font-display text-2xl md:text-3xl text-foreground/85">
-          Nơi bạn thấy rằng mình không đơn độc
-        </h2>
-        <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto italic">
-          Trong những ngày nhiều cảm xúc, có rất nhiều người cũng đang cùng thở với bạn.
-        </p>
+      <section className="max-w-5xl mx-auto px-4 pt-6">
+        <CinematicBanner
+          slot={IMAGE_SLOTS.moodBoardBanner}
+          fallbackSrc={moodBoardFallback}
+          kicker="Track 04 — Connection"
+          title="Trạm kết nối"
+          subtitle="Trong những ngày nhiều cảm xúc, có rất nhiều người cũng đang cùng thở với bạn."
+          height="md"
+        />
       </section>
 
       {/* Discord card */}
-      <section className="max-w-5xl mx-auto px-4 pb-6">
+      <section className="max-w-5xl mx-auto px-4 pt-6 pb-6">
         <div className="rounded-3xl glass border border-white/60 p-5 md:p-6 flex items-center gap-4 shadow-card">
           <div className="w-12 h-12 rounded-2xl bg-mint/40 flex items-center justify-center text-mint-deep shrink-0">
             <MessageCircle className="w-6 h-6" />
