@@ -14,6 +14,8 @@ import { MoodSticker } from "@/components/MoodSticker";
 import { BreathingDialog } from "@/components/BreathingDialog";
 import { EmotionCornerDialog, EMOTION_CORNERS, type EmotionCorner } from "@/components/EmotionCornerDialog";
 import { Button } from "@/components/ui/button";
+import { siteSettingsStore, SITE_KEYS } from "@/lib/site-settings-store";
+import heroDefault from "@/assets/hero-hospital-playlist.jpg";
 import {
   Headphones,
   BookHeart,
@@ -24,6 +26,10 @@ import {
   ChevronRight,
   Heart,
   Globe2,
+  Stethoscope,
+  Pill,
+  Music2,
+  PlayCircle,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -33,6 +39,16 @@ export const Route = createFileRoute("/")({
     </RequireAuth>
   ),
 });
+
+const TRACKS = [
+  { n: "01", to: "/about", title: "Phác đồ chữa lành", desc: "Hành trình bắt đầu — hiểu chính dự án này.", icon: Stethoscope, tone: "scrub" },
+  { n: "02", to: "/prescription", title: "Đơn thuốc tinh thần", desc: "Một toa thuốc dịu dàng được kê riêng cho hôm nay.", icon: Pill, tone: "warm" },
+  { n: "03", to: "/podcast", title: "Tần số chữa lành", desc: "Cassette mở lên — sóng âm xoa dịu tâm trí.", icon: Headphones, tone: "scrub" },
+  { n: "04", to: "/vitamin", title: "Vitamin cho tâm hồn", desc: "Kho quote, sách, bộ phim chữa lành.", icon: Sparkles, tone: "warm" },
+  { n: "05", to: "/mood-board", title: "Trạm kết nối", desc: "Bản đồ cảm xúc cộng đồng — bạn không một mình.", icon: Globe2, tone: "scrub" },
+  { n: "06", to: "/journal", title: "Hồ sơ cảm xúc", desc: "Căn phòng riêng có khóa — chỉ dành cho bạn.", icon: BookHeart, tone: "warm" },
+] as const;
+
 
 const DAILY_QUOTES = [
   {
@@ -93,6 +109,13 @@ function HomePage() {
   const [quoteIdx, setQuoteIdx] = useState(0);
   const [breathingOpen, setBreathingOpen] = useState(false);
   const [activeCorner, setActiveCorner] = useState<EmotionCorner | null>(null);
+  const [heroImage, setHeroImage] = useState<string>(heroDefault);
+
+  useEffect(() => {
+    siteSettingsStore.get(SITE_KEYS.heroImage).then((url) => {
+      if (url) setHeroImage(url);
+    });
+  }, []);
 
   // Decide whether to skip the pop-up: if today's check-in already exists, go straight to "ready".
   useEffect(() => {
@@ -124,57 +147,102 @@ function HomePage() {
 
   return (
     <PageShell mascot={false}>
-      {/* Header */}
-      <header className="flex items-center justify-between mb-10 animate-[fade-up_0.6s_ease-out]">
-        <div className="min-w-0">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-mint-deep/80">Hospital Playlist</p>
-          <h1 className="text-xl md:text-2xl font-display font-medium mt-1 truncate">
-            {greeting} <span className="text-mint-deep">🌿</span>
-          </h1>
-        </div>
-        <UserMenu />
-      </header>
+      {/* HERO cinematic — Hospital Playlist */}
+      <section className="relative -mx-5 sm:mx-0 sm:rounded-[32px] overflow-hidden shadow-cinematic animate-[fade-up_0.6s_ease-out]">
+        <img
+          src={heroImage}
+          alt="Hospital Playlist — hành lang bệnh viện ấm áp với ban nhạc"
+          className="absolute inset-0 w-full h-full object-cover"
+          width={1920}
+          height={1080}
+        />
+        <div className="absolute inset-0 bg-gradient-hero" />
+        <div
+          className="absolute inset-0 opacity-[0.08] mix-blend-overlay pointer-events-none"
+          style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px)", backgroundSize: "3px 3px" }}
+        />
 
-      {/* HERO editorial */}
-      <section className="relative rounded-[28px] overflow-hidden bg-gradient-welcome border border-white/60 shadow-card animate-[fade-up_0.6s_ease-out]">
-        <div className="absolute inset-0 pointer-events-none opacity-60 bg-gradient-mascot" />
-        <div className="relative grid md:grid-cols-[1.4fr_1fr] gap-6 p-8 md:p-12">
-          <div className="flex flex-col justify-center">
-            <p className="text-[11px] uppercase tracking-[0.3em] text-mint-deep mb-4">
-              Hospital Playlist
-            </p>
-            <h2 className="font-display text-3xl md:text-[2.4rem] leading-[1.2] text-foreground/90">
-              Hospital <span className="text-mint-deep italic">Playlist</span>
-            </h2>
-            <p className="mt-4 text-sm md:text-base text-muted-foreground leading-relaxed max-w-md">
-              Một không gian dịu dàng để bạn gọi tên cảm xúc, viết lại hôm nay, lắng nghe chính mình và tìm về một chút bình yên.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link to="/journal">
-                <Button className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white shadow-soft px-5">
-                  <BookHeart className="w-4 h-4 mr-2" /> Mở hồ sơ cảm xúc
-                </Button>
-              </Link>
-              <Link to="/podcast">
-                <Button variant="outline" className="rounded-full border-mint-deep/40 text-mint-deep hover:bg-mint/30 px-5">
-                  <Headphones className="w-4 h-4 mr-2" /> Tần số chữa lành
-                </Button>
-              </Link>
-            </div>
+        <div className="relative px-6 sm:px-10 md:px-16 py-16 sm:py-24 md:py-32 max-w-3xl">
+          <p className="inline-flex items-center gap-2 text-[10px] sm:text-xs uppercase tracking-[0.4em] text-warm font-semibold">
+            <Music2 className="w-3.5 h-3.5" /> A healing playlist
+          </p>
+          <h2 className="mt-5 heading-cinematic text-white text-[2.75rem] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
+            Hospital <span className="text-warm">Playlist</span>
+          </h2>
+          <p className="mt-6 font-serif italic text-white/90 text-base sm:text-lg md:text-xl leading-relaxed max-w-xl">
+            Một playlist dịu dàng cho những ngày lòng bạn cần được lắng nghe.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link to="/journal">
+              <Button className="rounded-full bg-warm hover:bg-warm/90 text-navy shadow-soft px-6 py-5 text-sm font-semibold">
+                <PlayCircle className="w-4 h-4 mr-2" /> Bắt đầu lắng nghe mình
+              </Button>
+            </Link>
+            <Link to="/about">
+              <Button variant="outline" className="rounded-full border-white/60 bg-white/10 text-white hover:bg-white/20 hover:text-white px-6 py-5 text-sm">
+                <Stethoscope className="w-4 h-4 mr-2" /> Khám phá phác đồ chữa lành
+              </Button>
+            </Link>
           </div>
 
-          <div className="hidden md:flex items-center justify-center relative">
-            <div className="absolute inset-0 rounded-full bg-mint/40 blur-3xl opacity-50" />
-            <div className="relative animate-[float_6s_ease-in-out_infinite]">
-              <Mascot size="lg" variant={today.mascot} />
-            </div>
+          {/* Sound wave decoration */}
+          <div className="mt-10 hidden sm:flex items-end gap-1 h-8 opacity-70">
+            {Array.from({ length: 32 }).map((_, i) => (
+              <span
+                key={i}
+                className="w-[3px] bg-warm rounded-full animate-pulse"
+                style={{ height: `${20 + Math.abs(Math.sin(i * 0.7)) * 80}%`, animationDelay: `${i * 0.05}s`, animationDuration: "1.6s" }}
+              />
+            ))}
           </div>
         </div>
 
-        {/* vertical mini quote */}
-        <div className="hidden lg:block absolute left-3 top-1/2 -translate-y-1/2 [writing-mode:vertical-rl] rotate-180 text-[10px] tracking-[0.3em] uppercase text-mint-deep/70">
-          bạn không cần ổn ngay · chỉ cần còn ở đây
+        <div className="absolute top-5 right-5 sm:top-6 sm:right-6 z-10">
+          <UserMenu />
         </div>
+        <div className="absolute top-5 left-5 sm:top-6 sm:left-10 z-10 text-white/85 text-[10px] sm:text-xs uppercase tracking-[0.35em]">
+          {greeting}
+        </div>
+      </section>
+
+      {/* Playlist tracks — 6 tiện ích */}
+      <SectionHeader kicker="Track list" title="Playlist chữa lành của bạn" />
+      <section className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {TRACKS.map((t) => {
+          const Icon = t.icon;
+          const warm = t.tone === "warm";
+          return (
+            <Link
+              key={t.to}
+              to={t.to}
+              className="group relative rounded-[22px] bg-card border border-border/70 shadow-card p-5 flex gap-4 items-start hover:-translate-y-1 hover:shadow-cinematic transition-all duration-300 overflow-hidden"
+            >
+              <div
+                className="absolute -right-6 -top-6 w-24 h-24 rounded-full opacity-20 group-hover:opacity-40 transition-opacity"
+                style={{ background: warm ? "var(--warm-yellow)" : "var(--scrub-blue)" }}
+              />
+              <div
+                className="relative w-14 h-14 rounded-2xl shrink-0 flex items-center justify-center"
+                style={{
+                  background: warm ? "var(--soft-cream)" : "var(--mist-blue)",
+                  color: warm ? "var(--blush-deep)" : "var(--primary-blue)",
+                }}
+              >
+                <Icon className="w-6 h-6" strokeWidth={1.8} />
+              </div>
+              <div className="relative flex-1 min-w-0">
+                <p className="text-[10px] uppercase tracking-[0.3em] font-semibold" style={{ color: warm ? "var(--blush-deep)" : "var(--primary-blue)" }}>
+                  Track {t.n}
+                </p>
+                <h3 className="mt-1 font-display text-xl text-navy leading-tight group-hover:text-scrub transition-colors">
+                  {t.title}
+                </h3>
+                <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">{t.desc}</p>
+              </div>
+              <ChevronRight className="absolute bottom-4 right-4 w-4 h-4 text-muted-foreground group-hover:text-scrub group-hover:translate-x-1 transition-all" />
+            </Link>
+          );
+        })}
       </section>
 
       {/* Mood capsule */}
