@@ -162,9 +162,17 @@
 
 @layer base {
   * { border-color: var(--color-border); }
-  html { font-size: 17px; }
+  html, body, #root {
+    width: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+  }
+  html { font-size: 15px; }
   @media (min-width: 768px) {
-    html { font-size: 18px; }
+    html { font-size: 16px; }
+  }
+  @media (min-width: 1280px) {
+    html { font-size: 17px; }
   }
   body {
     background: var(--gradient-soft);
