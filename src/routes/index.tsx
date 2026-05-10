@@ -127,7 +127,7 @@ function HomePage() {
       {/* Header */}
       <header className="flex items-center justify-between mb-10 animate-[fade-up_0.6s_ease-out]">
         <div className="min-w-0">
-          <p className="text-[11px] uppercase tracking-[0.25em] text-mint-deep/80">Hospital Playlist · Trạm Cứu Hộ Cảm Xúc</p>
+          <p className="text-[11px] uppercase tracking-[0.25em] text-mint-deep/80">Hospital Playlist</p>
           <h1 className="text-xl md:text-2xl font-display font-medium mt-1 truncate">
             {greeting} <span className="text-mint-deep">🌿</span>
           </h1>
@@ -144,7 +144,7 @@ function HomePage() {
               Hospital Playlist
             </p>
             <h2 className="font-display text-3xl md:text-[2.4rem] leading-[1.2] text-foreground/90">
-              Trạm Cứu Hộ <span className="text-mint-deep italic">Cảm Xúc</span>
+              <span className="text-mint-deep italic">Hospital Playlist</span>
             </h2>
             <p className="mt-4 text-sm md:text-base text-muted-foreground leading-relaxed max-w-md">
               Một không gian dịu dàng để bạn gọi tên cảm xúc, viết lại hôm nay, lắng nghe chính mình và tìm về một chút bình yên.
@@ -366,7 +366,7 @@ function HomePage() {
 
       {/* Footer */}
       <footer className="text-center pb-6 pt-2 text-muted-foreground">
-        <p className="font-display text-sm">Hospital Playlist - Trạm Cứu Hộ Cảm Xúc</p>
+        <p className="font-display text-sm">Hospital Playlist</p>
         <p className="text-[11px] italic mt-1">A gentle place for your inner world.</p>
       </footer>
     </PageShell>

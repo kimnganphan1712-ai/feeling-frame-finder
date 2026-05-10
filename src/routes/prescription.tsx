@@ -35,13 +35,13 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/prescription")({
   head: () => ({
     meta: [
-      { title: "Đơn thuốc tinh thần — Trạm cứu hộ cảm xúc" },
+      { title: "Đơn thuốc tinh thần" },
       {
         name: "description",
         content:
           "Những lời nhắn chữa lành và toa thuốc tinh thần dịu dàng cho trái tim bạn hôm nay.",
       },
-      { property: "og:title", content: "Đơn thuốc tinh thần — Trạm cứu hộ cảm xúc" },
+      { property: "og:title", content: "Đơn thuốc tinh thần" },
       {
         property: "og:description",
         content: "Lời nhắn dịu dàng được kê riêng cho trái tim hôm nay.",
@@ -125,7 +125,7 @@ function PrescriptionPage() {
         </div>
         <div className="relative glass-strong rounded-[2rem] p-7 md:p-9 shadow-[0_20px_60px_-30px_rgba(80,120,140,0.25)] ring-1 ring-mint/30">
           <div className="absolute -top-3 left-7 px-3 py-1 rounded-full bg-mint/40 text-mint-deep text-[11px] tracking-wider uppercase">
-            Trạm cứu hộ cảm xúc · {todayDate}
+             · {todayDate}
           </div>
           <div className="text-xs uppercase tracking-wider text-muted-foreground">Chẩn đoán cảm xúc</div>
           <p className="mt-2 font-display text-xl md:text-2xl leading-snug">
@@ -154,7 +154,7 @@ function PrescriptionPage() {
           <div className="mt-7 flex items-end justify-between gap-3">
             <div className="text-right ml-auto">
               <div className="font-display italic text-2xl text-mint-deep">Bác sĩ cảm xúc</div>
-              <div className="text-[11px] text-muted-foreground">Trạm cứu hộ cảm xúc</div>
+              <div className="text-[11px] text-muted-foreground"></div>
             </div>
           </div>
           <div className="mt-5 flex flex-wrap gap-2">

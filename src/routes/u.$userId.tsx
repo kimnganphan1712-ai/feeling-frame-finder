@@ -9,7 +9,7 @@ export const Route = createFileRoute("/u/$userId")({
   head: () => ({
     meta: [
       { title: "Hồ sơ — Hospital Playlist" },
-      { name: "description", content: "Album công khai của thành viên Hospital Playlist - Trạm Cứu Hộ Cảm Xúc." },
+      { name: "description", content: "Album công khai của thành viên Hospital Playlist." },
     ],
   }),
   component: PublicProfilePage,
