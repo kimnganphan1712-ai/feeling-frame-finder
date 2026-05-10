@@ -26,7 +26,7 @@ export function SiteHeader() {
         {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-1">
           {NAV_ITEMS.map(({ to, label }) => {
-            const active = path === to || (to !== "/" && path.startsWith(to));
+            const active = path === to || (path.startsWith(to));
             return (
               <Link
                 key={to}
@@ -59,7 +59,7 @@ export function SiteHeader() {
         <div className="lg:hidden border-t border-mint/30 bg-background/95 backdrop-blur-md">
           <nav className="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-1 max-h-[70vh] overflow-y-auto">
             {NAV_ITEMS.map(({ to, label, icon: Icon }) => {
-              const active = path === to || (to !== "/" && path.startsWith(to));
+              const active = path === to || (path.startsWith(to));
               return (
                 <Link
                   key={to}
