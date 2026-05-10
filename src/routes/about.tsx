@@ -6,6 +6,11 @@ import { Mascot } from "@/components/Mascot";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { CinematicBanner } from "@/components/CinematicBanner";
+import { PosterFrame } from "@/components/PosterFrame";
+import { Lightbox, type LightboxImage } from "@/components/Lightbox";
+import { siteImagesStore, IMAGE_SLOTS, type SiteImage } from "@/lib/site-images-store";
+import aboutHeroFallback from "@/assets/hp-doctors-corridor.jpg";
 import {
   projectPageStore,
   bySlug,
@@ -26,6 +31,7 @@ import {
   Send,
   Loader2,
   ArrowRight,
+  Camera,
 } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
