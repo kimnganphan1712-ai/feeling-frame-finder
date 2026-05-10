@@ -109,6 +109,13 @@ function HomePage() {
   const [quoteIdx, setQuoteIdx] = useState(0);
   const [breathingOpen, setBreathingOpen] = useState(false);
   const [activeCorner, setActiveCorner] = useState<EmotionCorner | null>(null);
+  const [heroImage, setHeroImage] = useState<string>(heroDefault);
+
+  useEffect(() => {
+    siteSettingsStore.get(SITE_KEYS.heroImage).then((url) => {
+      if (url) setHeroImage(url);
+    });
+  }, []);
 
   // Decide whether to skip the pop-up: if today's check-in already exists, go straight to "ready".
   useEffect(() => {
