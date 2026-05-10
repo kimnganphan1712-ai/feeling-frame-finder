@@ -37,7 +37,7 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Câu chuyện về Hospital Playlist – Trạm cứu hộ cảm xúc cho những ngày lòng mình mỏi mệt.",
+          "Câu chuyện về Hospital Playlist cho những ngày lòng mình mỏi mệt.",
       },
       { property: "og:title", content: "Phác đồ chữa lành — Hospital Playlist" },
       {

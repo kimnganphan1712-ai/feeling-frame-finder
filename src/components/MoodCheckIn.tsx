@@ -93,7 +93,7 @@ export function MoodCheckIn({ onDone, onSkip }: Props) {
           ) : (
             <>
               <h2 className="mt-5 text-2xl md:text-3xl font-display font-medium leading-snug max-w-md">
-                {existing ? "Cảm xúc của bạn hôm nay" : "Chào mừng bạn đến Trạm cứu hộ cảm xúc"}
+                {existing ? "Cảm xúc của bạn hôm nay" : "Chào mừng bạn đến "}
               </h2>
               <p className="mt-3 text-base md:text-[17px] text-muted-foreground max-w-md leading-relaxed">
                 {existing
