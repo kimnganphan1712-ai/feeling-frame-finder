@@ -13,6 +13,9 @@ import { useAuth } from "@/lib/auth-context";
 import { cloudStore, JournalEntry } from "@/lib/cloud-store";
 import { MoodKey } from "@/lib/mood";
 import { Lock, Sparkles, Clock, Save, Loader2, Check, BookOpen, ChevronLeft, Plus, KeyRound } from "lucide-react";
+import { CinematicBanner } from "@/components/CinematicBanner";
+import { IMAGE_SLOTS } from "@/lib/site-images-store";
+import journalFallback from "@/assets/hp-journal.jpg";
 
 const IDLE_MS = 5 * 60 * 1000; // 5 phút auto-lock
 
@@ -393,7 +396,20 @@ function JournalPage() {
   if (stage === "list") {
     return (
       <PageShell mascot={false}>
-        <header className="flex items-center justify-between mb-5 animate-[fade-up_0.5s_ease-out]">
+        <CinematicBanner
+          slot={IMAGE_SLOTS.journalBanner}
+          fallbackSrc={journalFallback}
+          kicker="Track 06 — Journal"
+          title="Hồ sơ cảm xúc"
+          subtitle="Một phòng riêng dịu nhẹ — nơi bạn có thể viết thật mọi điều."
+          height="md"
+        >
+          <Button onClick={handleNewEntry} size="sm" className="rounded-full bg-warm hover:bg-warm/90 text-navy">
+            <Plus className="w-4 h-4 mr-1" /> Bài mới
+          </Button>
+        </CinematicBanner>
+
+        <header className="flex items-center justify-between my-5 animate-[fade-up_0.5s_ease-out]">
           <div className="flex items-center gap-2">
             <button onClick={() => setStage("editor")} className="text-muted-foreground hover:text-foreground">
               <ChevronLeft className="w-5 h-5" />
@@ -403,9 +419,6 @@ function JournalPage() {
               <h1 className="text-2xl font-semibold mt-0.5">Tất cả bài viết</h1>
             </div>
           </div>
-          <Button onClick={handleNewEntry} size="sm" className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
-            <Plus className="w-4 h-4 mr-1" /> Bài mới
-          </Button>
         </header>
 
         <div className="space-y-3">
