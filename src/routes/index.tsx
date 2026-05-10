@@ -14,6 +14,8 @@ import { MoodSticker } from "@/components/MoodSticker";
 import { BreathingDialog } from "@/components/BreathingDialog";
 import { EmotionCornerDialog, EMOTION_CORNERS, type EmotionCorner } from "@/components/EmotionCornerDialog";
 import { Button } from "@/components/ui/button";
+import { siteSettingsStore, SITE_KEYS } from "@/lib/site-settings-store";
+import heroDefault from "@/assets/hero-hospital-playlist.jpg";
 import {
   Headphones,
   BookHeart,
@@ -24,6 +26,10 @@ import {
   ChevronRight,
   Heart,
   Globe2,
+  Stethoscope,
+  Pill,
+  Music2,
+  PlayCircle,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -33,6 +39,16 @@ export const Route = createFileRoute("/")({
     </RequireAuth>
   ),
 });
+
+const TRACKS = [
+  { n: "01", to: "/about", title: "Phác đồ chữa lành", desc: "Hành trình bắt đầu — hiểu chính dự án này.", icon: Stethoscope, tone: "scrub" },
+  { n: "02", to: "/prescription", title: "Đơn thuốc tinh thần", desc: "Một toa thuốc dịu dàng được kê riêng cho hôm nay.", icon: Pill, tone: "warm" },
+  { n: "03", to: "/podcast", title: "Tần số chữa lành", desc: "Cassette mở lên — sóng âm xoa dịu tâm trí.", icon: Headphones, tone: "scrub" },
+  { n: "04", to: "/vitamin", title: "Vitamin cho tâm hồn", desc: "Kho quote, sách, bộ phim chữa lành.", icon: Sparkles, tone: "warm" },
+  { n: "05", to: "/mood-board", title: "Trạm kết nối", desc: "Bản đồ cảm xúc cộng đồng — bạn không một mình.", icon: Globe2, tone: "scrub" },
+  { n: "06", to: "/journal", title: "Hồ sơ cảm xúc", desc: "Căn phòng riêng có khóa — chỉ dành cho bạn.", icon: BookHeart, tone: "warm" },
+] as const;
+
 
 const DAILY_QUOTES = [
   {
