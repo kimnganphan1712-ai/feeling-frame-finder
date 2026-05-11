@@ -457,16 +457,16 @@ function NeedPackPanel({
         ))}
       </ol>
       <div className="mt-5 flex flex-wrap gap-2">
-        <Button size="sm" variant="outline" className="rounded-full" onClick={() => onSave(pack.prescription.diagnosis)}>
-          {isSaved ? <Check className="w-3.5 h-3.5 mr-1.5" /> : <Heart className="w-3.5 h-3.5 mr-1.5" />}
+        <Button size="sm" variant="outline" className="cta-glow group rounded-full" onClick={() => onSave(pack.prescription.diagnosis)}>
+          {isSaved ? <Check className="w-3.5 h-3.5 mr-1.5 icon-wiggle" /> : <Heart className="w-3.5 h-3.5 mr-1.5 icon-wiggle" />}
           {isSaved ? "Đã lưu" : "Lưu toa này"}
         </Button>
-        <Button size="sm" variant="outline" className="rounded-full" onClick={() => onCopy(text)}>
-          <Copy className="w-3.5 h-3.5 mr-1.5" /> Sao chép
+        <Button size="sm" variant="outline" className="cta-glow group rounded-full" onClick={() => onCopy(text)}>
+          <Copy className="w-3.5 h-3.5 mr-1.5 icon-wiggle" /> Sao chép
         </Button>
         <Link to="/">
-          <Button size="sm" variant="outline" className="rounded-full">
-            <Wind className="w-3.5 h-3.5 mr-1.5" /> Hít thở 1 phút
+          <Button size="sm" variant="outline" className="cta-glow group rounded-full">
+            <Wind className="w-3.5 h-3.5 mr-1.5 icon-wiggle" /> Hít thở 1 phút
           </Button>
         </Link>
       </div>
