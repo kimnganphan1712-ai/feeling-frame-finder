@@ -174,13 +174,14 @@ function HomePage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link to="/journal">
-              <Button className="rounded-full bg-warm hover:bg-warm/90 text-navy shadow-soft px-6 py-5 text-sm font-semibold">
-                <PlayCircle className="w-4 h-4 mr-2" /> Bắt đầu lắng nghe mình
+              <Button className="cta-glow rounded-full bg-warm hover:bg-warm/90 text-navy shadow-soft px-6 py-5 text-sm font-semibold">
+                <PlayCircle className="w-4 h-4 mr-2 icon-bounce" /> Bắt đầu lắng nghe mình
+                <span className="cta-arrow ml-1">→</span>
               </Button>
             </Link>
             <Link to="/about">
-              <Button variant="outline" className="rounded-full border-white/60 bg-white/10 text-white hover:bg-white/20 hover:text-white px-6 py-5 text-sm">
-                <Stethoscope className="w-4 h-4 mr-2" /> Khám phá phác đồ chữa lành
+              <Button variant="outline" className="cta-glow cta-scrub rounded-full border-white/60 bg-white/10 text-white hover:bg-white/20 hover:text-white px-6 py-5 text-sm">
+                <Stethoscope className="w-4 h-4 mr-2 icon-wiggle" /> Khám phá phác đồ chữa lành
               </Button>
             </Link>
           </div>
