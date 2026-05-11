@@ -242,7 +242,7 @@ function SmartImage({
     );
   }
   return (
-    <div className={`relative w-full ${aspect} rounded-3xl overflow-hidden border border-white/70 shadow-soft ${className ?? ""}`}>
+    <div className={`group lift-card relative w-full ${aspect} rounded-3xl overflow-hidden border border-white/70 shadow-soft img-zoom ${className ?? ""}`}>
       <img src={src} alt={alt} className="w-full h-full object-cover" />
     </div>
   );
