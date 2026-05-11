@@ -126,15 +126,15 @@ function VitaminPage() {
 
         {current && (
           <div className="mt-3 flex items-center justify-center gap-2">
-            <Button onClick={prev} variant="ghost" size="icon" className="rounded-full"><ChevronLeft className="w-5 h-5" /></Button>
-            <Button onClick={() => setSaveQuoteId(current.id)} variant="ghost" size="icon" className="rounded-full" title="Lưu vào album">
-              <Bookmark className="w-5 h-5" />
+            <Button onClick={prev} variant="ghost" size="icon" className="cta-glow group rounded-full"><ChevronLeft className="w-5 h-5 icon-wiggle" /></Button>
+            <Button onClick={() => setSaveQuoteId(current.id)} variant="ghost" size="icon" className="cta-glow group rounded-full" title="Lưu vào album">
+              <Bookmark className="w-5 h-5 icon-wiggle" />
             </Button>
             <Button onClick={toggleFav} variant="ghost" size="icon"
-              className={`rounded-full ${favIds.includes(current.id) ? "text-blush-deep bg-blush/40" : ""}`}>
-              <Heart className="w-5 h-5" fill={favIds.includes(current.id) ? "currentColor" : "none"} />
+              className={`cta-glow group rounded-full ${favIds.includes(current.id) ? "text-blush-deep bg-blush/40" : ""}`}>
+              <Heart className="w-5 h-5 icon-wiggle" fill={favIds.includes(current.id) ? "currentColor" : "none"} />
             </Button>
-            <Button onClick={next} className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">Câu tiếp <ChevronRight className="w-4 h-4 ml-1" /></Button>
+            <Button onClick={next} className="cta-glow cta-scrub group rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">Câu tiếp <ChevronRight className="w-4 h-4 ml-1 cta-arrow" /></Button>
           </div>
         )}
       </section>
