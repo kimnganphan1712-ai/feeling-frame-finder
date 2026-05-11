@@ -216,7 +216,7 @@ function HomePage() {
             <Link
               key={t.to}
               to={t.to}
-              className="group relative rounded-[22px] bg-card border border-border/70 shadow-card p-5 flex gap-4 items-start hover:-translate-y-1 hover:shadow-cinematic transition-all duration-300 overflow-hidden"
+              className={`lift-card group relative rounded-[22px] bg-card border border-border/70 shadow-card p-5 flex gap-4 items-start overflow-hidden ${warm ? "tone-warm" : ""}`}
             >
               <div
                 className="absolute -right-6 -top-6 w-24 h-24 rounded-full opacity-20 group-hover:opacity-40 transition-opacity"
