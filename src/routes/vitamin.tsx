@@ -168,11 +168,11 @@ function VitaminPage() {
           <div className="grid sm:grid-cols-2 gap-3">
             {albums.map((a) => (
               <button key={a.id} onClick={() => setOpenAlbum(a)}
-                className="text-left rounded-3xl overflow-hidden bg-card border border-border shadow-card hover:scale-[1.01] transition-transform">
-                <div className="h-28 bg-gradient-to-br from-mint/40 to-blush/30 flex items-center justify-center overflow-hidden">
+                className="group lift-card text-left rounded-3xl overflow-hidden bg-card border border-border shadow-card">
+                <div className="h-28 bg-gradient-to-br from-mint/40 to-blush/30 flex items-center justify-center overflow-hidden img-zoom">
                   {a.cover_image_url
                     ? <img src={a.cover_image_url} alt="" className="w-full h-full object-cover" />
-                    : <ImageIcon className="w-8 h-8 text-mint-deep/60" />}
+                    : <ImageIcon className="w-8 h-8 text-mint-deep/60 icon-bounce" />}
                 </div>
                 <div className="p-4">
                   <div className="flex items-center justify-between gap-2">
