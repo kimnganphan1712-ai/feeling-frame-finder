@@ -223,11 +223,11 @@ function VitaminPage() {
           return (
             <div className="grid sm:grid-cols-2 gap-3">
               {filtered.map((w) => (
-                <article key={w.id} className="rounded-3xl bg-card border border-border p-4 shadow-card flex gap-4 hover:shadow-soft transition-shadow">
-                  <div className="w-24 h-24 rounded-2xl bg-mint/30 flex items-center justify-center overflow-hidden shrink-0">
+                <article key={w.id} className="group lift-card rounded-3xl bg-card border border-border p-4 shadow-card flex gap-4">
+                  <div className="w-24 h-24 rounded-2xl bg-mint/30 flex items-center justify-center overflow-hidden shrink-0 img-zoom">
                     {w.thumbnail_url
                       ? <img src={w.thumbnail_url} alt="" className="w-full h-full object-cover" />
-                      : <ImageIcon className="w-7 h-7 text-mint-deep" />}
+                      : <ImageIcon className="w-7 h-7 text-mint-deep icon-bounce" />}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
