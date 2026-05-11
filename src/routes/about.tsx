@@ -382,14 +382,14 @@ function FounderSection({ s }: { s: ProjectSection }) {
             <div className="mt-6 flex flex-wrap gap-3">
               {secondaryText && (
                 <a href={secondaryLink}>
-                  <Button variant="outline" className="rounded-full border-mint-deep/40 text-mint-deep">
+                  <Button variant="outline" className="cta-glow group rounded-full border-mint-deep/40 text-mint-deep">
                     {secondaryText}
                   </Button>
                 </a>
               )}
               {s.button_text && (
                 <a href={s.button_link || "#contact"}>
-                  <Button className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
+                  <Button className="cta-glow cta-scrub group rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
                     {s.button_text}
                   </Button>
                 </a>
