@@ -88,8 +88,8 @@ function PodcastPage() {
                       <div className="flex items-center gap-2 mt-2">
                         {p.audio_url && (
                           <Button size="sm" onClick={() => setNowPlayingDb(isPlaying ? null : p)}
-                            className="rounded-full h-7 text-xs bg-mint-deep hover:bg-mint-deep/90 text-white">
-                            {isPlaying ? <><Pause className="w-3 h-3 mr-1" />Đang phát</> : <><Play className="w-3 h-3 mr-1" />Nghe</>}
+                            className="cta-glow cta-scrub rounded-full h-7 text-xs bg-mint-deep hover:bg-mint-deep/90 text-white">
+                            {isPlaying ? <><Pause className="w-3 h-3 mr-1 icon-wiggle" />Đang phát</> : <><Play className="w-3 h-3 mr-1 icon-wiggle" />Nghe</>}
                           </Button>
                         )}
                         {p.mood_targets.slice(0, 3).map((m) => (
