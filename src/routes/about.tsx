@@ -365,8 +365,8 @@ function FounderSection({ s }: { s: ProjectSection }) {
             {founderRole && <p className="text-sm text-muted-foreground">{founderRole}</p>}
 
             {founderQuote && (
-              <div className="mt-5 rounded-2xl bg-mint/15 border border-mint/30 p-5">
-                <QuoteIcon className="w-5 h-5 text-mint-deep mb-2" />
+              <div className="lift-card mt-5 rounded-2xl bg-mint/15 border border-mint/30 p-5">
+                <QuoteIcon className="w-5 h-5 text-mint-deep mb-2 icon-wiggle" />
                 <p className="font-display italic text-base md:text-lg leading-relaxed text-foreground/85">
                   “{founderQuote}”
                 </p>
