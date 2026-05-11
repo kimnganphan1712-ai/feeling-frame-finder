@@ -327,7 +327,7 @@ function PrescriptionPage() {
           <h2 className="font-display text-lg mb-3">Toa thuốc đã lưu của bạn</h2>
           <div className="space-y-2">
             {saved.map((t, i) => (
-              <div key={i} className="rounded-2xl p-3 bg-white/70 ring-1 ring-white/60 flex gap-3 items-start">
+              <div key={i} className="lift-card rounded-2xl p-3 bg-white/70 ring-1 ring-white/60 flex gap-3 items-start">
                 <Heart className="w-4 h-4 text-mint-deep mt-0.5 flex-shrink-0" />
                 <p className="text-sm flex-1 leading-relaxed">{t}</p>
                 <button
