@@ -234,10 +234,10 @@ function PrescriptionPage() {
           {NEED_PACKS.map((p) => (
             <div
               key={p.slug}
-              className="glass rounded-2xl p-4 ring-1 ring-white/60 hover:shadow-soft hover:-translate-y-0.5 transition-all"
+              className="group lift-card glass rounded-2xl p-4 ring-1 ring-white/60"
             >
               <div className="flex items-start gap-3">
-                <div className="text-2xl">{p.emoji}</div>
+                <div className="text-2xl icon-bounce">{p.emoji}</div>
                 <div className="flex-1 min-w-0">
                   <h3 className="font-display text-base">{p.title}</h3>
                   <p className="text-sm text-muted-foreground mt-0.5">{p.desc}</p>
@@ -247,7 +247,7 @@ function PrescriptionPage() {
                 <Button
                   size="sm"
                   variant="outline"
-                  className="rounded-full w-full"
+                  className="cta-glow rounded-full w-full"
                   onClick={() => setOpenPack(p)}
                 >
                   Mở toa thuốc
