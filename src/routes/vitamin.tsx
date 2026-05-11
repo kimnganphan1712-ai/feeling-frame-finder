@@ -102,17 +102,24 @@ function VitaminPage() {
             </Button>
           </div>
         ) : (
-          <div className="relative min-h-[340px] flex items-center justify-center">
+          <div className="relative min-h-[340px] flex items-center justify-center overflow-hidden">
             {[2, 1, 0].map((layer) => {
+              if (quotes.length <= layer) return null;
               const i = (idx + layer) % quotes.length;
               const q = quotes[i];
+              const isActive = layer === 0;
               return (
-                <article key={`${q.id}-${layer}`}
+                <article
+                  key={`layer-${layer}-${q.id}`}
                   className="absolute inset-x-0 mx-auto max-w-md rounded-3xl shadow-card glass-strong border border-white/60 p-8 transition-all duration-500"
                   style={{
                     transform: `translateY(${layer * 14}px) scale(${1 - layer * 0.04})`,
-                    opacity: 1 - layer * 0.35, zIndex: 10 - layer,
-                  }}>
+                    opacity: 1 - layer * 0.35,
+                    zIndex: 10 - layer,
+                    pointerEvents: isActive ? "auto" : "none",
+                  }}
+                  aria-hidden={!isActive}
+                >
                   <div className="text-5xl text-mint-deep/40 leading-none">"</div>
                   <p className="mt-2 text-lg md:text-xl leading-relaxed text-foreground/90 italic">{q.content}</p>
                   <p className="mt-6 text-xs text-muted-foreground">
@@ -125,16 +132,16 @@ function VitaminPage() {
         )}
 
         {current && (
-          <div className="mt-3 flex items-center justify-center gap-2">
-            <Button onClick={prev} variant="ghost" size="icon" className="cta-glow group rounded-full"><ChevronLeft className="w-5 h-5 icon-wiggle" /></Button>
-            <Button onClick={() => setSaveQuoteId(current.id)} variant="ghost" size="icon" className="cta-glow group rounded-full" title="Lưu vào album">
+          <div className="relative z-20 mt-6 flex items-center justify-center gap-2">
+            <Button onClick={prev} variant="ghost" size="icon" type="button" className="cta-glow group rounded-full cursor-pointer"><ChevronLeft className="w-5 h-5 icon-wiggle" /></Button>
+            <Button onClick={() => setSaveQuoteId(current.id)} variant="ghost" size="icon" type="button" className="cta-glow group rounded-full cursor-pointer" title="Lưu vào album">
               <Bookmark className="w-5 h-5 icon-wiggle" />
             </Button>
-            <Button onClick={toggleFav} variant="ghost" size="icon"
-              className={`cta-glow group rounded-full ${favIds.includes(current.id) ? "text-blush-deep bg-blush/40" : ""}`}>
+            <Button onClick={toggleFav} variant="ghost" size="icon" type="button"
+              className={`cta-glow group rounded-full cursor-pointer ${favIds.includes(current.id) ? "text-blush-deep bg-blush/40" : ""}`}>
               <Heart className="w-5 h-5 icon-wiggle" fill={favIds.includes(current.id) ? "currentColor" : "none"} />
             </Button>
-            <Button onClick={next} className="cta-glow cta-scrub group rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">Câu tiếp <ChevronRight className="w-4 h-4 ml-1 cta-arrow" /></Button>
+            <Button onClick={next} type="button" className="cta-glow cta-scrub group rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white cursor-pointer">Câu tiếp <ChevronRight className="w-4 h-4 ml-1 cta-arrow" /></Button>
           </div>
         )}
       </section>
