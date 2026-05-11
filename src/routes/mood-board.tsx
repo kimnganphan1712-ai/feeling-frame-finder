@@ -172,8 +172,8 @@ function MoodBoardPage() {
 
       {/* Discord card */}
       <section className="max-w-5xl mx-auto px-4 pt-6 pb-6">
-        <div className="rounded-3xl glass border border-white/60 p-5 md:p-6 flex items-center gap-4 shadow-card">
-          <div className="w-12 h-12 rounded-2xl bg-mint/40 flex items-center justify-center text-mint-deep shrink-0">
+        <div className="group lift-card rounded-3xl glass border border-white/60 p-5 md:p-6 flex items-center gap-4 shadow-card">
+          <div className="w-12 h-12 rounded-2xl bg-mint/40 flex items-center justify-center text-mint-deep shrink-0 icon-bounce">
             <MessageCircle className="w-6 h-6" />
           </div>
           <div className="flex-1 min-w-0">
@@ -188,8 +188,8 @@ function MoodBoardPage() {
           </div>
           {discordUrl && (
             <a href={discordUrl} target="_blank" rel="noreferrer">
-              <Button size="sm" className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
-                Tham gia
+              <Button size="sm" className="cta-glow cta-scrub rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
+                Tham gia <span className="cta-arrow ml-1">→</span>
               </Button>
             </a>
           )}
