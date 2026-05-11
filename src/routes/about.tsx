@@ -275,8 +275,8 @@ function HeroSection({ s }: { s: ProjectSection }) {
           {s.button_text && (
             <div className="mt-7 flex flex-wrap gap-3">
               <a href={s.button_link || "#"}>
-                <Button size="lg" className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white px-6">
-                  {s.button_text} <ArrowRight className="w-4 h-4 ml-2" />
+                <Button size="lg" className="cta-glow cta-scrub group rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white px-6">
+                  {s.button_text} <ArrowRight className="w-4 h-4 ml-2 cta-arrow" />
                 </Button>
               </a>
             </div>
