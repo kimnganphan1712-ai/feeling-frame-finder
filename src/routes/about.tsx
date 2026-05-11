@@ -550,8 +550,8 @@ function MapSection({ s, items }: { s: ProjectSection; items: ProjectItem[] }) {
             {s.button_text && (
               <div className="mt-6">
                 <Link to={s.button_link || "/mood-board"}>
-                  <Button className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
-                    {s.button_text} <ArrowRight className="w-4 h-4 ml-2" />
+                  <Button className="cta-glow cta-scrub group rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
+                    {s.button_text} <ArrowRight className="w-4 h-4 ml-2 cta-arrow" />
                   </Button>
                 </Link>
               </div>
