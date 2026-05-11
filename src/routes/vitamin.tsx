@@ -147,8 +147,8 @@ function VitaminPage() {
             <h2 className="text-xl font-semibold">Album của bạn</h2>
           </div>
           <Button size="sm" onClick={() => setCreateAlbumOpen(true)}
-            className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
-            <Plus className="w-4 h-4 mr-1" /> Tạo album
+            className="cta-glow cta-scrub group rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
+            <Plus className="w-4 h-4 mr-1 icon-wiggle" /> Tạo album
           </Button>
         </div>
         {albums.length === 0 ? (
