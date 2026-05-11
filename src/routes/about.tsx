@@ -669,12 +669,12 @@ function ContactSection({ s }: { s: ProjectSection }) {
             <Button
               type="submit"
               disabled={submitting}
-              className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white w-full sm:w-auto"
+              className="cta-glow cta-scrub group rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white w-full sm:w-auto"
             >
               {submitting ? (
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
               ) : (
-                <Send className="w-4 h-4 mr-2" />
+                <Send className="w-4 h-4 mr-2 icon-wiggle" />
               )}
               {s.button_text || "Gửi lời nhắn"}
             </Button>
