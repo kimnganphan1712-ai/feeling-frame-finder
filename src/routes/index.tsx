@@ -223,7 +223,7 @@ function HomePage() {
                 style={{ background: warm ? "var(--warm-yellow)" : "var(--scrub-blue)" }}
               />
               <div
-                className="relative w-14 h-14 rounded-2xl shrink-0 flex items-center justify-center"
+                className="relative w-14 h-14 rounded-2xl shrink-0 flex items-center justify-center icon-bounce"
                 style={{
                   background: warm ? "var(--soft-cream)" : "var(--mist-blue)",
                   color: warm ? "var(--blush-deep)" : "var(--primary-blue)",
