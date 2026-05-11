@@ -429,7 +429,7 @@ function JournalPage() {
             <button
               key={e.id}
               onClick={() => openEntry(e)}
-              className="w-full text-left rounded-2xl p-4 glass shadow-card border border-white/60 hover:scale-[1.01] transition-all"
+              className="group lift-card w-full text-left rounded-2xl p-4 glass shadow-card border border-white/60"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0 flex-1">
@@ -441,7 +441,7 @@ function JournalPage() {
                     {(e.body || "").replace(/<[^>]+>/g, " ").slice(0, 140)}
                   </p>
                 </div>
-                {e.mood && <span className="text-2xl">{moodEmoji(e.mood)}</span>}
+                {e.mood && <span className="text-2xl icon-bounce">{moodEmoji(e.mood)}</span>}
               </div>
             </button>
           ))}
