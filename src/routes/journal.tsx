@@ -404,8 +404,8 @@ function JournalPage() {
           subtitle="Một phòng riêng dịu nhẹ — nơi bạn có thể viết thật mọi điều."
           height="md"
         >
-          <Button onClick={handleNewEntry} size="sm" className="rounded-full bg-warm hover:bg-warm/90 text-navy">
-            <Plus className="w-4 h-4 mr-1" /> Bài mới
+          <Button onClick={handleNewEntry} size="sm" className="cta-glow group rounded-full bg-warm hover:bg-warm/90 text-navy">
+            <Plus className="w-4 h-4 mr-1 icon-wiggle" /> Bài mới
           </Button>
         </CinematicBanner>
 
