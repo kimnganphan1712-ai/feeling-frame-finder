@@ -118,8 +118,8 @@ function AboutPage() {
         >
           {heroSection?.button_text && (
             <a href={heroSection.button_link || "#contact"}>
-              <Button size="lg" className="rounded-full bg-warm hover:bg-warm/90 text-navy px-6">
-                {heroSection.button_text} <ArrowRight className="w-4 h-4 ml-2" />
+              <Button size="lg" className="cta-glow group rounded-full bg-warm hover:bg-warm/90 text-navy px-6">
+                {heroSection.button_text} <ArrowRight className="w-4 h-4 ml-2 cta-arrow" />
               </Button>
             </a>
           )}
