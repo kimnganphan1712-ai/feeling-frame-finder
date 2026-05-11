@@ -152,16 +152,16 @@ function VitaminPage() {
           </Button>
         </div>
         {albums.length === 0 ? (
-          <div className="rounded-3xl p-8 bg-gradient-to-br from-mint/20 to-blush/15 border border-white/60 text-center">
-            <div className="w-14 h-14 mx-auto rounded-2xl bg-white/70 flex items-center justify-center">
+          <div className="lift-card group rounded-3xl p-8 bg-gradient-to-br from-mint/20 to-blush/15 border border-white/60 text-center">
+            <div className="w-14 h-14 mx-auto rounded-2xl bg-white/70 flex items-center justify-center icon-bounce">
               <Bookmark className="w-6 h-6 text-mint-deep" />
             </div>
             <p className="mt-4 text-sm text-foreground/70 italic">
               Bạn chưa có album nào. Hãy lưu lại những câu nói bạn yêu thích để tạo album đầu tiên.
             </p>
             <Button onClick={() => setCreateAlbumOpen(true)} variant="ghost"
-              className="mt-3 rounded-full border border-mint-deep/40 text-mint-deep">
-              <Plus className="w-4 h-4 mr-1" /> Tạo album mới
+              className="cta-glow group mt-3 rounded-full border border-mint-deep/40 text-mint-deep">
+              <Plus className="w-4 h-4 mr-1 icon-wiggle" /> Tạo album mới
             </Button>
           </div>
         ) : (
