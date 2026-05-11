@@ -303,7 +303,7 @@ function PrescriptionPage() {
           {MASCOT_NOTES.map((n, i) => (
             <div
               key={i}
-              className="mb-3 break-inside-avoid rounded-2xl p-4 bg-white/70 ring-1 ring-white/70 shadow-sm hover:shadow-soft hover:-rotate-1 transition-all"
+              className="group lift-card mb-3 break-inside-avoid rounded-2xl p-4 bg-white/70 ring-1 ring-white/70 shadow-sm"
               style={{ background: i % 3 === 0 ? "var(--mint-soft, oklch(0.96 0.02 195))" : i % 3 === 1 ? "oklch(0.95 0.03 195)" : "oklch(0.95 0.03 350)" }}
             >
               <p className="text-sm md:text-[15px] leading-relaxed text-foreground/85 font-display italic">
