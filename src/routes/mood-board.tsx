@@ -264,7 +264,7 @@ function MoodBoardPage() {
       {/* Stats summary */}
       {!loading && items.length > 0 && (
         <section className="max-w-5xl mx-auto px-4 pt-6">
-          <div className="rounded-3xl glass border border-white/60 p-4 md:p-5 shadow-card">
+          <div className="lift-card rounded-3xl glass border border-white/60 p-4 md:p-5 shadow-card">
             <p className="text-[11px] uppercase tracking-[0.25em] text-mint-deep/80 text-center mb-3">
               Tổng quan {dateLabelLong}
             </p>
