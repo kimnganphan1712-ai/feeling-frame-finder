@@ -358,7 +358,7 @@ function HomePage() {
             key={c.key}
             type="button"
             onClick={() => setActiveCorner(c)}
-            className="group text-left rounded-3xl bg-card border border-border/60 shadow-card p-5 hover:-translate-y-0.5 hover:shadow-soft hover:bg-gradient-to-br hover:from-white hover:to-mint/15 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-mint-deep/40"
+            className="lift-card group text-left rounded-3xl bg-card border border-border/60 shadow-card p-5 hover:bg-gradient-to-br hover:from-white hover:to-mint/15 cursor-pointer focus:outline-none focus:ring-2 focus:ring-mint-deep/40"
           >
             <div className="w-14 h-14 rounded-2xl bg-mint/30 flex items-center justify-center text-2xl group-hover:scale-110 group-hover:rotate-3 transition-transform">
               {c.emoji}
