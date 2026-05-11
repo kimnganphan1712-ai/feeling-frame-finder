@@ -201,12 +201,12 @@ function PrescriptionPage() {
             <button
               key={m.slug}
               onClick={() => setOpenMood(m)}
-              className={`group rounded-3xl p-4 text-left bg-gradient-to-br ${m.color} hover:shadow-soft hover:-translate-y-0.5 transition-all ring-1 ring-white/60 ${moodSuggested?.slug === m.slug ? "ring-2 ring-mint-deep/40" : ""}`}
+              className={`group lift-card rounded-3xl p-4 text-left bg-gradient-to-br ${m.color} ring-1 ring-white/60 ${moodSuggested?.slug === m.slug ? "ring-2 ring-mint-deep/40" : ""}`}
             >
-              <div className="text-2xl mb-1">{m.emoji}</div>
+              <div className="text-2xl mb-1 icon-bounce">{m.emoji}</div>
               <div className="font-display text-base">{m.label}</div>
               <div className="text-[11px] text-muted-foreground mt-1 group-hover:text-foreground/70">
-                Xem toa →
+                Xem toa <span className="cta-arrow">→</span>
               </div>
             </button>
           ))}
