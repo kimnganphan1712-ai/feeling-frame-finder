@@ -295,7 +295,7 @@ function HeroSection({ s }: { s: ProjectSection }) {
             </div>
           )}
           {s.image_secondary && (
-            <div className="absolute -bottom-6 -left-6 w-28 h-28 md:w-36 md:h-36 rounded-2xl overflow-hidden border-4 border-white shadow-soft hidden sm:block">
+            <div className="absolute -bottom-6 -left-6 w-28 h-28 md:w-36 md:h-36 rounded-2xl overflow-hidden border-4 border-white shadow-soft hidden sm:block group lift-card img-zoom">
               <img src={s.image_secondary} alt="" className="w-full h-full object-cover" />
             </div>
           )}
