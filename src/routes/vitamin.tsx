@@ -79,8 +79,8 @@ function VitaminPage() {
         subtitle="Một chút câu chữ, một chút ánh sáng, một chút dịu dàng cho tâm hồn."
         height="md"
       >
-        <Button size="sm" onClick={() => setSubmitOpen(true)} className="rounded-full bg-warm hover:bg-warm/90 text-navy">
-          <Plus className="w-4 h-4 mr-1" /> Gửi câu nói
+        <Button size="sm" onClick={() => setSubmitOpen(true)} className="cta-glow group rounded-full bg-warm hover:bg-warm/90 text-navy">
+          <Plus className="w-4 h-4 mr-1 icon-wiggle" /> Gửi câu nói
         </Button>
       </CinematicBanner>
       <div className="h-6" />
@@ -92,13 +92,13 @@ function VitaminPage() {
             <Loader2 className="w-6 h-6 animate-spin text-mint-deep" />
           </div>
         ) : !current ? (
-          <div className="rounded-3xl p-10 glass-strong border border-white/60 text-center">
-            <div className="w-14 h-14 mx-auto rounded-2xl bg-mint/40 flex items-center justify-center">
+          <div className="lift-card group rounded-3xl p-10 glass-strong border border-white/60 text-center">
+            <div className="w-14 h-14 mx-auto rounded-2xl bg-mint/40 flex items-center justify-center icon-bounce">
               <QuoteIcon className="w-6 h-6 text-mint-deep" />
             </div>
             <p className="mt-4 text-foreground/70 italic">Chưa có câu nói nào được duyệt. Hãy là người đầu tiên gửi một câu nói nhé.</p>
-            <Button onClick={() => setSubmitOpen(true)} className="mt-4 rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
-              <Plus className="w-4 h-4 mr-1" /> Gửi câu nói đầu tiên
+            <Button onClick={() => setSubmitOpen(true)} className="cta-glow cta-scrub mt-4 rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
+              <Plus className="w-4 h-4 mr-1 icon-wiggle" /> Gửi câu nói đầu tiên
             </Button>
           </div>
         ) : (
@@ -126,15 +126,15 @@ function VitaminPage() {
 
         {current && (
           <div className="mt-3 flex items-center justify-center gap-2">
-            <Button onClick={prev} variant="ghost" size="icon" className="rounded-full"><ChevronLeft className="w-5 h-5" /></Button>
-            <Button onClick={() => setSaveQuoteId(current.id)} variant="ghost" size="icon" className="rounded-full" title="Lưu vào album">
-              <Bookmark className="w-5 h-5" />
+            <Button onClick={prev} variant="ghost" size="icon" className="cta-glow group rounded-full"><ChevronLeft className="w-5 h-5 icon-wiggle" /></Button>
+            <Button onClick={() => setSaveQuoteId(current.id)} variant="ghost" size="icon" className="cta-glow group rounded-full" title="Lưu vào album">
+              <Bookmark className="w-5 h-5 icon-wiggle" />
             </Button>
             <Button onClick={toggleFav} variant="ghost" size="icon"
-              className={`rounded-full ${favIds.includes(current.id) ? "text-blush-deep bg-blush/40" : ""}`}>
-              <Heart className="w-5 h-5" fill={favIds.includes(current.id) ? "currentColor" : "none"} />
+              className={`cta-glow group rounded-full ${favIds.includes(current.id) ? "text-blush-deep bg-blush/40" : ""}`}>
+              <Heart className="w-5 h-5 icon-wiggle" fill={favIds.includes(current.id) ? "currentColor" : "none"} />
             </Button>
-            <Button onClick={next} className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">Câu tiếp <ChevronRight className="w-4 h-4 ml-1" /></Button>
+            <Button onClick={next} className="cta-glow cta-scrub group rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">Câu tiếp <ChevronRight className="w-4 h-4 ml-1 cta-arrow" /></Button>
           </div>
         )}
       </section>
@@ -147,32 +147,32 @@ function VitaminPage() {
             <h2 className="text-xl font-semibold">Album của bạn</h2>
           </div>
           <Button size="sm" onClick={() => setCreateAlbumOpen(true)}
-            className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
-            <Plus className="w-4 h-4 mr-1" /> Tạo album
+            className="cta-glow cta-scrub group rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
+            <Plus className="w-4 h-4 mr-1 icon-wiggle" /> Tạo album
           </Button>
         </div>
         {albums.length === 0 ? (
-          <div className="rounded-3xl p-8 bg-gradient-to-br from-mint/20 to-blush/15 border border-white/60 text-center">
-            <div className="w-14 h-14 mx-auto rounded-2xl bg-white/70 flex items-center justify-center">
+          <div className="lift-card group rounded-3xl p-8 bg-gradient-to-br from-mint/20 to-blush/15 border border-white/60 text-center">
+            <div className="w-14 h-14 mx-auto rounded-2xl bg-white/70 flex items-center justify-center icon-bounce">
               <Bookmark className="w-6 h-6 text-mint-deep" />
             </div>
             <p className="mt-4 text-sm text-foreground/70 italic">
               Bạn chưa có album nào. Hãy lưu lại những câu nói bạn yêu thích để tạo album đầu tiên.
             </p>
             <Button onClick={() => setCreateAlbumOpen(true)} variant="ghost"
-              className="mt-3 rounded-full border border-mint-deep/40 text-mint-deep">
-              <Plus className="w-4 h-4 mr-1" /> Tạo album mới
+              className="cta-glow group mt-3 rounded-full border border-mint-deep/40 text-mint-deep">
+              <Plus className="w-4 h-4 mr-1 icon-wiggle" /> Tạo album mới
             </Button>
           </div>
         ) : (
           <div className="grid sm:grid-cols-2 gap-3">
             {albums.map((a) => (
               <button key={a.id} onClick={() => setOpenAlbum(a)}
-                className="text-left rounded-3xl overflow-hidden bg-card border border-border shadow-card hover:scale-[1.01] transition-transform">
-                <div className="h-28 bg-gradient-to-br from-mint/40 to-blush/30 flex items-center justify-center overflow-hidden">
+                className="group lift-card text-left rounded-3xl overflow-hidden bg-card border border-border shadow-card">
+                <div className="h-28 bg-gradient-to-br from-mint/40 to-blush/30 flex items-center justify-center overflow-hidden img-zoom">
                   {a.cover_image_url
                     ? <img src={a.cover_image_url} alt="" className="w-full h-full object-cover" />
-                    : <ImageIcon className="w-8 h-8 text-mint-deep/60" />}
+                    : <ImageIcon className="w-8 h-8 text-mint-deep/60 icon-bounce" />}
                 </div>
                 <div className="p-4">
                   <div className="flex items-center justify-between gap-2">
@@ -210,8 +210,8 @@ function VitaminPage() {
           const filtered = workTab === "all" ? works : works.filter((w) => (w.type || "other") === workTab);
           if (filtered.length === 0) {
             return (
-              <div className="rounded-3xl p-8 bg-gradient-to-br from-blush/15 to-mint/15 border border-white/60 text-center">
-                <div className="w-14 h-14 mx-auto rounded-2xl bg-white/70 flex items-center justify-center">
+              <div className="lift-card group rounded-3xl p-8 bg-gradient-to-br from-blush/15 to-mint/15 border border-white/60 text-center">
+                <div className="w-14 h-14 mx-auto rounded-2xl bg-white/70 flex items-center justify-center icon-bounce">
                   <Sparkles className="w-6 h-6 text-blush-deep" />
                 </div>
                 <p className="mt-4 text-sm text-foreground/70 italic">
@@ -223,11 +223,11 @@ function VitaminPage() {
           return (
             <div className="grid sm:grid-cols-2 gap-3">
               {filtered.map((w) => (
-                <article key={w.id} className="rounded-3xl bg-card border border-border p-4 shadow-card flex gap-4 hover:shadow-soft transition-shadow">
-                  <div className="w-24 h-24 rounded-2xl bg-mint/30 flex items-center justify-center overflow-hidden shrink-0">
+                <article key={w.id} className="group lift-card rounded-3xl bg-card border border-border p-4 shadow-card flex gap-4">
+                  <div className="w-24 h-24 rounded-2xl bg-mint/30 flex items-center justify-center overflow-hidden shrink-0 img-zoom">
                     {w.thumbnail_url
                       ? <img src={w.thumbnail_url} alt="" className="w-full h-full object-cover" />
-                      : <ImageIcon className="w-7 h-7 text-mint-deep" />}
+                      : <ImageIcon className="w-7 h-7 text-mint-deep icon-bounce" />}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">

@@ -118,8 +118,8 @@ function AboutPage() {
         >
           {heroSection?.button_text && (
             <a href={heroSection.button_link || "#contact"}>
-              <Button size="lg" className="rounded-full bg-warm hover:bg-warm/90 text-navy px-6">
-                {heroSection.button_text} <ArrowRight className="w-4 h-4 ml-2" />
+              <Button size="lg" className="cta-glow group rounded-full bg-warm hover:bg-warm/90 text-navy px-6">
+                {heroSection.button_text} <ArrowRight className="w-4 h-4 ml-2 cta-arrow" />
               </Button>
             </a>
           )}
@@ -242,7 +242,7 @@ function SmartImage({
     );
   }
   return (
-    <div className={`relative w-full ${aspect} rounded-3xl overflow-hidden border border-white/70 shadow-soft ${className ?? ""}`}>
+    <div className={`group lift-card relative w-full ${aspect} rounded-3xl overflow-hidden border border-white/70 shadow-soft img-zoom ${className ?? ""}`}>
       <img src={src} alt={alt} className="w-full h-full object-cover" />
     </div>
   );
@@ -275,8 +275,8 @@ function HeroSection({ s }: { s: ProjectSection }) {
           {s.button_text && (
             <div className="mt-7 flex flex-wrap gap-3">
               <a href={s.button_link || "#"}>
-                <Button size="lg" className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white px-6">
-                  {s.button_text} <ArrowRight className="w-4 h-4 ml-2" />
+                <Button size="lg" className="cta-glow cta-scrub group rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white px-6">
+                  {s.button_text} <ArrowRight className="w-4 h-4 ml-2 cta-arrow" />
                 </Button>
               </a>
             </div>
@@ -295,7 +295,7 @@ function HeroSection({ s }: { s: ProjectSection }) {
             </div>
           )}
           {s.image_secondary && (
-            <div className="absolute -bottom-6 -left-6 w-28 h-28 md:w-36 md:h-36 rounded-2xl overflow-hidden border-4 border-white shadow-soft hidden sm:block">
+            <div className="absolute -bottom-6 -left-6 w-28 h-28 md:w-36 md:h-36 rounded-2xl overflow-hidden border-4 border-white shadow-soft hidden sm:block group lift-card img-zoom">
               <img src={s.image_secondary} alt="" className="w-full h-full object-cover" />
             </div>
           )}
@@ -365,8 +365,8 @@ function FounderSection({ s }: { s: ProjectSection }) {
             {founderRole && <p className="text-sm text-muted-foreground">{founderRole}</p>}
 
             {founderQuote && (
-              <div className="mt-5 rounded-2xl bg-mint/15 border border-mint/30 p-5">
-                <QuoteIcon className="w-5 h-5 text-mint-deep mb-2" />
+              <div className="lift-card mt-5 rounded-2xl bg-mint/15 border border-mint/30 p-5">
+                <QuoteIcon className="w-5 h-5 text-mint-deep mb-2 icon-wiggle" />
                 <p className="font-display italic text-base md:text-lg leading-relaxed text-foreground/85">
                   “{founderQuote}”
                 </p>
@@ -382,14 +382,14 @@ function FounderSection({ s }: { s: ProjectSection }) {
             <div className="mt-6 flex flex-wrap gap-3">
               {secondaryText && (
                 <a href={secondaryLink}>
-                  <Button variant="outline" className="rounded-full border-mint-deep/40 text-mint-deep">
+                  <Button variant="outline" className="cta-glow group rounded-full border-mint-deep/40 text-mint-deep">
                     {secondaryText}
                   </Button>
                 </a>
               )}
               {s.button_text && (
                 <a href={s.button_link || "#contact"}>
-                  <Button className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
+                  <Button className="cta-glow cta-scrub group rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
                     {s.button_text}
                   </Button>
                 </a>
@@ -419,7 +419,7 @@ function MessagesSection({ s, items }: { s: ProjectSection; items: ProjectItem[]
         {items.map((it, i) => (
           <article
             key={it.id}
-            className="rounded-3xl p-5 bg-white/70 border border-white/70 shadow-sm hover:shadow-soft hover:-translate-y-1 transition-all"
+            className="group lift-card rounded-3xl p-5 bg-white/70 border border-white/70 shadow-sm"
             style={{
               background:
                 i % 2 === 0
@@ -429,13 +429,15 @@ function MessagesSection({ s, items }: { s: ProjectSection; items: ProjectItem[]
           >
             <div className="flex items-center gap-3 mb-3">
               {it.image_url ? (
-                <img
-                  src={it.image_url}
-                  alt={it.title || ""}
-                  className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm"
-                />
+                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-sm img-zoom">
+                  <img
+                    src={it.image_url}
+                    alt={it.title || ""}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               ) : (
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-mint/40 to-blush/30 flex items-center justify-center border-2 border-white shadow-sm">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-mint/40 to-blush/30 flex items-center justify-center border-2 border-white shadow-sm icon-bounce">
                   <Heart className="w-5 h-5 text-mint-deep" />
                 </div>
               )}
@@ -474,14 +476,14 @@ function AreasSection({ s, items }: { s: ProjectSection; items: ProjectItem[] })
           const Icon = ICON_MAP[it.icon || ""] || Sparkles;
           const tint = it.color === "blush" ? "var(--blush)" : "var(--mint)";
           const Card = (
-            <div className="group h-full rounded-3xl p-5 bg-white/75 border border-white/70 shadow-sm hover:shadow-soft hover:-translate-y-1 transition-all">
+            <div className="group lift-card h-full rounded-3xl p-5 bg-white/75 border border-white/70 shadow-sm">
               {it.image_url ? (
-                <div className="aspect-[16/9] rounded-2xl overflow-hidden mb-4">
+                <div className="aspect-[16/9] rounded-2xl overflow-hidden mb-4 img-zoom">
                   <img src={it.image_url} alt={it.title || ""} className="w-full h-full object-cover" />
                 </div>
               ) : (
                 <div
-                  className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4"
+                  className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4 icon-bounce"
                   style={{ background: `color-mix(in oklch, ${tint} 50%, white)`, color: "var(--mint-deep)" }}
                 >
                   <Icon className="w-6 h-6" />
@@ -491,7 +493,7 @@ function AreasSection({ s, items }: { s: ProjectSection; items: ProjectItem[] })
               <h3 className="font-display text-lg mt-1">{it.title}</h3>
               <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{it.description}</p>
               <div className="mt-3 inline-flex items-center text-xs text-mint-deep group-hover:gap-2 gap-1 transition-all">
-                Khám phá <ArrowRight className="w-3 h-3" />
+                Khám phá <ArrowRight className="w-3 h-3 cta-arrow" />
               </div>
             </div>
           );
@@ -548,8 +550,8 @@ function MapSection({ s, items }: { s: ProjectSection; items: ProjectItem[] }) {
             {s.button_text && (
               <div className="mt-6">
                 <Link to={s.button_link || "/mood-board"}>
-                  <Button className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
-                    {s.button_text} <ArrowRight className="w-4 h-4 ml-2" />
+                  <Button className="cta-glow cta-scrub group rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
+                    {s.button_text} <ArrowRight className="w-4 h-4 ml-2 cta-arrow" />
                   </Button>
                 </Link>
               </div>
@@ -667,12 +669,12 @@ function ContactSection({ s }: { s: ProjectSection }) {
             <Button
               type="submit"
               disabled={submitting}
-              className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white w-full sm:w-auto"
+              className="cta-glow cta-scrub group rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white w-full sm:w-auto"
             >
               {submitting ? (
                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
               ) : (
-                <Send className="w-4 h-4 mr-2" />
+                <Send className="w-4 h-4 mr-2 icon-wiggle" />
               )}
               {s.button_text || "Gửi lời nhắn"}
             </Button>

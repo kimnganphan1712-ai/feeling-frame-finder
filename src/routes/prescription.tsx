@@ -201,12 +201,12 @@ function PrescriptionPage() {
             <button
               key={m.slug}
               onClick={() => setOpenMood(m)}
-              className={`group rounded-3xl p-4 text-left bg-gradient-to-br ${m.color} hover:shadow-soft hover:-translate-y-0.5 transition-all ring-1 ring-white/60 ${moodSuggested?.slug === m.slug ? "ring-2 ring-mint-deep/40" : ""}`}
+              className={`group lift-card rounded-3xl p-4 text-left bg-gradient-to-br ${m.color} ring-1 ring-white/60 ${moodSuggested?.slug === m.slug ? "ring-2 ring-mint-deep/40" : ""}`}
             >
-              <div className="text-2xl mb-1">{m.emoji}</div>
+              <div className="text-2xl mb-1 icon-bounce">{m.emoji}</div>
               <div className="font-display text-base">{m.label}</div>
               <div className="text-[11px] text-muted-foreground mt-1 group-hover:text-foreground/70">
-                Xem toa →
+                Xem toa <span className="cta-arrow">→</span>
               </div>
             </button>
           ))}
@@ -234,10 +234,10 @@ function PrescriptionPage() {
           {NEED_PACKS.map((p) => (
             <div
               key={p.slug}
-              className="glass rounded-2xl p-4 ring-1 ring-white/60 hover:shadow-soft hover:-translate-y-0.5 transition-all"
+              className="group lift-card glass rounded-2xl p-4 ring-1 ring-white/60"
             >
               <div className="flex items-start gap-3">
-                <div className="text-2xl">{p.emoji}</div>
+                <div className="text-2xl icon-bounce">{p.emoji}</div>
                 <div className="flex-1 min-w-0">
                   <h3 className="font-display text-base">{p.title}</h3>
                   <p className="text-sm text-muted-foreground mt-0.5">{p.desc}</p>
@@ -247,7 +247,7 @@ function PrescriptionPage() {
                 <Button
                   size="sm"
                   variant="outline"
-                  className="rounded-full w-full"
+                  className="cta-glow rounded-full w-full"
                   onClick={() => setOpenPack(p)}
                 >
                   Mở toa thuốc
@@ -275,18 +275,18 @@ function PrescriptionPage() {
             “{randomNote}”
           </p>
           <div className="mt-5 flex flex-wrap justify-center gap-2">
-            <Button onClick={reroll} className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
-              <RefreshCw className="w-4 h-4 mr-1.5" /> Kê cho mình một lời nữa
+            <Button onClick={reroll} className="cta-glow group rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
+              <RefreshCw className="w-4 h-4 mr-1.5 icon-wiggle" /> Kê cho mình một lời nữa
             </Button>
-            <Button variant="outline" onClick={() => handleCopy(randomNote)} className="rounded-full">
-              <Copy className="w-4 h-4 mr-1.5" /> Sao chép
+            <Button variant="outline" onClick={() => handleCopy(randomNote)} className="cta-glow group rounded-full">
+              <Copy className="w-4 h-4 mr-1.5 icon-wiggle" /> Sao chép
             </Button>
             <Button
               variant="outline"
               onClick={() => handleSave(randomNote)}
-              className="rounded-full"
+              className="cta-glow group rounded-full"
             >
-              {isSaved(randomNote) ? <Check className="w-4 h-4 mr-1.5" /> : <Heart className="w-4 h-4 mr-1.5" />}
+              {isSaved(randomNote) ? <Check className="w-4 h-4 mr-1.5 icon-wiggle" /> : <Heart className="w-4 h-4 mr-1.5 icon-wiggle" />}
               {isSaved(randomNote) ? "Đã lưu" : "Lưu lại"}
             </Button>
           </div>
@@ -303,7 +303,7 @@ function PrescriptionPage() {
           {MASCOT_NOTES.map((n, i) => (
             <div
               key={i}
-              className="mb-3 break-inside-avoid rounded-2xl p-4 bg-white/70 ring-1 ring-white/70 shadow-sm hover:shadow-soft hover:-rotate-1 transition-all"
+              className="group lift-card mb-3 break-inside-avoid rounded-2xl p-4 bg-white/70 ring-1 ring-white/70 shadow-sm"
               style={{ background: i % 3 === 0 ? "var(--mint-soft, oklch(0.96 0.02 195))" : i % 3 === 1 ? "oklch(0.95 0.03 195)" : "oklch(0.95 0.03 350)" }}
             >
               <p className="text-sm md:text-[15px] leading-relaxed text-foreground/85 font-display italic">
@@ -327,7 +327,7 @@ function PrescriptionPage() {
           <h2 className="font-display text-lg mb-3">Toa thuốc đã lưu của bạn</h2>
           <div className="space-y-2">
             {saved.map((t, i) => (
-              <div key={i} className="rounded-2xl p-3 bg-white/70 ring-1 ring-white/60 flex gap-3 items-start">
+              <div key={i} className="lift-card rounded-2xl p-3 bg-white/70 ring-1 ring-white/60 flex gap-3 items-start">
                 <Heart className="w-4 h-4 text-mint-deep mt-0.5 flex-shrink-0" />
                 <p className="text-sm flex-1 leading-relaxed">{t}</p>
                 <button
@@ -399,21 +399,21 @@ function MoodPrescriptionPanel({
       </div>
 
       <div className="mt-5 flex flex-wrap gap-2">
-        <Button size="sm" variant="outline" className="rounded-full" onClick={() => onSave(card.message)}>
-          {isSaved ? <Check className="w-3.5 h-3.5 mr-1.5" /> : <Heart className="w-3.5 h-3.5 mr-1.5" />}
+        <Button size="sm" variant="outline" className="cta-glow group rounded-full" onClick={() => onSave(card.message)}>
+          {isSaved ? <Check className="w-3.5 h-3.5 mr-1.5 icon-wiggle" /> : <Heart className="w-3.5 h-3.5 mr-1.5 icon-wiggle" />}
           {isSaved ? "Đã lưu" : "Lưu lại"}
         </Button>
-        <Button size="sm" variant="outline" className="rounded-full" onClick={() => onCopy(card.message)}>
-          <Copy className="w-3.5 h-3.5 mr-1.5" /> Sao chép
+        <Button size="sm" variant="outline" className="cta-glow group rounded-full" onClick={() => onCopy(card.message)}>
+          <Copy className="w-3.5 h-3.5 mr-1.5 icon-wiggle" /> Sao chép
         </Button>
         <Link to="/journal">
-          <Button size="sm" variant="outline" className="rounded-full">
-            <BookHeart className="w-3.5 h-3.5 mr-1.5" /> Viết vào hồ sơ
+          <Button size="sm" variant="outline" className="cta-glow group rounded-full">
+            <BookHeart className="w-3.5 h-3.5 mr-1.5 icon-wiggle" /> Viết vào hồ sơ
           </Button>
         </Link>
         <Link to="/podcast">
-          <Button size="sm" variant="outline" className="rounded-full">
-            <Headphones className="w-3.5 h-3.5 mr-1.5" /> Nghe mình nhắn
+          <Button size="sm" variant="outline" className="cta-glow group rounded-full">
+            <Headphones className="w-3.5 h-3.5 mr-1.5 icon-wiggle" /> Nghe mình nhắn
           </Button>
         </Link>
       </div>
@@ -457,16 +457,16 @@ function NeedPackPanel({
         ))}
       </ol>
       <div className="mt-5 flex flex-wrap gap-2">
-        <Button size="sm" variant="outline" className="rounded-full" onClick={() => onSave(pack.prescription.diagnosis)}>
-          {isSaved ? <Check className="w-3.5 h-3.5 mr-1.5" /> : <Heart className="w-3.5 h-3.5 mr-1.5" />}
+        <Button size="sm" variant="outline" className="cta-glow group rounded-full" onClick={() => onSave(pack.prescription.diagnosis)}>
+          {isSaved ? <Check className="w-3.5 h-3.5 mr-1.5 icon-wiggle" /> : <Heart className="w-3.5 h-3.5 mr-1.5 icon-wiggle" />}
           {isSaved ? "Đã lưu" : "Lưu toa này"}
         </Button>
-        <Button size="sm" variant="outline" className="rounded-full" onClick={() => onCopy(text)}>
-          <Copy className="w-3.5 h-3.5 mr-1.5" /> Sao chép
+        <Button size="sm" variant="outline" className="cta-glow group rounded-full" onClick={() => onCopy(text)}>
+          <Copy className="w-3.5 h-3.5 mr-1.5 icon-wiggle" /> Sao chép
         </Button>
         <Link to="/">
-          <Button size="sm" variant="outline" className="rounded-full">
-            <Wind className="w-3.5 h-3.5 mr-1.5" /> Hít thở 1 phút
+          <Button size="sm" variant="outline" className="cta-glow group rounded-full">
+            <Wind className="w-3.5 h-3.5 mr-1.5 icon-wiggle" /> Hít thở 1 phút
           </Button>
         </Link>
       </div>

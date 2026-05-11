@@ -404,8 +404,8 @@ function JournalPage() {
           subtitle="Một phòng riêng dịu nhẹ — nơi bạn có thể viết thật mọi điều."
           height="md"
         >
-          <Button onClick={handleNewEntry} size="sm" className="rounded-full bg-warm hover:bg-warm/90 text-navy">
-            <Plus className="w-4 h-4 mr-1" /> Bài mới
+          <Button onClick={handleNewEntry} size="sm" className="cta-glow group rounded-full bg-warm hover:bg-warm/90 text-navy">
+            <Plus className="w-4 h-4 mr-1 icon-wiggle" /> Bài mới
           </Button>
         </CinematicBanner>
 
@@ -429,7 +429,7 @@ function JournalPage() {
             <button
               key={e.id}
               onClick={() => openEntry(e)}
-              className="w-full text-left rounded-2xl p-4 glass shadow-card border border-white/60 hover:scale-[1.01] transition-all"
+              className="group lift-card w-full text-left rounded-2xl p-4 glass shadow-card border border-white/60"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0 flex-1">
@@ -441,7 +441,7 @@ function JournalPage() {
                     {(e.body || "").replace(/<[^>]+>/g, " ").slice(0, 140)}
                   </p>
                 </div>
-                {e.mood && <span className="text-2xl">{moodEmoji(e.mood)}</span>}
+                {e.mood && <span className="text-2xl icon-bounce">{moodEmoji(e.mood)}</span>}
               </div>
             </button>
           ))}
@@ -509,20 +509,20 @@ function JournalPage() {
           </div>
 
           <div className="mt-5 flex flex-wrap gap-2">
-            <Button onClick={handleSave} disabled={saving} className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
-              {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : savedAt ? <Check className="w-4 h-4 mr-2" /> : <Save className="w-4 h-4 mr-2" />}
+            <Button onClick={handleSave} disabled={saving} className="cta-glow cta-scrub group rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
+              {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : savedAt ? <Check className="w-4 h-4 mr-2 icon-wiggle" /> : <Save className="w-4 h-4 mr-2 icon-wiggle" />}
               {savedAt ? "Đã lưu 🌿" : "Lưu"}
             </Button>
             <Button
               onClick={() => setCapsuleOpen(true)}
               variant="outline"
-              className="rounded-full bg-blush-deep/10 hover:bg-blush-deep/20 text-blush-deep border-blush-deep/30"
+              className="cta-glow group rounded-full bg-blush-deep/10 hover:bg-blush-deep/20 text-blush-deep border-blush-deep/30"
             >
-              <Clock className="w-4 h-4 mr-2" /> Gửi cho mình trong tương lai
+              <Clock className="w-4 h-4 mr-2 icon-wiggle" /> Gửi cho mình trong tương lai
             </Button>
             {currentId && (
-              <Button onClick={handleNewEntry} variant="ghost" className="rounded-full">
-                <Plus className="w-4 h-4 mr-1" /> Bài mới
+              <Button onClick={handleNewEntry} variant="ghost" className="cta-glow group rounded-full">
+                <Plus className="w-4 h-4 mr-1 icon-wiggle" /> Bài mới
               </Button>
             )}
           </div>
