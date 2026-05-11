@@ -399,21 +399,21 @@ function MoodPrescriptionPanel({
       </div>
 
       <div className="mt-5 flex flex-wrap gap-2">
-        <Button size="sm" variant="outline" className="rounded-full" onClick={() => onSave(card.message)}>
-          {isSaved ? <Check className="w-3.5 h-3.5 mr-1.5" /> : <Heart className="w-3.5 h-3.5 mr-1.5" />}
+        <Button size="sm" variant="outline" className="cta-glow group rounded-full" onClick={() => onSave(card.message)}>
+          {isSaved ? <Check className="w-3.5 h-3.5 mr-1.5 icon-wiggle" /> : <Heart className="w-3.5 h-3.5 mr-1.5 icon-wiggle" />}
           {isSaved ? "Đã lưu" : "Lưu lại"}
         </Button>
-        <Button size="sm" variant="outline" className="rounded-full" onClick={() => onCopy(card.message)}>
-          <Copy className="w-3.5 h-3.5 mr-1.5" /> Sao chép
+        <Button size="sm" variant="outline" className="cta-glow group rounded-full" onClick={() => onCopy(card.message)}>
+          <Copy className="w-3.5 h-3.5 mr-1.5 icon-wiggle" /> Sao chép
         </Button>
         <Link to="/journal">
-          <Button size="sm" variant="outline" className="rounded-full">
-            <BookHeart className="w-3.5 h-3.5 mr-1.5" /> Viết vào hồ sơ
+          <Button size="sm" variant="outline" className="cta-glow group rounded-full">
+            <BookHeart className="w-3.5 h-3.5 mr-1.5 icon-wiggle" /> Viết vào hồ sơ
           </Button>
         </Link>
         <Link to="/podcast">
-          <Button size="sm" variant="outline" className="rounded-full">
-            <Headphones className="w-3.5 h-3.5 mr-1.5" /> Nghe mình nhắn
+          <Button size="sm" variant="outline" className="cta-glow group rounded-full">
+            <Headphones className="w-3.5 h-3.5 mr-1.5 icon-wiggle" /> Nghe mình nhắn
           </Button>
         </Link>
       </div>
