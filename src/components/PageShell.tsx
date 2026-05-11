@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { useRouterState } from "@tanstack/react-router";
 import { SiteHeader } from "./SiteHeader";
 import { Mascot, type MascotVariant } from "./Mascot";
+import { BackgroundDecor } from "./BackgroundDecor";
 import { cn } from "@/lib/utils";
 
 type MascotPlacement = {
@@ -25,14 +26,18 @@ export function PageShell({ children, mascot = true }: { children: ReactNode; ma
   const m = pickMascot(path);
 
   return (
-    <div className="min-h-screen bg-gradient-soft pb-12">
-      <SiteHeader />
-      <div className="max-w-3xl mx-auto px-5 pt-8 space-y-8">{children}</div>
+    <div className="min-h-screen bg-gradient-soft pb-12 relative">
+      <BackgroundDecor />
+      <div className="relative z-10">
+        <SiteHeader />
+        <div className="max-w-3xl mx-auto px-5 pt-8 space-y-8">{children}</div>
+      </div>
       {mascot && (
         <div className={cn("fixed z-30 pointer-events-none", m.position)}>
-          <Mascot size={m.size ?? "sm"} variant={m.variant} floating />
+          <Mascot size={m.size ?? "sm"} variant={m.variant} floating className="hover:animate-[gentle-bounce_1.2s_ease-in-out_infinite]" />
         </div>
       )}
     </div>
   );
 }
+

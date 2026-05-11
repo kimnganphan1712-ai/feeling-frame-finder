@@ -174,13 +174,14 @@ function HomePage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link to="/journal">
-              <Button className="rounded-full bg-warm hover:bg-warm/90 text-navy shadow-soft px-6 py-5 text-sm font-semibold">
-                <PlayCircle className="w-4 h-4 mr-2" /> Bắt đầu lắng nghe mình
+              <Button className="cta-glow rounded-full bg-warm hover:bg-warm/90 text-navy shadow-soft px-6 py-5 text-sm font-semibold">
+                <PlayCircle className="w-4 h-4 mr-2 icon-bounce" /> Bắt đầu lắng nghe mình
+                <span className="cta-arrow ml-1">→</span>
               </Button>
             </Link>
             <Link to="/about">
-              <Button variant="outline" className="rounded-full border-white/60 bg-white/10 text-white hover:bg-white/20 hover:text-white px-6 py-5 text-sm">
-                <Stethoscope className="w-4 h-4 mr-2" /> Khám phá phác đồ chữa lành
+              <Button variant="outline" className="cta-glow cta-scrub rounded-full border-white/60 bg-white/10 text-white hover:bg-white/20 hover:text-white px-6 py-5 text-sm">
+                <Stethoscope className="w-4 h-4 mr-2 icon-wiggle" /> Khám phá phác đồ chữa lành
               </Button>
             </Link>
           </div>
@@ -215,14 +216,14 @@ function HomePage() {
             <Link
               key={t.to}
               to={t.to}
-              className="group relative rounded-[22px] bg-card border border-border/70 shadow-card p-5 flex gap-4 items-start hover:-translate-y-1 hover:shadow-cinematic transition-all duration-300 overflow-hidden"
+              className={`lift-card group relative rounded-[22px] bg-card border border-border/70 shadow-card p-5 flex gap-4 items-start overflow-hidden ${warm ? "tone-warm" : ""}`}
             >
               <div
-                className="absolute -right-6 -top-6 w-24 h-24 rounded-full opacity-20 group-hover:opacity-40 transition-opacity"
+                className="absolute -right-6 -top-6 w-24 h-24 rounded-full opacity-20 group-hover:opacity-50 group-hover:scale-110 transition-all duration-500"
                 style={{ background: warm ? "var(--warm-yellow)" : "var(--scrub-blue)" }}
               />
               <div
-                className="relative w-14 h-14 rounded-2xl shrink-0 flex items-center justify-center"
+                className="relative w-14 h-14 rounded-2xl shrink-0 flex items-center justify-center icon-bounce"
                 style={{
                   background: warm ? "var(--soft-cream)" : "var(--mist-blue)",
                   color: warm ? "var(--blush-deep)" : "var(--primary-blue)",
@@ -239,7 +240,7 @@ function HomePage() {
                 </h3>
                 <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">{t.desc}</p>
               </div>
-              <ChevronRight className="absolute bottom-4 right-4 w-4 h-4 text-muted-foreground group-hover:text-scrub group-hover:translate-x-1 transition-all" />
+              <ChevronRight className="cta-arrow absolute bottom-4 right-4 w-4 h-4 text-muted-foreground group-hover:text-scrub" />
             </Link>
           );
         })}
@@ -328,10 +329,10 @@ function HomePage() {
           <Link
             key={s.title}
             to={s.to}
-            className="group rounded-3xl bg-card border border-border/60 shadow-card p-5 flex gap-4 items-start hover:-translate-y-0.5 hover:shadow-soft transition-all duration-300"
+            className="lift-card group rounded-3xl bg-card border border-border/60 shadow-card p-5 flex gap-4 items-start"
           >
             <div
-              className="w-16 h-16 rounded-2xl shrink-0 flex items-center justify-center text-mint-deep"
+              className="w-16 h-16 rounded-2xl shrink-0 flex items-center justify-center text-mint-deep icon-bounce"
               style={{ background: `color-mix(in oklch, ${s.tint} 55%, white)` }}
             >
               <Sparkles className="w-6 h-6" />
@@ -357,7 +358,7 @@ function HomePage() {
             key={c.key}
             type="button"
             onClick={() => setActiveCorner(c)}
-            className="group text-left rounded-3xl bg-card border border-border/60 shadow-card p-5 hover:-translate-y-0.5 hover:shadow-soft hover:bg-gradient-to-br hover:from-white hover:to-mint/15 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-mint-deep/40"
+            className="lift-card group text-left rounded-3xl bg-card border border-border/60 shadow-card p-5 hover:bg-gradient-to-br hover:from-white hover:to-mint/15 cursor-pointer focus:outline-none focus:ring-2 focus:ring-mint-deep/40"
           >
             <div className="w-14 h-14 rounded-2xl bg-mint/30 flex items-center justify-center text-2xl group-hover:scale-110 group-hover:rotate-3 transition-transform">
               {c.emoji}
