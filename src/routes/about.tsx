@@ -476,14 +476,14 @@ function AreasSection({ s, items }: { s: ProjectSection; items: ProjectItem[] })
           const Icon = ICON_MAP[it.icon || ""] || Sparkles;
           const tint = it.color === "blush" ? "var(--blush)" : "var(--mint)";
           const Card = (
-            <div className="group h-full rounded-3xl p-5 bg-white/75 border border-white/70 shadow-sm hover:shadow-soft hover:-translate-y-1 transition-all">
+            <div className="group lift-card h-full rounded-3xl p-5 bg-white/75 border border-white/70 shadow-sm">
               {it.image_url ? (
-                <div className="aspect-[16/9] rounded-2xl overflow-hidden mb-4">
+                <div className="aspect-[16/9] rounded-2xl overflow-hidden mb-4 img-zoom">
                   <img src={it.image_url} alt={it.title || ""} className="w-full h-full object-cover" />
                 </div>
               ) : (
                 <div
-                  className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4"
+                  className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4 icon-bounce"
                   style={{ background: `color-mix(in oklch, ${tint} 50%, white)`, color: "var(--mint-deep)" }}
                 >
                   <Icon className="w-6 h-6" />
@@ -493,7 +493,7 @@ function AreasSection({ s, items }: { s: ProjectSection; items: ProjectItem[] })
               <h3 className="font-display text-lg mt-1">{it.title}</h3>
               <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{it.description}</p>
               <div className="mt-3 inline-flex items-center text-xs text-mint-deep group-hover:gap-2 gap-1 transition-all">
-                Khám phá <ArrowRight className="w-3 h-3" />
+                Khám phá <ArrowRight className="w-3 h-3 cta-arrow" />
               </div>
             </div>
           );
