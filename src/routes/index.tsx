@@ -329,7 +329,7 @@ function HomePage() {
           <Link
             key={s.title}
             to={s.to}
-            className="group rounded-3xl bg-card border border-border/60 shadow-card p-5 flex gap-4 items-start hover:-translate-y-0.5 hover:shadow-soft transition-all duration-300"
+            className="lift-card group rounded-3xl bg-card border border-border/60 shadow-card p-5 flex gap-4 items-start"
           >
             <div
               className="w-16 h-16 rounded-2xl shrink-0 flex items-center justify-center text-mint-deep"
