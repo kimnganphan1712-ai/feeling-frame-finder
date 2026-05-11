@@ -79,8 +79,8 @@ function VitaminPage() {
         subtitle="Một chút câu chữ, một chút ánh sáng, một chút dịu dàng cho tâm hồn."
         height="md"
       >
-        <Button size="sm" onClick={() => setSubmitOpen(true)} className="rounded-full bg-warm hover:bg-warm/90 text-navy">
-          <Plus className="w-4 h-4 mr-1" /> Gửi câu nói
+        <Button size="sm" onClick={() => setSubmitOpen(true)} className="cta-glow group rounded-full bg-warm hover:bg-warm/90 text-navy">
+          <Plus className="w-4 h-4 mr-1 icon-wiggle" /> Gửi câu nói
         </Button>
       </CinematicBanner>
       <div className="h-6" />
