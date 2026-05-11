@@ -332,7 +332,7 @@ function HomePage() {
             className="lift-card group rounded-3xl bg-card border border-border/60 shadow-card p-5 flex gap-4 items-start"
           >
             <div
-              className="w-16 h-16 rounded-2xl shrink-0 flex items-center justify-center text-mint-deep"
+              className="w-16 h-16 rounded-2xl shrink-0 flex items-center justify-center text-mint-deep icon-bounce"
               style={{ background: `color-mix(in oklch, ${s.tint} 55%, white)` }}
             >
               <Sparkles className="w-6 h-6" />
