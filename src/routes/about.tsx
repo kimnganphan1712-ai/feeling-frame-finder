@@ -419,7 +419,7 @@ function MessagesSection({ s, items }: { s: ProjectSection; items: ProjectItem[]
         {items.map((it, i) => (
           <article
             key={it.id}
-            className="rounded-3xl p-5 bg-white/70 border border-white/70 shadow-sm hover:shadow-soft hover:-translate-y-1 transition-all"
+            className="group lift-card rounded-3xl p-5 bg-white/70 border border-white/70 shadow-sm"
             style={{
               background:
                 i % 2 === 0
@@ -429,13 +429,15 @@ function MessagesSection({ s, items }: { s: ProjectSection; items: ProjectItem[]
           >
             <div className="flex items-center gap-3 mb-3">
               {it.image_url ? (
-                <img
-                  src={it.image_url}
-                  alt={it.title || ""}
-                  className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm"
-                />
+                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-white shadow-sm img-zoom">
+                  <img
+                    src={it.image_url}
+                    alt={it.title || ""}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               ) : (
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-mint/40 to-blush/30 flex items-center justify-center border-2 border-white shadow-sm">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-mint/40 to-blush/30 flex items-center justify-center border-2 border-white shadow-sm icon-bounce">
                   <Heart className="w-5 h-5 text-mint-deep" />
                 </div>
               )}
