@@ -275,18 +275,18 @@ function PrescriptionPage() {
             “{randomNote}”
           </p>
           <div className="mt-5 flex flex-wrap justify-center gap-2">
-            <Button onClick={reroll} className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
-              <RefreshCw className="w-4 h-4 mr-1.5" /> Kê cho mình một lời nữa
+            <Button onClick={reroll} className="cta-glow group rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
+              <RefreshCw className="w-4 h-4 mr-1.5 icon-wiggle" /> Kê cho mình một lời nữa
             </Button>
-            <Button variant="outline" onClick={() => handleCopy(randomNote)} className="rounded-full">
-              <Copy className="w-4 h-4 mr-1.5" /> Sao chép
+            <Button variant="outline" onClick={() => handleCopy(randomNote)} className="cta-glow group rounded-full">
+              <Copy className="w-4 h-4 mr-1.5 icon-wiggle" /> Sao chép
             </Button>
             <Button
               variant="outline"
               onClick={() => handleSave(randomNote)}
-              className="rounded-full"
+              className="cta-glow group rounded-full"
             >
-              {isSaved(randomNote) ? <Check className="w-4 h-4 mr-1.5" /> : <Heart className="w-4 h-4 mr-1.5" />}
+              {isSaved(randomNote) ? <Check className="w-4 h-4 mr-1.5 icon-wiggle" /> : <Heart className="w-4 h-4 mr-1.5 icon-wiggle" />}
               {isSaved(randomNote) ? "Đã lưu" : "Lưu lại"}
             </Button>
           </div>
