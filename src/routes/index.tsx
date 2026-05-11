@@ -219,7 +219,7 @@ function HomePage() {
               className={`lift-card group relative rounded-[22px] bg-card border border-border/70 shadow-card p-5 flex gap-4 items-start overflow-hidden ${warm ? "tone-warm" : ""}`}
             >
               <div
-                className="absolute -right-6 -top-6 w-24 h-24 rounded-full opacity-20 group-hover:opacity-40 transition-opacity"
+                className="absolute -right-6 -top-6 w-24 h-24 rounded-full opacity-20 group-hover:opacity-50 group-hover:scale-110 transition-all duration-500"
                 style={{ background: warm ? "var(--warm-yellow)" : "var(--scrub-blue)" }}
               />
               <div
