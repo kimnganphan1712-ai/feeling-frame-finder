@@ -509,20 +509,20 @@ function JournalPage() {
           </div>
 
           <div className="mt-5 flex flex-wrap gap-2">
-            <Button onClick={handleSave} disabled={saving} className="rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
-              {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : savedAt ? <Check className="w-4 h-4 mr-2" /> : <Save className="w-4 h-4 mr-2" />}
+            <Button onClick={handleSave} disabled={saving} className="cta-glow cta-scrub group rounded-full bg-mint-deep hover:bg-mint-deep/90 text-white">
+              {saving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : savedAt ? <Check className="w-4 h-4 mr-2 icon-wiggle" /> : <Save className="w-4 h-4 mr-2 icon-wiggle" />}
               {savedAt ? "Đã lưu 🌿" : "Lưu"}
             </Button>
             <Button
               onClick={() => setCapsuleOpen(true)}
               variant="outline"
-              className="rounded-full bg-blush-deep/10 hover:bg-blush-deep/20 text-blush-deep border-blush-deep/30"
+              className="cta-glow group rounded-full bg-blush-deep/10 hover:bg-blush-deep/20 text-blush-deep border-blush-deep/30"
             >
-              <Clock className="w-4 h-4 mr-2" /> Gửi cho mình trong tương lai
+              <Clock className="w-4 h-4 mr-2 icon-wiggle" /> Gửi cho mình trong tương lai
             </Button>
             {currentId && (
-              <Button onClick={handleNewEntry} variant="ghost" className="rounded-full">
-                <Plus className="w-4 h-4 mr-1" /> Bài mới
+              <Button onClick={handleNewEntry} variant="ghost" className="cta-glow group rounded-full">
+                <Plus className="w-4 h-4 mr-1 icon-wiggle" /> Bài mới
               </Button>
             )}
           </div>
