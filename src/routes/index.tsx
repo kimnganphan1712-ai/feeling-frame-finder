@@ -240,7 +240,7 @@ function HomePage() {
                 </h3>
                 <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">{t.desc}</p>
               </div>
-              <ChevronRight className="absolute bottom-4 right-4 w-4 h-4 text-muted-foreground group-hover:text-scrub group-hover:translate-x-1 transition-all" />
+              <ChevronRight className="cta-arrow absolute bottom-4 right-4 w-4 h-4 text-muted-foreground group-hover:text-scrub" />
             </Link>
           );
         })}
